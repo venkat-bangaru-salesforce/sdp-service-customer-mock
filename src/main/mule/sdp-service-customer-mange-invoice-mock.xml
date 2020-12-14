@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<mule xmlns:xml-module="http://www.mulesoft.org/schema/mule/xml-module" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit-soap="http://www.mulesoft.org/schema/mule/apikit-soap" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/apikit-soap http://www.mulesoft.org/schema/mule/apikit-soap/current/mule-apikit-soap.xsd http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
+http://www.mulesoft.org/schema/mule/xml-module http://www.mulesoft.org/schema/mule/xml-module/current/mule-xml-module.xsd">
+    <http:listener-config name="api-httpListenerConfig">
+        <http:listener-connection host="0.0.0.0" port="8083"/>
+    </http:listener-config>
+    <apikit-soap:config httpStatusVarName="httpStatus" name="soapkit-config" port="ManageCustomerInvoice" service="ManageCustomerInvoiceService" wsdlLocation="sdp_singtel_service_manage_customer_invoice_v1.wsdl"/>
+    <file:config name="File_Config" doc:name="File Config" doc:id="b640a267-6319-4aaf-871d-0e4533f9720c" />
+	<xml-module:config name="XML_Config" doc:name="XML Config" doc:id="5d1b8e83-873f-46e3-a68d-13d98ad67b5e" />
+	<xml-module:namespace-directory name="Namespace_directory" doc:name="Namespace directory" doc:id="b8525722-f813-423c-871f-24147e47d01d" >
+		<xml-module:namespaces >
+			<xml-module:namespace prefix="soap" uri="http://schemas.xmlsoap.org/soap/envelope/" />
+		</xml-module:namespaces>
+	</xml-module:namespace-directory>
+	<flow name="api-main">
+        <http:listener config-ref="api-httpListenerConfig" path="/ManageCustomerInvoiceService/ManageCustomerInvoice">
+            <http:response statusCode="#[attributes.protocolHeaders.httpStatus default 200]">
+                <http:body>#[payload]</http:body>
+                <http:headers>#[attributes.protocolHeaders default {}]</http:headers>
+            </http:response>
+            <http:error-response statusCode="#[attributes.protocolHeaders.httpStatus default 500]">
+                <http:body>#[payload]</http:body>
+                <http:headers>#[attributes.protocolHeaders default {}]</http:headers>
+            </http:error-response>
+        </http:listener>
+        <apikit-soap:router config-ref="soapkit-config">
+            <apikit-soap:attributes><![CDATA[#[%dw 2.0
+              output application/java
+              ---
+              {
+                  headers: attributes.headers,
+                  method: attributes.method,
+                  queryString: attributes.queryString
+            }]]]></apikit-soap:attributes>
+        </apikit-soap:router>
+    </flow>
+    <flow name="retrieveStatementForDocument:\soapkit-config">
+        <ee:transform>
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/java
+ns soap http://schemas.xmlsoap.org/soap/envelope
+---
+{
+    body: {
+        soap#Fault: {
+            faultcode: "soap:Server",
+            faultstring: "Operation [retrieveStatementForDocument:\soapkit-config] not implemented"
+        }
+    } write "application/xml"
+}]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </flow>
+    <flow name="searchDocumentForBillSpec:\soapkit-config">
+        <ee:transform>
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/java
+ns soap http://schemas.xmlsoap.org/soap/envelope
+---
+{
+    body: {
+        soap#Fault: {
+            faultcode: "soap:Server",
+            faultstring: "Operation [searchDocumentForBillSpec:\soapkit-config] not implemented"
+        }
+    } write "application/xml"
+}]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </flow>
+    <flow name="getBillImage:\soapkit-config">
+        <ee:transform>
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/java
+ns soap http://schemas.xmlsoap.org/soap/envelope
+---
+{
+    body: {
+        soap#Fault: {
+            faultcode: "soap:Server",
+            faultstring: "Operation [getBillImage:\soapkit-config] not implemented"
+        }
+    } write "application/xml"
+}]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </flow>
+    <flow name="searchChargesForDocument:\soapkit-config">
+        <ee:transform>
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/java
+ns soap http://schemas.xmlsoap.org/soap/envelope
+---
+{
+    body: {
+        soap#Fault: {
+            faultcode: "soap:Server",
+            faultstring: "Operation [searchChargesForDocument:\soapkit-config] not implemented"
+        }
+    } write "application/xml"
+}]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </flow>
+    <flow name="searchUninvoicedCharge:\soapkit-config">
+        <ee:transform>
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/java
+ns soap http://schemas.xmlsoap.org/soap/envelope
+---
+{
+    body: {
+        soap#Fault: {
+            faultcode: "soap:Server",
+            faultstring: "Operation [searchUninvoicedCharge:\soapkit-config] not implemented"
+        }
+    } write "application/xml"
+}]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </flow>
+    <flow name="retrieveBillFirstPage:\soapkit-config">
+        <ee:transform>
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/java
+ns soap http://schemas.xmlsoap.org/soap/envelope
+---
+{
+    body: {
+        soap#Fault: {
+            faultcode: "soap:Server",
+            faultstring: "Operation [retrieveBillFirstPage:\soapkit-config] not implemented"
+        }
+    } write "application/xml"
+}]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </flow>
+    <flow name="getDocument:\soapkit-config">
+    	<file:read doc:name="Read" doc:id="f886b7a8-b7c1-46ea-aed0-56d9415102fb" path="#[p('app.home')++&quot;/getDocumentResponse.xml&quot;]" config-ref="File_Config"/>
+		<xml-module:xpath-extract doc:name="Xpath extract" doc:id="30189f39-1743-471b-b765-c0082b058b4a" xpath="/soap:Envelope/soap:Body/*" namespaceDirectory="Namespace_directory" config-ref="XML_Config"/>
+		<ee:transform doc:name="Transform Message" doc:id="b8b634fd-6e62-44ed-9d03-525d9855bcae" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/xml
+---
+read(payload[0],'application/xml')]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Copy_of_Logger" doc:id="0cff4800-f583-402d-b7fc-f68755036579" message="#[payload]" />
+    
+    </flow>
+</mule>
