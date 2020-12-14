@@ -1,0 +1,1335 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema elementFormDefault="qualified" version="1.0" 
+	targetNamespace="http://group.singtel.com/customerbilling-common/types/v1" 
+	xmlns:tns="http://group.singtel.com/customerbilling-common/types/v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:ns1="http://group.singtel.com/core/types/v1"
+	xmlns:ns2="http://group.singtel.com/customerprofile-common/types/v1"
+	xmlns:ns3="http://group.singtel.com/commonbusinessentities/types-unqualified/v1">
+
+	<xs:annotation>
+		<xs:documentation>Shared types from the customer billing domain which models the information required for the production of the
+			CustomerBills and the payment or non-payment of those CustomerBills.Singtel interfaces.
+		</xs:documentation>
+	</xs:annotation>
+	
+	<xs:import namespace="http://group.singtel.com/core/types/v1" schemaLocation="sdp_singtel_core_v1.xsd"/>
+	<xs:import namespace="http://group.singtel.com/customerprofile-common/types/v1" schemaLocation="sdp_singtel_customerprofile_common_v1.xsd"/>
+	<xs:import namespace="http://group.singtel.com/commonbusinessentities/types-unqualified/v1" schemaLocation="sdp_singtel_commonbusinessentities_types-unqualified_v1.xsd"/>
+	
+	<xs:complexType name="AbstractCustomerInvoiceID" abstract="true">
+		<xs:annotation>
+			<xs:documentation>An abstract base type for different types of invoices such as CustomerInvoice and CustomerCreditNote
+				:
+				Restriction of {http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}AbstractCustomerInvoice .
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="tns:FinancialTransactionID">
+				<xs:sequence>
+					<xs:element name="id" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The Billing internal identifier of the Invoice.</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="255" />
+								<xs:whiteSpace value="collapse" />
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="FinancialTransactionID" abstract="true">
+		<xs:annotation>
+			<xs:documentation>A transaction on a CustomerAccount. Transaction stands for every financial activity performed for the CustomerAccount
+				and impacts its balance. The Billing internal identifier of the transaction.
+				:
+				Restriction of {http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}FinancialTransaction .
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence />
+	</xs:complexType>
+
+	<xs:complexType name="CustomerInvoiceID" final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>A Business Context Model Identifier.:
+				Restriction of {http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}CustomerInvoice .
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="tns:AbstractCustomerInvoiceID">
+				<xs:sequence />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="AbstractCustomerInvoiceNumber" abstract="true">
+		<xs:annotation>
+			<xs:documentation>An abstract base type for different types of invoices such as CustomerInvoice and CustomerCreditNote
+				:
+				Restriction of {http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}AbstractCustomerInvoice .
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="tns:FinancialTransactionNumber">
+				<xs:sequence>
+					<xs:element name="invoiceNumber">
+						<xs:annotation>
+							<xs:documentation>The Billing Legal invoice number.</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="255" />
+								<xs:whiteSpace value="collapse" />
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="FinancialTransactionNumber" abstract="true">
+		<xs:annotation>
+			<xs:documentation>A transaction on a CustomerAccount. Transaction stands for every financial activity performed for the CustomerAccount
+				and impacts its balance. The Billing number of the transaction.
+				:
+				Restriction of {http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}FinancialTransaction .
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence />
+	</xs:complexType>
+
+	<xs:complexType name="CustomerInvoiceNumber" final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>A Business Context Model Identifier.:
+				Restriction of {http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}CustomerInvoice .
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="tns:AbstractCustomerInvoiceNumber">
+				<xs:sequence />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="AppliedCustomerBillingRateCoreID" final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>Concrete type for AppliedCustomerBillingRate.
+				:
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="tns:AppliedCustomerBillingRateID">
+				<xs:sequence />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="AppliedCustomerBillingRateID" abstract="true">
+		<xs:annotation>
+			<xs:documentation>A debit or a credit calculated for to the CustomerAccount, as part of the rating process, as part of the billing
+				process, or as a result of one time activities performed for the CustomerAccount such as rate applied due to duplicate
+				bill request.
+				:
+				Derived from PIM entity AppliedCustomerBillingRate in the domain appliedcustomerbillingrate.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="id">
+				<xs:annotation>
+					<xs:documentation>An identifier along with the AppliedCustomerBillingRate.SubID forms the unique identification. </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="AssignedBillingOfferID" final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>The pricing agreement, guiding and other rating related information of a Product that is associated with the
+				Subscription. The AssignedBillingOffer includes the price plan, and their related offers (if any exist) for the
+				Subscription.
+				:
+				Restriction of {http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}AssignedBillingOffer .
+				Derived from PIM entity AssignedBillingOffer in the domain customerpriceagreement.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="id">
+				<xs:annotation>
+					<xs:documentation>The Billing internal identifier of the assigned offer.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="ChargeCode" final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>A charge code assigned to a AppliedCustomerBillingRate.
+				:
+				Restriction of {http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}ChargeCode .
+				Derived from PIM entity ChargeCode in the domain appliedcustomerbillingrate.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="code">
+				<xs:annotation>
+					<xs:documentation>The Billing code for the charge.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="CustomerBillID" final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>A presentation of all AppliedCustomerBillingRates and financial activities made during the defined billing cycle period,
+				and record of the amount due of the CustomerBillSpec.
+				:
+				Restriction of {http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}CustomerBill .
+				Derived from PIM entity CustomerBill in the domain customerbill.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="id">
+				<xs:annotation>
+					<xs:documentation>The Billing document identifier of the CustomerBill.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="CustomerBillingCycleSpecificationCode" final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>The cycles in the system. CustomerBillingCycleSpecification are instantiated as CustomerBillingCycle for each
+				billing period. For example, if the service provider runs a single cycle every day and all the cycles in the system are
+				monthly cycles then there will be 30 instances of CustomerBillingCycleSpecification in the billing system.
+				:
+				Restriction of {http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}CustomerBillingCycleSpecification .
+				Derived from PIM entity CustomerBillingCycleSpecification in the domain customerbill.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="cycleCode" type="xs:decimal">
+				<xs:annotation>
+					<xs:documentation>The unique identifier of the cycle specification. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="PayChannelID" final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>The PayChannel class is used to abstract the way a customer pays for ongoing (not immediate) charges. It can either be
+				through a PayInstruction or PrepaidBalance but not both, hence the associations from PayChannel are mutually exclusive.
+				This class models the event/charge distribution instruction and not how a specific immediate charge was paid.
+				:
+				Restriction of {http://amdocs/pbg-portfolio/customerprofile/types-unqualified/v1}PayChannel .
+				Derived from PIM entity PayChannel in the domain customer.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="id" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The ID of the PayChannel - this can be either ID of PrepaidBalance or ID of PayInstruction as denoted by the value of
+						{PayChannel.idType.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="PaymentDetailsID" final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>The identifier of the Payment, for example cheque , credit card.
+				:
+				Restriction of {http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}PaymentDetails .
+				Derived from PIM entity PaymentDetails in the domain customeraccountactivities.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="id">
+				<xs:annotation>
+					<xs:documentation>The Billing internal identifier of the PaymentDetails.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SubscriptionGroupID" final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>Groups one or more SubscriptionGroups or Subscriptions in a way that allows to model a complex customer structure. For
+				example, in a family customer the subscription group may group together the subscription members of the family. In a
+				corporate example, there may be many subscription groups representing the corporate structure to units and divisions.
+				The leaves of the hierarchal tree are always Subscriptions.
+				:
+				Restriction of {http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}SubscriptionGroup,
+				Derived from PIM entity SubscriptionGroup in the
+				domain customerpriceagreement.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="id" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>A unique identifier. </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SubscriptionID" final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>A Business Context Model Identifier.:
+				Restriction of {http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}Subscription .
+				Derived from PIM entity Subscription in the domain customerpriceagreement.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="id">
+				<xs:annotation>
+					<xs:documentation>The Billing internal identifier of the Subscription.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:simpleType name="ChargeOrigin">
+		<xs:annotation>
+			<xs:documentation></xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="AR">
+				<xs:annotation>
+					<xs:documentation>Charge received from AR</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="BACKDATING">
+				<xs:annotation>
+					<xs:documentation>Charge inserted by BTLEOD as part of backdated transactions processing</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="BOD_COMPENSATION">
+				<xs:annotation>
+					<xs:documentation>Bill on Demand compensation charge</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CHARGE_CALCULATOR">
+				<xs:annotation>
+					<xs:documentation>Charge calculator</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CM">
+				<xs:annotation>
+					<xs:documentation>Charge received from CM</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DIFF_CALCULATOR">
+				<xs:annotation>
+					<xs:documentation>Diff calculator</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DISCOUNT">
+				<xs:annotation>
+					<xs:documentation>Discount</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DOCUMENTATION">
+				<xs:annotation>
+					<xs:documentation>Documentation</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="INVOICING">
+				<xs:annotation>
+					<xs:documentation>Invoicing</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MANUAL">
+				<xs:annotation>
+					<xs:documentation>Manually created charge</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="M_COMMERCE">
+				<xs:annotation>
+					<xs:documentation>M-commerce</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="QUOTATION_SERVER">
+				<xs:annotation>
+					<xs:documentation>Charge Inserted by Quotation Server</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="RATER">
+				<xs:annotation>
+					<xs:documentation>Charge received from Rater</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="CollectionCategory">
+		<xs:annotation>
+			<xs:documentation>Collection categories define the conditions to start collections treatment for CustomerAccounts, and the collections
+				actions to be taken (i.e., the CollectionPolicy to be used). For example, all residential customers whose past due
+				amount is greater than $100 are subjected to the collection treatment.
+				:
+				Restriction of {http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}CollectionCategory .
+				Derived from PIM entity CollectionCategory in the domain customercollections.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ALL">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="INCOMING">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="INTERNATIONAL">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OUTGOING">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="CollectionPolicy">
+		<xs:annotation>
+			<xs:documentation>Collection policy codes available in the system to be used by Collections. Collection policies determine the list of
+				activities to be performed for CustomerAccounts in collection treatment, including the time interval between the
+				activities, and the conditions to be met to perform the activity.
+				:
+				Restriction of {http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}CollectionPolicy .
+				Derived from PIM entity CollectionPolicy in the domain customercollections.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string" />
+	</xs:simpleType>
+
+	<xs:simpleType name="CollectionStatus">
+		<xs:annotation>
+			<xs:documentation>The collection status of a CustomerAccount.
+				:
+				Restriction of {http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}CollectionStatus .
+				Derived from PIM entity CollectionStatus in the domain customercollections.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="IN_COLLECTION">
+				<xs:annotation>
+					<xs:documentation>In collections treatment.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="IN_TRIAL_PERIOD">
+				<xs:annotation>
+					<xs:documentation>In trial period.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NOT_IN_COLLECTION">
+				<xs:annotation>
+					<xs:documentation>Not in collections treatment.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="CollectionStatusBilling">
+		<xs:annotation>
+			<xs:documentation>The collection status of a CustomerAccount.
+				:
+				Restriction of {http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}CollectionStatus .
+				Derived from PIM entity CollectionStatus in the domain customercollections.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="CANCEL">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NONE">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="RESTORE">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SUSPEND">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="CustomerBillStatus">
+		<xs:annotation>
+			<xs:documentation>The available statuses of the CustomerBill.
+				:
+				Restriction of {http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}CustomerBillStatus .
+				Derived from PIM entity CustomerBillStatus in the domain customerbill.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="C">
+				<xs:annotation>
+					<xs:documentation>Deprecated - use CALCULATED instead</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CALCULATED">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CONFIRMED">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="N">
+				<xs:annotation>
+					<xs:documentation>Deprecated - use CONFIRMED instead</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="PaymentMethod">
+		<xs:annotation>
+			<xs:documentation>The method by which a Payment is made.
+				:
+				Restriction of {http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}PaymentMethod .
+				Derived from PIM entity PaymentMethod in the domain customeraccountactivities.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="CASH">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CHEQUE">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CREDIT_CARD">
+				<xs:annotation>
+					<xs:documentation>Used also for debit card payment</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DD_DIRECT_DEBIT">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OTHER">
+		        <xs:annotation>
+		          <xs:documentation>Other payment method</xs:documentation>
+		        </xs:annotation>
+	      	</xs:enumeration>
+	      	<xs:enumeration value="DASH">
+		        <xs:annotation>
+		          <xs:documentation>Dash payment method</xs:documentation>
+		        </xs:annotation>
+		      </xs:enumeration>
+		      <xs:enumeration value="ALL">
+		        <xs:annotation>
+		          <xs:documentation>Used to search all payments</xs:documentation>
+		        </xs:annotation>
+		      </xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="ProductionType">
+		<xs:annotation>
+			<xs:documentation>The type of a CustomerBill.
+				:
+				Restriction of {http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}ProductionType .
+				Derived from PIM entity ProductionType in the domain customerbill.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DROP">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="FINAL_BILL">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="FIRST_BILL">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="REGULAR">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="REVISED_FINAL">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="RevenueCode">
+		<xs:annotation>
+			<xs:documentation>The revenue type of the AppliedCustomerBillingRate
+				:
+				Restriction of {http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}RevenueCode .
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ONE_TIME">
+				<xs:annotation>
+					<xs:documentation>One-time charge (OC)</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="RECURRING">
+				<xs:annotation>
+					<xs:documentation>Recurring charge (RC)</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="USAGE">
+				<xs:annotation>
+					<xs:documentation>Usage charge (UC)</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="SubscriptionStatus">
+		<xs:annotation>
+			<xs:documentation>The status of a Subscription, for example Active, Suspended, Canceled.
+				:
+				Restriction of {http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}SubscriptionStatus .
+				Derived from PIM entity SubscriptionStatus in the domain customerpriceagreement.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string" /> 
+	</xs:simpleType>
+
+	<xs:simpleType name="SubscriptionType">
+		<xs:annotation>
+			<xs:documentation>The type of a Subscription, for example PSTN, UMTS.
+				:
+				Restriction of {http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}SubscriptionType .
+				Derived from PIM entity SubscriptionType in the domain customerpriceagreement.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ALL_CRM">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ATM">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CALLING_CARD">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CENTREX">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="FRAME_RELAY">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="GSM">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="IPVPN_MPLS">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ISDN">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LEASED_LINE">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ONE_EIGHT_XX">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ONE_SEVEN_XX">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PBX">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PSTN">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="UMTS">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MOBILE">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MOBILE_BROADBAND">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TV">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="BROADBAND">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TBA_EQ">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TBA_SD">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SHARED_USAGE_SUM">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PHONE">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="EMAIL">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MOB">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MBB">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="FBB">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="EQMT">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SDG">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="GLP">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="FV">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ICC">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ON">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="VIDD">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CCTV">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OM">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="WSG">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="TaxAuthority">
+		<xs:annotation>
+			<xs:documentation>The type of a taxing authority, for example City, State, Federal. Valid values are retrieved from reference table.
+				:
+				Restriction of {http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}TaxAuthority .
+				Derived from PIM entity TaxAuthority in the domain appliedcustomerbillingrate.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="IRS">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CA">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="TaxAuthorityType">
+		<xs:annotation>
+			<xs:documentation>The type of a taxing authority, for example City, State, Federal. Valid values are retrieved from reference table.
+				:
+				Restriction of {http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}TaxAuthority .
+				Derived from PIM entity TaxAuthority in the domain appliedcustomerbillingrate.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="COUNTRY">
+				<xs:annotation>
+					<xs:documentation>Country level tax authority for example inland revenue.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LOCAL">
+				<xs:annotation>
+					<xs:documentation>Local level tax authority.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="STATE">
+				<xs:annotation>
+					<xs:documentation>State level tax authority.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ALL">
+				<xs:annotation>
+					<xs:documentation>All levels.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="TaxType">
+		<xs:annotation>
+			<xs:documentation>The type of tax. For example VAT.
+				:
+				Restriction of {http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}TaxType .
+				Derived from PIM entity TaxType in the domain appliedcustomerbillingrate.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ALL">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="INTERT">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="VAT">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="CustomerBillingCycleForQuery" final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>An instance of CustomerBillingCycleSpecification for a specific period for which a group of Customers is billed. Each
+				Customer is associated with CustomerBillingCycleSpecification and each month (or a different period based on
+				definitions) a new instance (CustomerBillingCycle is created for the generation of the CustomerBill that covers this
+				period.
+				:
+				Restriction of {http://group.singtel.com/customerbilling/types-unqualified/v1}CustomerBillingCycle,
+				Derived from PIM entity CustomerBillingCycle in the domain customerbill.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="cycleCloseDate" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>A calendar date that specifies the cut off date for charges and credits to be included within this cycle run. Provider
+						write only.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cycleCode" type="tns:CustomerBillingCycleSpecificationForQuery">
+				<xs:annotation>
+					<xs:documentation>The cycle code of the CustomerBillingCycle run.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cycleInstance" type="xs:integer">
+				<xs:annotation>
+					<xs:documentation>The serial occurrence of the cycle instance in a calendar year. For a weekly cycle it will be the week in the year, for
+						a monthly cycle it will contain the month of the year.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CustomerBillingCycleSpecificationForQuery" final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>The cycles in the system. CustomerBillingCycleSpecification are instantiated as CustomerBillingCycle for each
+				billing period. For example, if the service provider runs a single cycle every day and all the cycles in the system are
+				monthly cycles then there will be 30 instances of CustomerBillingCycleSpecification in the billing system.
+				:
+				Restriction of {http://group.singtel.com/customerbilling/types-unqualified/v1}CustomerBillingCycleSpecification,
+				Derived from PIM entity CustomerBillingCycleSpecification in the domain customerbill.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="cycleCode" type="xs:decimal">
+				<xs:annotation>
+					<xs:documentation>The unique identifier of the cycle specification. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="ProductOfferingIDAndName" final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>The presentation of one or more ProductSpecifications to the marketplace for sale, rental, or lease for a
+				ProdOfferPriceCharge. A ProductOffering may target one or more market segments, be included in one or more Product
+				Catalogs, presented in support of one or more Product Strategies, and made available in one or more SalesChannels.
+				ProductOffering may represent a simple offering of a single ProductSpecification or a bundle of ProductSpecifications.
+				:
+				Derived from PIM entity ProductOffering in the domain productoffering.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="id" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Product Catalog internal identifier of the ProductOffering. A unique identifier together with the related ProductOffering.version. Since a ProductOffering is always created or
+						changed within a given CatalogVersion, it is the combination that uniquely identifies the fixed attributes and
+						relations of the ProductOffering.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="name" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>A word, term, or phrase by which the ProductOffering is known and distinguished from other ProductOfferings.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="127" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="ProductSpecDisplayProperties" final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>How the ProductSpecification should be displayed in a user interface application.
+				:
+				Derived from PIM entity ProductSpecDisplay in the domain productspecification.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="dynamicProperties" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>List of additional properties that were assigned to the ProductSpecDisplay.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="dynamicPropertie" type="tns:FlexAttrForTextOnly" minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="visible" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>If value is TRUE then the ProductSpecification should be displayed.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:boolean">
+						<xs:pattern value="false|true" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="FlexAttrForTextOnly" abstract="true">
+		<xs:annotation>
+			<xs:documentation>Defines a flexble attribute; an attribute of an object that is not statically defined, but rather defined by some application specific meta-data about the entity. Entities that might have flexible attributes include anattribute flexAttrs whose type is FlexAttr[]. The definition and derivation of the flexible attributes is defined by the provider.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="name" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The name of this flexible attribute.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="127" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="UsageEventType">
+		<xs:sequence>
+			<xs:element name="id" minOccurs="0" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="name" minOccurs="0" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="80" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="FinancialTransactionForRefund">
+		<xs:sequence>
+			<xs:element name="amount" minOccurs="1" maxOccurs="1" type="xs:decimal" />
+			
+			<xs:element name="customerAccount" type="ns2:CustomerAccountID" minOccurs="1" maxOccurs="1" />
+			
+			<xs:element name="notes" type="ns1:BinaryObject" minOccurs="0" maxOccurs="1" />
+			
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="FinancialTransactionForAccountRefund">
+		<xs:sequence>
+			<xs:element name="amount" minOccurs="1" maxOccurs="1" type="xs:decimal" />
+			
+			<xs:element name="customerAccount" type="ns2:CustomerAccountID" minOccurs="1" maxOccurs="1" />
+			
+			<xs:element name="notes" type="ns1:BinaryObject" minOccurs="0" maxOccurs="1" />
+			
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:simpleType name="RefundMethod">
+		<xs:annotation>
+			<xs:documentation>The method by which a Refund is returned to the CustomerAccount, for example credit card.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="MANUAL">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="RefundReason">
+		<xs:annotation>
+			<xs:documentation>The reason a CustomerAccount is refunded.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<!-- This field we have to extend once details come from Amdocs. Chuan has to confirm this field -->
+	
+	<xs:complexType name="PaymentID">
+		<xs:sequence>
+			<xs:element name="FinancialTransactionPaymentID" minOccurs="1" maxOccurs="1" type="xs:string" />
+			
+			<xs:element name="id" minOccurs="1" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="BankAccountNumber">
+		<xs:sequence>
+			<xs:element name="number">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="ChequeNumber">
+		<xs:sequence>
+			<xs:element name="number" type="xs:decimal" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="VisibleCardNumber">
+		<xs:sequence>
+			<xs:element name="visibleNumber">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="FinancialTransactionForRefundID" abstract="true">
+    <xs:annotation>
+      <xs:documentation>
+	   	A transaction on a  CustomerAccount. Transaction stands for every financial activity performed for the CustomerAccount and impacts its balance.
+	  </xs:documentation>
+    </xs:annotation>
+    <xs:sequence/>
+  </xs:complexType>
+  
+  <xs:complexType name="RefundID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A FinancialTransaction that represents money that was refunded to the CustomerAccount.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:FinancialTransactionForRefundID">
+        <xs:sequence>
+          <xs:element name="id" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The Accounts Receivable internal identifier of the Refund.</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:maxLength value="255"/>
+                <xs:whiteSpace value="collapse"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:simpleType name="PrintingCategory">
+    <xs:annotation>
+      <xs:documentation>The printing method by which the document will be produced.
+:
+Restriction of {http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}PrintingCategory,
+Derived from PIM entity PritningCategory in the domain customerbill.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="AR_CSR">
+        <xs:annotation>
+          <xs:documentation>AR-CSR</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BILL_CSR">
+        <xs:annotation>
+          <xs:documentation>BILL-CSR</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DOMESTIC_EMAIL">
+        <xs:annotation>
+          <xs:documentation>Domestic Email</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DOMESTIC_FAX">
+        <xs:annotation>
+          <xs:documentation>Domestic Fax</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DOMESTIC_PRINTER">
+        <xs:annotation>
+          <xs:documentation>Domestic Printer</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DOMESTIC_SMS">
+        <xs:annotation>
+          <xs:documentation>Domestic SMS</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="INTERNATIONAL_BILL">
+        <xs:annotation>
+          <xs:documentation>International Bill</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="QA_OPERATOR_ID">
+        <xs:annotation>
+          <xs:documentation>QA Operator ID</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  
+   <xs:complexType name="ContactMediumBillingAddress" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A means by which communication may be established with an Individual who plays the role of Contact or an Organization.
+		The various means are mutually exclusive, that is only one type of  means will be populated per instance.
+		:
+		Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}ContactMedium,
+		Derived from PIM entity ContactMedium in the domain party.
+	</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="validityEnd" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Date on which the ContactMedium ceases to be valid.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="validityStart" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Date on which the ContactMedium became valid.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+	<xs:complexType name="UpfrontPaymentDetails" final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>Upfront payment details in case customer is going for cancellation of service or recontract.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="cancellationCharges" type="xs:decimal">
+				<xs:annotation>
+					<xs:documentation>Cancellation charges in case service is cancelled on effective date.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="remainingHandsetPayment" type="xs:decimal">
+				<xs:annotation>
+					<xs:documentation>Remaining handset payments in case handset installments are not completely paid.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="recontractCharges" type="xs:decimal">
+				<xs:annotation>
+					<xs:documentation>If plan change is done on the effective date, the recontract charges that needs to be paid.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

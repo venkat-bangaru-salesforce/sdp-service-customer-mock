@@ -1,0 +1,674 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema elementFormDefault="qualified" version="1.0"
+           targetNamespace="http://group.singtel.com/resource/types-unqualified/v1"
+           xmlns:ns2="http://group.singtel.com/commonbusinessentities/types-unqualified/v1"
+           xmlns:ns1="http://group.singtel.com/core/types-unqualified/v1"
+           xmlns:ns4="http://group.singtel.com/customerbilling/types-unqualified/v1"
+           xmlns:ns3="http://group.singtel.com/customerproduct/types-unqualified/v1"
+           xmlns:tns="http://group.singtel.com/resource/types-unqualified/v1"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns5="http://group.singtel.com/customerprofile/types-unqualified/v1" xmlns:ns6="http://group.singtel.com/customerbusinessinteraction/types-unqualified/v1" xmlns:ns7="http://group.singtel.com/productcatalog/types-unqualified/v1">
+
+  <xs:annotation>
+    <xs:documentation>The resource domain describes the planning, management, and consumption of resources in the service provider's network.
+This might include physical resources, logical resources, etc.
+
+ less-than p greater-than  less-than h4 greater-than Diagrams less-than /h4 greater-than  less-than p greater-than  less-than img src='../../../../images/28267.jpg'/ greater-than 
+: Unqualified model for documentation purposes only.
+Singtel interfaces.
+</xs:documentation>
+  </xs:annotation>
+  <xs:import namespace="http://group.singtel.com/core/types-unqualified/v1" schemaLocation="sdp_singtel_core_types-unqualified_v1.xsd"/>
+
+  <xs:import namespace="http://group.singtel.com/commonbusinessentities/types-unqualified/v1" schemaLocation="sdp_singtel_commonbusinessentities_types-unqualified_v1.xsd"/>
+
+  <xs:import namespace="http://group.singtel.com/customerproduct/types-unqualified/v1" schemaLocation="sdp_singtel_customerproduct_types-unqualified_v1.xsd"/>
+
+  <xs:import namespace="http://group.singtel.com/customerbilling/types-unqualified/v1" schemaLocation="sdp_singtel_customerbilling_types-unqualified_v1.xsd"/>
+
+  <xs:import namespace="http://group.singtel.com/customerprofile/types-unqualified/v1" schemaLocation="sdp_singtel_customerprofile_types-unqualified_v1.xsd"/>
+
+  <xs:import namespace="http://group.singtel.com/customerbusinessinteraction/types-unqualified/v1" schemaLocation="sdp_singtel_customerbusinessinteraction_types-unqualified_v1.xsd"/>
+
+  <xs:import namespace="http://group.singtel.com/productcatalog/types-unqualified/v1" schemaLocation="sdp_singtel_productcatalog_types-unqualified_v1.xsd"/>
+ 
+  <xs:complexType name="LogicalResource" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>An instance of a logical resource, such as telephone number 09-7761333, e-mail address info@amdocs.com, URL http://www.
+amdocs.com . It may also represent multiple instances of consecutive values where this is relevant for the value type,
+such as a range of consecutive telephone numbers.
+:
+Derived from PIM entity LogicalResource in the domain logicalresource.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:Resource">
+        <xs:sequence>
+          <xs:element name="associatedResources" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>List of LogicalResources that are associated with this LogicalResource, typically in the sense that they are allocated
+at the same time. For instance, a SIM card preloaded with telephone number would have LogicalResources of types:
+* MSISDN
+* IMSI
+* SIM Card Number
+At ordering time, only one of these resources needs to be input (e.g. scanned in), reflecting the actual SIM card being
+supplied, and the others can then be deduced.
+</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="associatedResource" type="tns:LogicalResource" minOccurs="0" maxOccurs="unbounded"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="dynamicProperties" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Defines array of LogicalResource dynamic attributes (name and value).</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="dynamicPropertie" type="ns1:FlexAttr" minOccurs="0" maxOccurs="unbounded"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="leadingResource" type="tns:LogicalResource" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Points to LogicalResource (if any) that was arbitrarily chosen as the LogicalResource from which this LogicalResource
+can be deduced
+</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="resourceSpec" type="tns:LogicalResourceSpec" minOccurs="1" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation>The LogicalResourceSpec on which this LogicalResource is based.
+              [modification] change for MDS</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="status" type="tns:LogicalResourceStatus" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation>The status of the LogicalResource
+              [modification] change for MDS</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="type" type="tns:LogicalResourceTypeName" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The type of the LogicalResource</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="value" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>the actual value of the LogicalResource (e.g. for telephone number type 097761333, for e-mail address type info@amdocs.
+com, etc.).
+</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:maxLength value="1023"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  
+  <xs:complexType name="VoucherSpec">
+        <xs:annotation>
+            <xs:documentation></xs:documentation>
+        </xs:annotation>
+                <xs:sequence>
+                	<xs:element name="transNo" minOccurs="0" maxOccurs="1">
+                		<xs:simpleType>
+                			<xs:restriction base="xs:string">
+                				<xs:maxLength value="12"/>
+                				<xs:whiteSpace value="collapse"/>
+                			</xs:restriction>
+                		</xs:simpleType>
+                	</xs:element>
+                	<xs:element name="itemDesc" minOccurs="0" maxOccurs="1">
+                		<xs:simpleType>
+                			<xs:restriction base="xs:string">
+                				<xs:maxLength value="50"/>
+                				<xs:whiteSpace value="collapse"/>
+                			</xs:restriction>
+                		</xs:simpleType>
+                	</xs:element>
+                	<xs:element name="issueDate" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+                	<xs:element name="redemptionDate" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+                	<xs:element name="expiryDate" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+                	<xs:element name="voucherNo" minOccurs="1" maxOccurs="1">
+                		<xs:simpleType>
+                			<xs:restriction base="xs:string">
+                				<xs:maxLength value="20"/>
+                				<xs:whiteSpace value="collapse"/>
+                			</xs:restriction>
+                		</xs:simpleType>
+                	</xs:element>
+                	<xs:element name="voucherType" minOccurs="0" maxOccurs="1">
+                		<xs:simpleType>
+                			<xs:restriction base="xs:string">
+                				<xs:maxLength value="6"/>
+                				<xs:whiteSpace value="collapse"/>
+                			</xs:restriction>
+                		</xs:simpleType>
+                	</xs:element>                	
+                	<xs:element name="amount" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                	<xs:element name="serviceNo" minOccurs="0" maxOccurs="1">
+                	     <xs:simpleType>
+                	        <xs:restriction base="xs:string">
+                	          <xs:whiteSpace value="collapse"/>
+                	        </xs:restriction>
+                	     </xs:simpleType>
+                	</xs:element>
+                	<xs:element name="customerName" minOccurs="0" maxOccurs="1">
+                	     <xs:simpleType>
+                	        <xs:restriction base="xs:string">
+                	          <xs:maxLength value="72"/>
+                	          <xs:whiteSpace value="collapse"/>
+                	        </xs:restriction>
+                	     </xs:simpleType>
+                	</xs:element>
+                	<xs:element name="finalizedName" minOccurs="0" maxOccurs="1">
+                	     <xs:simpleType>
+                	        <xs:restriction base="xs:string">
+                	          <xs:maxLength value="30"/>
+                	          <xs:whiteSpace value="collapse"/>
+                	        </xs:restriction>
+                	     </xs:simpleType>
+                	</xs:element>
+                </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="RechargeVoucherPINSpec">
+        <xs:annotation>
+            <xs:documentation></xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="tns:LogicalResourceSpec">
+                <xs:sequence>
+                	<xs:element name="pinNo" minOccurs="1" maxOccurs="1">
+                    	<xs:simpleType>
+                    		<xs:restriction base="xs:string" >
+                    			<xs:maxLength value="12"/>
+                    			<xs:whiteSpace value="collapse" />
+                    		</xs:restriction>
+                    	</xs:simpleType>
+                    </xs:element>
+                    <xs:element name="serailID" minOccurs="1" maxOccurs="1">
+                    	<xs:simpleType>
+                    		<xs:restriction base="xs:string" >
+                    			<xs:maxLength value="12"/>
+                    			<xs:whiteSpace value="collapse" />
+                    		</xs:restriction>
+                    	</xs:simpleType>
+                    </xs:element>
+                    <xs:element name="expiryDate" type="xs:dateTime" minOccurs="1" maxOccurs="1"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+  <xs:complexType name="Resource" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An abstract data type  all entities that are inherently manageable and make up a Product. There are 2 basic sub-types
+of Resource which are PhysicalResource and LogicalResource.
+:
+Derived from PIM entity Resource in the domain resourcedomain.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="characteristics" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The values of the characteristics of the PhysicalResource.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="characteristic" type="ns2:ResourceCharacteristicValue" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="externalID" type="ns1:AdditionalId" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Key used to identify the Resource in external system</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="LogicalResourceSpec">
+    <xs:annotation>
+      <xs:documentation>The specification of a LogicalResource in the product catalog. At ordering time the specification is used in order to
+determine the type of LogicalResource to be requested.
+LogicalResourceSpecs might exist for
+
+	telephone number for VoIP
+	telephone number for PSTN
+	e-mail address
+	web space URL
+	SIM card number
+
+
+The LogicalResourceSpec uses a separate type entity - this allows multiple LogicalResourceSpecs to exhibit similar
+behavior, where the basic behavior is defined by the type, so telephone number for VoIP and telephone number for PSTN
+might have the same type.
+:
+Derived from PIM entity LogicalResourceSpec in the domain logicalresource.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="associatedResources" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>List of LogicalResourceSpecs that are associated with this LogicalResourceSpec, typically in the sense that they are
+allocated at the same time. For instance, a SIM card preloaded with telephone number would have LogicalResources of
+types:
+* MSISDN
+* IMSI
+* SIM Card Number
+At ordering time, only one of these resources needs to be input (e.g. scanned in), reflecting the actual SIM card being
+supplied, and the others can then be deduced.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="associatedResource" type="tns:LogicalResourceSpec" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="descriptions" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The descriptions of the ProductSpecAttribute according to the purpose.
+Amdocs Ordering supports only a single description for ProductSpecCharacteristic, using the default purpose.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="description" type="ns2:PurposedText" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="displayable" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If True, indicates that the instantiated LogicalResource is displayable to end users, for example during an Ordering
+process.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="guiding" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If True, indicates that the instantiated LogicalResource is used for guiding charge and event records (CDR/EDR).</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier for the LogicalResourceSpec. Exhibits the standard semantics of primary keys.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="names" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The names of the LogicalResourceSpec according to the purpose.
+Amdocs Ordering supports only a single name for LogicalResourceSpec, using the default purpose.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="name" type="ns2:PurposedText" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="resourceSelectType" type="tns:ResourceSelectType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Indicates how the resource value can be populated from the resource management system, for example during an ordering
+process. Values from ResourceSelectType.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="type" type="tns:LogicalResourceType" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>The complex data type of the LogicalResource that will be instantiated from this LogicalResourceSpecification
+          
+						[updated] this column is modified for MRI service minOccurs="1" maxOccurs="1"
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="LogicalResourceType" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The type of  LogicalResource; similar in many ways to CharacteristicValueType, in the sense that it defines the
+fundamental behavior patterns of the LogicalResource (how long the value can be, how many values, what mask/format the
+value has, etc.).
+:
+Derived from PIM entity LogicalResourceType in the domain logicalresource.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Uniquely identifies this LogicalResourceType - exhibits standard semantics of primary keys.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="mask" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The mask specifies how the value of the instantiated LogicalResource is displayed and entered by end-users.
+
+The exact semantics of the mask depend on the provider (resource management system). For instance, Amdocs Subscriber
+Resource Manager has masks where N means a digit and A means an alphabetic character.
+For instance:
+
+	NNN-NNN-NNN ? This represents a 9-digit number for MSISDN separated by hyphen.
+	NNN.NNN.NNN.NNN ? This represents a series of 3-digit numbers separated by periods (such as for an IP address)
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="1023"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="maxLength" type="xs:integer" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The maximum allowable length of the value of the instantiated LogicalResource</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="minLength" type="xs:integer" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The minimum allowable length of the value of the instantiated LogicalResource</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="name" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The name of the LogicalResourceType. It is an Option subtype LogicalResourceTypeName not a simple String since the list
+of values is fixed for a given implementation and it must be coordinated across multiple systems.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PhysicalResource" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A physical part of hardware that make up one part of a Product.
+:
+Derived from PIM entity PhysicalResource in the domain physicalresource.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:Resource">
+        <xs:sequence>
+          <xs:element name="otherIdentification" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>String that is used to contain other important identifying data, such as a bar code of the hardware item or device
+identification number.
+</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:maxLength value="10"/>
+                <xs:whiteSpace value="collapse"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element name="product" type="ns3:Product" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The Product that the resource is part of.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="serialNumber" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The manufacturer-allocated number used to identify different instances of the same hardware item.  This is a mandatory
+attribute.
+</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:maxLength value="30"/>
+                <xs:whiteSpace value="collapse"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="PhysicalDevice" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A hardware device that can be managed for example a handset or a switch. A sub-type of PhysicalResource.
+:
+Derived from PIM entity PhysicalDevice in the domain physicaldevice.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:PhysicalResource">
+        <xs:sequence>
+          <xs:element name="deviceGroupId" type="xs:integer" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Used to uniquely identify this device as a member of a group of devices.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="PhysicalResourceCore" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>Concrete type for PhysicalResource.
+:
+</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:PhysicalResource">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ResourceCore" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>Concrete type for Resource.
+:
+</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:Resource">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="LogicalResourceSet" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A relationship between multiple LogicalResources of the same type that are all connected to the same Product.
+For example:
+
+	List of (perhaps consecutive) internal extension numbers for ISDN
+	Range of internal extension numbers for PABX
+
+At ordering and billing time, it is likely that the LogicalResources in the set will be treated as a single unit, in
+the sense that:
+
+	The entire set of LogicalResources will be allocated together
+	Guiding might be achieved against the definition of the set rather than against individual members
+
+Note: In the case of a strict range, it is possible that there will be no individual LogicalResources in the set.
+The underlying algorithm that connects related LogicalResources in the case that the set is not a range is not exposed
+in the model.
+:
+Derived from PIM entity LogicalResourceSet in the domain logicalresource.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The ID of the LogicalResourcePackageSpec - exhibits standard semantics for primary keys</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="resources" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The LogicalResources bound together by this LogicalResourceSet</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="resource" type="tns:LogicalResource" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="valueFrom" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>for a resource range, this represents the lower value, e.g. 097761000</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="1023"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="valueTo" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>for a resource range, this represents the upper value, e.g. 097761999</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="1023"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="ResourceSelectType">
+    <xs:annotation>
+      <xs:documentation>Valid values for ways in which the value of the LogicalResource can be retrieved from the resource management system.
+:
+Derived from PIM entity ResourceSelectType in the domain logicalresource.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="AUTOMATIC">
+        <xs:annotation>
+          <xs:documentation>Automatic - the resource management system sets the value automatically without input from an end user; typically
+relevant for internal circuit IDs, perhaps IP addresses, etc.
+</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SELECT">
+        <xs:annotation>
+          <xs:documentation>Select - the resource management offers the end user a list of values, possibly matching a pattern supplied by the end
+user; typically relevant for telephone numbers.
+</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TYPE">
+        <xs:annotation>
+          <xs:documentation>Type - the resource management system accepts as the value arbitrary input from the end user (checking where relevant
+that the value input is unique); typically relevant for user IDs, e-mail addresses, web spaces, etc.
+</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="LogicalResourceStatus">
+    <xs:annotation>
+      <xs:documentation>Status of the logical resource. For Amdocs SRM Implementation examples include
+				DISPLAYED The resource is currently being displayed for user appreciation and isn’t available for another user to
+				select. Will be marked as reserved or available again by a new status update or automatically after a
+				pre-defined period of time.
+				AVAILABLE The resource is available for selection by any user.
+				RESERVED The resource is reserved and waiting provisioning.
+				WORKING The resource is currently provisioned and working.
+				AGING The resource was disconnected and will be marked as available after the quarantine.
+				NOT AVAILABLE The resource accepts no action at the moment.
+				UNRESERVED The resource is unreserved.
+				SPARE The resource is available.
+				MERGED The resource is merged.
+				MATURING The resource is not available till the maturing state expires. 
+
+Derived from PIM entity LogicalResourceStatus in the domain logicalresource.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+        <xs:enumeration value="DISPLAYED"/>
+        <xs:enumeration value="AVAILABLE"/>
+        <xs:enumeration value="RESERVED"/>
+        <xs:enumeration value="WORKING"/>
+        <xs:enumeration value="AGING"/>
+        <xs:enumeration value="NOT AVAILABLE"/>
+        <xs:enumeration value="UNRESERVED"/>
+        <xs:enumeration value="SPARE"/>
+        <xs:enumeration value="MERGED"/>
+        <xs:enumeration value="MATURING"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="LogicalResourceTypeName">
+    <xs:annotation>
+      <xs:documentation>Names the type for LogicalResources. Implementation only, would include types such as:
+
+	telephone number
+	e-mail address
+	web space URL
+	SIM card number
+
+:
+Derived from PIM entity LogicalResourceTypeName in the domain logicalresource.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+          <xs:enumeration value="TN"/>
+          <xs:enumeration value="SIM"/>
+          <xs:enumeration value="UN"/>
+      </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="EventClassificationType">
+    <xs:annotation>
+      <xs:documentation>Represents allowed classification of usage events. Implementation defines the values, but examples include:
+
+	Voice call cellular to cellular
+	Voice call cellular to fixed line
+	SMS
+
+:
+Derived from PIM entity EventClassificationType in the domain logicalresource.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+</xs:schema>
+

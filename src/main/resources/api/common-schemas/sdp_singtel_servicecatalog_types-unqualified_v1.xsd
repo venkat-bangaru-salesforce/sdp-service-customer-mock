@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema elementFormDefault="qualified" version="1.0"
+	targetNamespace="http://group.singtel.com/servicecatalog/types-unqualified/v1"
+	xmlns:ns2="http://group.singtel.com/productcatalog/types-unqualified/v1"
+	xmlns:ns1="http://group.singtel.com/commonbusinessentities/types-unqualified/v1"
+	xmlns:ns3="http://group.singtel.com/service/types-unqualified/v1"
+	xmlns:tns="http://group.singtel.com/servicecatalog/types-unqualified/v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:annotation>
+		<xs:documentation>
+			The service catalog domain models the technical and business definition of service information.
+			Unqualified model for documentation purposes only. Singtel interfaces.
+		</xs:documentation>
+	</xs:annotation>
+	<xs:import
+		namespace="http://group.singtel.com/commonbusinessentities/types-unqualified/v1"
+		schemaLocation="sdp_singtel_commonbusinessentities_types-unqualified_v1.xsd" />
+
+	<xs:import
+		namespace="http://group.singtel.com/productcatalog/types-unqualified/v1"
+		schemaLocation="sdp_singtel_productcatalog_types-unqualified_v1.xsd" />
+
+	<xs:import namespace="http://group.singtel.com/service/types-unqualified/v1"
+		schemaLocation="sdp_singtel_service_types-unqualified_v1.xsd" />
+
+	<xs:complexType name="ProdSpecRealizedAsServiceSpec"
+		final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>
+				The aggregation of ServiceSpecifications that realize a ProductSpecification.
+				Derived from PIM entity ProdSpecRealizedAsServiceSpec in the domain service specification.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="compositionRule" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Composition rule based on which a
+						ServiceSpecification is decomposed during ProductSpecification
+						decomposition.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="1023" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="decomposition" type="tns:ServiceSpecDecomposition"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The type of decomposition of the
+						ServiceSpecification in the ProductSpecification.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="maxQuantity" type="xs:integer"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Maximum number of instances of Services belonging
+						to a ServiceSpecification that a Product should have on
+						decomposition.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="minQuantity" type="xs:integer"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Minimum number of instances of Services belonging
+						to a ServiceSpecification that a Product should have on
+						decomposition.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="serviceSpec" type="tns:ServiceSpecification"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The ServiceSpecification used in the
+						decomposition.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="ServiceSpecification" abstract="true">
+		<xs:annotation>
+			<xs:documentation>The invariant characteristics of a Service. It
+				defines a template that different Services instances can be created
+				from.
+				Each of these Service instances will have the same invariant
+				characteristics. However, the other characteristics of the
+				instantiated Service will be specific to each instance.
+
+				ServiceSpecification has two sub-types which define whether any
+				Service instantiated from them are directly visible and
+				usable by a Customer or not. These sub-types are CustomerFacingServiceSpec
+				and ResourceFacingServiceSpec.
+
+				A ServiceSpecification is uniquely identified by its
+				ServiceSpecification.ID and ServiceSpecification.version. When
+				information regarding an existing ServiceSpecification is changed a
+				new instance is created with the same
+				ServiceSpecification.ID and different ServiceSpecification.version.The history of a product
+				is described by multiple
+				ServiceSpecifications with the same ServiceSpecification.ID value.
+				:
+				Derived from PIM entity ServiceSpecification in the domain
+				servicespecification.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="characteristicGroups" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="characteristicGroup" type="ns1:CharacteristicGroup"
+							minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="description" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Free format long textual description.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="1023" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="effectiveDate" type="xs:dateTime"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Date from which the ServiceSpecification version
+						is valid.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="expiryDate" type="xs:dateTime"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Date until which the ServiceSpecification version
+						is valid</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="family" type="tns:ServiceSpecificationFamily"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The ServiceSpecificationFamily with which the
+						ServiceSpecificaion is associated to.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="id" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>A unique identifier when combined with
+						ServiceSpecification.version. </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="line" type="ns2:LineOfBusiness"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The line of business that this
+						ServiceSpecification is associated to.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			
+			<xs:element name="name" minOccurs="0" type="tns:Name" />
+			
+			<xs:element name="serviceSpecCharacteristics" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="serviceSpecCharacteristic" type="ns1:ServiceCharacteristic" minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="version" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>A unique identifier when combined with
+						ServiceSpecification.ID. </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="CustomerFacingServiceSpec" final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>The invariant characteristics and behavior of a
+				particular customer facing service as seen by the Customer. The
+				invariant portion serves as a single common basis to build a set of
+				variable CustomerFacingServices that all use this
+				common CustomerFacingServiceSpec.
+				:
+				Derived from PIM entity CustomerFacingServiceSpec in the domain
+				servicespecification.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="tns:ServiceSpecification">
+				<xs:sequence />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="ResourceFacingServiceSpec" final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>The invariant characteristics and behavior of a
+				particular resource facing service. This is NOT seen by the
+				Customer.
+				However, it is required by one or more CustomerFacingServiceSpecs in order
+				for them to function correctly. The
+				invariant portion serves as a single common basis to build a set of variable
+				ResourceFacingServices that all use this
+				common ResourceFacingServiceSpec.
+				A ResourceFacingServiceSpec is a technology-Agnostic service and may
+				be related to multiple
+				TechnologySpecificServiceSpec, e.g. An Access is a ResourceFacingServiceSpec and its associated
+				TechnologySpecificServiceSpecs are: copper cable, fiber, and
+				microwave.
+				:
+				Derived from PIM entity ResourceFacingServiceSpec in the domain
+				servicespecification.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="tns:ServiceSpecification">
+				<xs:sequence>
+					<xs:element name="feasibilityCheckSupport" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Indicates feasibility check is supported for
+								the RFS</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:boolean">
+								<xs:pattern value="false|true" />
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="resourceReservationSupport" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Indicates resource reservation is supported for
+								the RFS</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:boolean">
+								<xs:pattern value="false|true" />
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="ServiceSpecificationCore" final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>Concrete type for ServiceSpecification.
+				:
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="tns:ServiceSpecification">
+				<xs:sequence />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="TechnologySpecificServiceSpec"
+		final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>Technology-Specific Service (TSS) is an extension
+				of a ResourceFacingServiceSpec, representing a specific type of a
+				logical/physical network resource. In design time, the
+				ResourceFacingServiceSpec is related to multiple
+				TechnologySpecificServiceSpecs,and during run time, one of them is
+				selected based on the specific order/service
+				parameters and pre-configured selection rules.
+				:
+				Derived from PIM entity TechnologySpecificServiceSpec in the domain
+				servicespecification.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="rank" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The rank of TSS as against other TSS instances
+						associated to the TAS.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="127" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="selectionRule" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Rule based on which a TSS is selected in a TAS.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="1023" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="tSSCharacteristics" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="tSSCharacteristic" type="ns1:ServiceCharacteristic"
+							minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:simpleType name="ServiceSpecDecomposition">
+		<xs:annotation>
+			<xs:documentation>The type of decomposition of the
+				ServiceSpecification in ProductSpecification.
+				:
+				Derived from PIM entity ServiceSpecDecomposition in the domain
+				servicespecification.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DEFAULT">
+				<xs:annotation>
+					<xs:documentation>The ServiceSpecification is included by default
+						when ProductSpecification is decomposed.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MANDATORY">
+				<xs:annotation>
+					<xs:documentation>The ServiceSpecification is mandatory and
+						ServiceSpecification is included based on decomposition rules
+						defined in
+						ProductSpecification on ProductSpecification decomposition. Decomposition of the
+						ProductSpecification will fail if the
+						ServiceSpecification is not included on decomposition.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OPTIONAL">
+				<xs:annotation>
+					<xs:documentation>The ServiceSpecification is optionally included
+						on decomposition based on rules. Decomposition of the
+						ProductSpecification will succeed even if the ServiceSpecification
+						is not included.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="ServiceSpecificationFamily">
+		<xs:annotation>
+			<xs:documentation>A family of ServiceSpecifications which may lead to
+				different business treatment of instantiated Services.
+				Implementation defined. For example Mobile, IPVPN.
+				:
+				Derived from PIM entity ServiceSpecificationFamily in the domain
+				servicespecification.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string" />
+	</xs:simpleType>
+	
+	<xs:simpleType name="Name">
+		<xs:annotation>
+			<xs:documentation></xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="127" />
+			<xs:whiteSpace value="collapse" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="AccessType">
+		<xs:annotation>
+			<xs:documentation></xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="FTTB">
+				<xs:annotation>
+		          <xs:documentation></xs:documentation>
+		        </xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="FTTN">
+				<xs:annotation>
+		          <xs:documentation></xs:documentation>
+		        </xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="FBB">
+				<xs:annotation>
+		          <xs:documentation></xs:documentation>
+		        </xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="WBB">
+				<xs:annotation>
+		          <xs:documentation></xs:documentation>
+		        </xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SBB">
+				<xs:annotation>
+		          <xs:documentation></xs:documentation>
+		        </xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ISBB">
+				<xs:annotation>
+		          <xs:documentation></xs:documentation>
+		        </xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:complexType name="ServiceSpecificationRef" final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="service" type="tns:ServiceSpecification" minOccurs="1" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="ServiceCore" final="extension restriction">
+		<xs:annotation>
+			<xs:documentation></xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="tns:ServiceSpecification">
+				<xs:sequence />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="Service" final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="family" type="tns:ServiceSpecificationFamily" minOccurs="1" maxOccurs="1" />
+			<xs:element name="name" minOccurs="1" type="tns:Name" maxOccurs="1" />
+			<xs:element name="serviceSpecCharacteristics" minOccurs="0" type="tns:ServiceSpecCharacteristics" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="ServiceSpecCharacteristics" final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="serviceCharacteristic" type="tns:ServiceCharacteristic" minOccurs="1" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="ServiceCharacteristic" final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="name" type="tns:Name" minOccurs="1" maxOccurs="1" />
+			<xs:element name="fixedValue" type="tns:FixedValue" minOccurs="1" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="FixedValue" final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="value" type="tns:Value" minOccurs="1" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:simpleType name="Value">
+		<xs:annotation>
+			<xs:documentation></xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="127" />
+			<xs:whiteSpace value="collapse" />
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>
+

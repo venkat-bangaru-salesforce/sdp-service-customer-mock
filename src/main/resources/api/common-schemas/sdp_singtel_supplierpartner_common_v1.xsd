@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema elementFormDefault="qualified" version="1.0" targetNamespace="http://group.singtel.com/supplierpartner-common/types/v1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:annotation>
+    <xs:documentation>Shared types from the supplier and partner domain which describes the service provider's relationships with other
+commercial organizations that are not customers, such as suppliers and partners.
+:
+Singtel interfaces.
+</xs:documentation>
+  </xs:annotation>
+  <xs:complexType name="Dealer" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A Business Context Model Identifier.:
+Restriction of {http://amdocs/pbg-portfolio/supplierpartner/types-unqualified/v1}Dealer .
+Derived from PIM entity Dealer in the domain partner.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Billing internal identifier of the Dealer.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="RoleForEmployee">
+    <xs:annotation>
+      <xs:documentation>The role(s) associated with this user. Each user must have at least one role, but may have many, and the privileges of the user are the result of the Combinations of the privileges implied by all the user's roles.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="role" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Encapsulates the ability of the ApplicationUser to access functionality and information within the CSP business and
+Operational applications.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>  
+  
+</xs:schema>
+

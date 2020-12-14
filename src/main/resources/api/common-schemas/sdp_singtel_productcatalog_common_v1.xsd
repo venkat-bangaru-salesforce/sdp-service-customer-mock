@@ -1,0 +1,664 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema elementFormDefault="qualified" version="1.0" targetNamespace="http://group.singtel.com/productcatalog-common/types/v1" xmlns:tns="http://group.singtel.com/productcatalog-common/types/v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://group.singtel.com/productcatalog/types-unqualified/v1" xmlns:ns2="http://group.singtel.com/core/types/v1">
+
+  <xs:annotation>
+    <xs:documentation>Singtel interfaces.
+</xs:documentation>
+  </xs:annotation>
+  
+  <xs:import namespace="http://group.singtel.com/productcatalog/types-unqualified/v1" schemaLocation="sdp_singtel_productcatalog_types-unqualified_v1.xsd"/>
+  <xs:import namespace="http://group.singtel.com/core/types/v1" schemaLocation="sdp_singtel_core_v1.xsd"/>
+  
+  <xs:complexType name="CharacteristicID" abstract="true">
+    <xs:annotation>
+      <xs:documentation>The definition of a characteristic quality or distinctive feature of an object instance. The characteristic can be take
+on a discrete value, such as color, can take on a range of values, (for example, sensitivity of 100-240 mV), or can be
+derived from a formula (for example, usage time (hrs) = 30 - talk time *3).
+:
+</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. Provider write only.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ConfigurableCharacteristicID" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A characteristic that may have its value set during the ordering or some other process. For example: e-mail address,
+mailbox size, voice line number, spending limit.
+:
+</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:CharacteristicID">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ProductSpecCharacteristicID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A characteristic quality or distinctive feature of a ProductSpecification.  The characteristic can be take on a
+discrete value, such as color, can take on a range of values, (for example, sensitivity of 100-240 mV), or can be
+derived from a formula (for example, usage time (hrs) = 30 - talk time *3).  Certain characteristics, such as color,
+may be configured during the ordering or some other process.
+:
+</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:ConfigurableCharacteristicID">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="PriceSchemaID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A pricing plan or billing offer such as a discount that is attached to a ProductSpecification.
+:
+</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. Provider write only.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProductCatalogVersionID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A set of changes made to product catalog items. Corresponds to Enterprise Product Catalog project, or Amdocs Ordering
+catalog version.
+:
+Restriction of {http://amdocs/pbg-portfolio/productcatalog/types-unqualified/v1}ProductCatalogVersion .
+Derived from PIM entity ProductCatalogVersion in the domain productoffering.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProductOfferingID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The presentation of one or more ProductSpecifications to the marketplace for sale, rental, or lease for a
+ProdOfferPriceCharge.  A ProductOffering may target one or more market segments, be included in one or more Product
+Catalogs, presented in support of one or more Product Strategies, and made available in one or more SalesChannels.
+ProductOffering may represent a simple offering of a single ProductSpecification or a bundle of ProductSpecifications.
+:
+Restriction of {http://amdocs/pbg-portfolio/productcatalog/types-unqualified/v1}ProductOffering .
+Derived from PIM entity ProductOffering in the domain productoffering.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id">
+        <xs:annotation>
+          <xs:documentation>A unique identifier  together with the related ProductOffering.version. Since a ProductOffering is always created or
+changed within a given CatalogVersion, it is the combination that uniquely identifies the fixed attributes and
+relations of the ProductOffering. The Catalog ID of the ProductOffering.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProductOfferingName" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The presentation of one or more ProductSpecifications to the marketplace for sale, rental, or lease for a
+ProdOfferPriceCharge.  A ProductOffering may target one or more market segments, be included in one or more Product
+Catalogs, presented in support of one or more Product Strategies, and made available in one or more SalesChannels.
+ProductOffering may represent a simple offering of a single ProductSpecification or a bundle of ProductSpecifications.
+:
+Restriction of {http://amdocs/pbg-portfolio/productcatalog/types-unqualified/v1}ProductOffering .
+Derived from PIM entity ProductOffering in the domain productoffering.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier  together with the related ProductOffering.version. Since a ProductOffering is always created or
+changed within a given CatalogVersion, it is the combination that uniquely identifies the fixed attributes and
+relations of the ProductOffering. The Catalog ID of the ProductOffering.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="name" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A word, term, or phrase by which the ProductOffering is known and distinguished from other ProductOfferings.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="version" type="tns:ProductCatalogVersionID">
+        <xs:annotation>
+          <xs:documentation>The version of the catalog in which the Product Offering was created or changed.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="subscriptionType" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Subscription Type values, e.g.: prepaid, postpaid, both</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProductSpecificationID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The specification of a tangible (equipment) or intangible (network, billing, agreement, etc.) object made available
+externally through a ProductOffering to a Customer. A ProductSpecification is instantiated as a Product.
+
+A ProductSpecification may contain other ProductSpecifications defined by ProductSpecContainment. In Amdocs Ordering, a
+ProductSpecification that is not contained by another ProductSpecification is a Product or Main Component, while a
+ProductSpecification that is contained is a Subproduct or Component.
+
+ProductSpecifications can be classified by various groupings, such as BrowsingCategorys and ProductSpecificationTypes.
+
+ProductSpecifications are versioned by a ProductCatalogVersion, and different versions can be referred to at the same
+time. However, only the most recent version will typically used to instantiate a Product.
+:
+Restriction of {http://amdocs/pbg-portfolio/productcatalog/types-unqualified/v1}ProductSpecification .
+Derived from PIM entity ProductSpecification in the domain productspecification.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The unique primary key of the ProductSpecification, together with the related ProductCatalogVersion . A
+ProductSpecification is always created or changed within a given ProductCatalogVersion, it is the combination that
+uniquely identifies the fixed attributes and relations of the ProductSpecification.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProductSpecificationTypeAndName" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The specification of a tangible (equipment) or intangible (network, billing, agreement, etc.) object made available
+externally through a ProductOffering to a Customer. A ProductSpecification is instantiated as a Product.
+
+A ProductSpecification may contain other ProductSpecifications defined by ProductSpecContainment. In Amdocs Ordering, a
+ProductSpecification that is not contained by another ProductSpecification is a Product or Main Component, while a
+ProductSpecification that is contained is a Subproduct or Component.
+
+ProductSpecifications can be classified by various groupings, such as BrowsingCategorys and ProductSpecificationTypes.
+
+ProductSpecifications are versioned by a ProductCatalogVersion, and different versions can be referred to at the same
+time. However, only the most recent version will typically used to instantiate a Product.
+:
+Restriction of {http://amdocs/pbg-portfolio/productcatalog/types-unqualified/v1}ProductSpecification .
+Derived from PIM entity ProductSpecification in the domain productspecification.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="code" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A human-readable, language-independent string.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The unique primary key of the ProductSpecification, together with the related ProductCatalogVersion . A
+ProductSpecification is always created or changed within a given ProductCatalogVersion, it is the combination that
+uniquely identifies the fixed attributes and relations of the ProductSpecification. The Catalog ID of the
+ProductSpecification.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="name" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Free format short textual description.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="type" type="tns:ProductSpecificationType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The type of the ProductSpecification. A means of classification.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="version" type="tns:ProductCatalogVersionID">
+        <xs:annotation>
+          <xs:documentation>The version of the catalog in which the Product Specification was created or changed.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="PaymentCategory">
+    <xs:annotation>
+      <xs:documentation>The way that charges can be collected (pre-paid or post-paid or both).
+:
+Restriction of {http://amdocs/pbg-portfolio/productcatalog/types-unqualified/v1}PaymentCategory .
+Derived from PIM entity PaymentCategory in the domain productspecification.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="BOTH">
+        <xs:annotation>
+          <xs:documentation>The charges can be collected through both for prepaid and postpaid channels.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="POSTPAID">
+        <xs:annotation>
+          <xs:documentation>The charges must be collected through postpaid channels.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PREPAID">
+        <xs:annotation>
+          <xs:documentation>The charges must be collected through prepaid channels.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ProductSpecificationType">
+    <xs:annotation>
+      <xs:documentation>A classification of ProductSpecifications.
+Values are purely implementation-dependent; examples would include:
+
+	ADSL - ADSL
+	VOIP - Voice over IP
+	SWF - Switch Feature
+	SN - Subscription Number (telephone number)
+	GP - Genre Package
+
+:
+Restriction of {http://amdocs/pbg-portfolio/productcatalog/types-unqualified/v1}ProductSpecificationType .
+Derived from PIM entity ProductSpecificationType in the domain productspecification.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  
+  <xs:complexType name="DynamicAttr" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation></xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="name">
+        <xs:annotation>
+          <xs:documentation>The name of the dynamic attribute.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="20"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="value">
+        <xs:annotation>
+          <xs:documentation>The name of the dynamic attribute.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="20"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="ActivityChargeID">
+    <xs:annotation>
+      <xs:documentation>The definition of a characteristic quality or distinctive feature of an object instance. The characteristic can be take
+on a discrete value, such as color, can take on a range of values, (for example, sensitivity of 100-240 mV), or can be
+derived from a formula (for example, usage time (hrs) = 30 - talk time *3).
+:
+</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ns1:ActivityCharge">
+    <xs:sequence/>
+    </xs:extension>
+    </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="AssignedBillingOfferID" final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>The pricing agreement, guiding and other rating related information of a Product that is associated with the Subscription. 
+			The AssignedBillingOffer includes the price plan, and their related offers (if any exist) for the Subscription. 
+			Restriction of {http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}AssignedBillingOffer. 
+Derived from PIM entity AssignedBillingOffer in the domain customerpriceagreement.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="id">
+				<xs:annotation>
+					<xs:documentation>The Billing internal identifier of the assigned offer.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="ProductOfferingIDAndName" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The presentation of one or more ProductSpecifications to the marketplace for sale, rental, or lease for a
+ProdOfferPriceCharge.  A ProductOffering may target one or more market segments, be included in one or more Product
+Catalogs, presented in support of one or more Product Strategies, and made available in one or more SalesChannels.
+ProductOffering may represent a simple offering of a single ProductSpecification or a bundle of ProductSpecifications.
+:
+Derived from PIM entity ProductOffering in the domain productoffering.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Product Catalog internal identifier of the ProductOffering. A unique identifier together with the related ProductOffering.version. Since a ProductOffering is always created or
+changed within a given CatalogVersion, it is the combination that uniquely identifies the fixed attributes and
+relations of the ProductOffering.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="name" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A word, term, or phrase by which the ProductOffering is known and distinguished from other ProductOfferings.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="ProductSpecDisplayProperties" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>How the ProductSpecification should be displayed in a user interface application.
+:
+Derived from PIM entity ProductSpecDisplay in the domain productspecification.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="dynamicProperties" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>List of additional properties that were assigned to the ProductSpecDisplay.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="dynamicPropertie" type="ns2:FlexAttrForTextOnly" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="visible" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If value is TRUE then the ProductSpecification should be displayed.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:simpleType name="ProductSpecificationLevel">
+    <xs:annotation>
+      <xs:documentation>The type of level at which the pricing of the ProductSpecification can be applied in the billing hierarchy.
+:
+Derived from PIM entity ProductSpecificationLevel in the domain productspecification.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="GROUP">
+        <xs:annotation>
+          <xs:documentation>Billing group level</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SUBSCRIBER">
+        <xs:annotation>
+          <xs:documentation>Billing subscription level.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:simpleType name="PriceSchemaType">
+    <xs:annotation>
+      <xs:documentation>The type of PriceSchema. For example Discount, Basic.
+:
+Derived from PIM entity PriceSchemaType in the domain productoffering.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ADDITIONAL">
+        <xs:annotation>
+          <xs:documentation>Additional.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BASIC">
+        <xs:annotation>
+          <xs:documentation>Basic.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISCOUNT">
+        <xs:annotation>
+          <xs:documentation>Discount.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PRIMARY">
+        <xs:annotation>
+          <xs:documentation>Primary.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:complexType name="ProductSpecCharacteristicDisplay" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A characteristic quality or distinctive feature of a ProductSpecification.  The characteristic can be take on a
+discrete value, such as color, can take on a range of values, (for example, sensitivity of 100-240 mV), or can be
+derived from a formula (for example, usage time (hrs) = 30 - talk time *3).  Certain characteristics, such as color,
+may be configured during the ordering or some other process.
+:
+Derived from PIM entity ProductSpecCharacteristic in the domain productspecification.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:ConfigurableCharacteristicDisplay">
+        <xs:sequence>
+          <xs:element name="description" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Free format long textual description of the ProductSpecCharacteristic.</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:maxLength value="1023"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element name="displayInformation" type="tns:CharacteristicDisplayForProductSpec" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>How to display the ProductSpecCharacteristic in a user interface application.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  
+  <xs:complexType name="ConfigurableCharacteristicDisplay" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A characteristic that may have its value set during the ordering or some other process. For example: e-mail address,
+mailbox size, voice line number, spending limit.
+:
+Derived from PIM entity ConfigurableCharacteristic in the domain characteristicvalue.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:CharacteristicForDisplay">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  
+  <xs:complexType name="CharacteristicForDisplay" abstract="true">
+    <xs:annotation>
+      <xs:documentation>The definition of a characteristic quality or distinctive feature of an object instance. The characteristic can be take
+on a discrete value, such as color, can take on a range of values, (for example, sensitivity of 100-240 mV), or can be
+derived from a formula (for example, usage time (hrs) = 30 - talk time *3).
+:
+Derived from PIM entity Characteristic in the domain characteristicvalue.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="dynamicProperties" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>List of additional properties that were assigned to the Characteristic. Core provider software does not use these
+properties but specific implementations may add such properties and change behavior accordingly.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="dynamicPropertie" type="ns2:FlexAttrForTextOnly" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Product Catalog internal identifier of the Characteristic.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="name" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The name of the Characteristic</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CharacteristicDisplayForProductSpec" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>How an instantiated  Characteristic might be displayed in a user interface. For example visibility of the
+characteristic.
+:
+Derived from PIM entity CharacteristicDisplay in the domain characteristicvalue.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="dynamicProperties" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>List of additional properties that were assigned to the CharacteristicDisplay.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="dynamicPropertie" type="ns2:FlexAttr" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      
+      <xs:element name="enabled" minOccurs="0">      
+        <xs:annotation>
+          <xs:documentation>If True then the Characteristic is editable.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="mandatory" minOccurs="0">    
+        <xs:annotation>
+          <xs:documentation>If True then the Characteristic is mandatory.</xs:documentation>
+        </xs:annotation>  
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>     
+      <xs:element name="visible" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If True then the Characteristic should be displayed.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+

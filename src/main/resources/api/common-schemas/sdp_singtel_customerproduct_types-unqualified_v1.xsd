@@ -1,0 +1,1283 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema elementFormDefault="qualified" version="1.0" targetNamespace="http://group.singtel.com/customerproduct/types-unqualified/v1" xmlns:ns2="http://group.singtel.com/customerbusinessinteraction/types-unqualified/v1" xmlns:ns1="http://group.singtel.com/commonbusinessentities/types-unqualified/v1" xmlns:ns4="http://group.singtel.com/customerprofile/types-unqualified/v1" xmlns:ns3="http://group.singtel.com/customerbilling/types-unqualified/v1" xmlns:tns="http://group.singtel.com/customerproduct/types-unqualified/v1" xmlns:ns9="http://group.singtel.com/resource/types-unqualified/v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns5="http://group.singtel.com/core/types-unqualified/v1" xmlns:ns6="http://group.singtel.com/productcatalog/types-unqualified/v1" xmlns:ns7="http://group.singtel.com/marketsales/types-unqualified/v1" xmlns:ns8="http://group.singtel.com/supplierpartner/types-unqualified/v1">
+
+  <xs:annotation>
+    <xs:documentation>The customer product domain models ProductSpecifications procured by a Customer.
+: Unqualified model for documentation purposes only.
+Singtel interfaces.
+</xs:documentation>
+  </xs:annotation>
+  <xs:import namespace="http://group.singtel.com/commonbusinessentities/types-unqualified/v1" schemaLocation="sdp_singtel_commonbusinessentities_types-unqualified_v1.xsd"/>
+
+  <xs:import namespace="http://group.singtel.com/customerbusinessinteraction/types-unqualified/v1" schemaLocation="sdp_singtel_customerbusinessinteraction_types-unqualified_v1.xsd"/>
+
+  <xs:import namespace="http://group.singtel.com/customerbilling/types-unqualified/v1" schemaLocation="sdp_singtel_customerbilling_types-unqualified_v1.xsd"/>
+
+  <xs:import namespace="http://group.singtel.com/customerprofile/types-unqualified/v1" schemaLocation="sdp_singtel_customerprofile_types-unqualified_v1.xsd"/>
+
+  <xs:import namespace="http://group.singtel.com/core/types-unqualified/v1" schemaLocation="sdp_singtel_core_types-unqualified_v1.xsd"/>
+
+  <xs:import namespace="http://group.singtel.com/productcatalog/types-unqualified/v1" schemaLocation="sdp_singtel_productcatalog_types-unqualified_v1.xsd"/>
+
+  <xs:import namespace="http://group.singtel.com/marketsales/types-unqualified/v1" schemaLocation="sdp_singtel_marketsales_types-unqualified_v1.xsd"/>
+
+  <xs:import namespace="http://group.singtel.com/supplierpartner/types-unqualified/v1" schemaLocation="sdp_singtel_supplierpartner_types-unqualified_v1.xsd"/>
+
+  <xs:import namespace="http://group.singtel.com/resource/types-unqualified/v1" schemaLocation="sdp_singtel_resource_types-unqualified_v1.xsd"/>
+
+  <xs:complexType name="PartyRoleProductInvolvement" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The role that  a PartyRole plays for a Product.  This data type is an Association Role entity. It defines the
+attributes for an Association.
+:
+Derived from PIM entity PartyRoleProductInvolvement in the domain product.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="endDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The date that the role ended.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="partyRoleDetails" type="ns1:PartyRole" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The PartyRole involved in the Product.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="product" type="tns:Product" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Product related to the PartyRoleProductInvolvement</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="role" type="tns:PartyRoleProductInvolvementType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The role played.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="startDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The date that the role started.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Product" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A ProductSpecification procured by a Customer. A Product models this instance of a ProductSpecification.
+
+Note:  In Amdocs Ordering this serves as both an Assigned Product and an Ordered Product. An Ordered Product has no
+activation date and has a status indicating that it is ordered.
+
+A Product may be part of a complex structure of Products. The structure is typically based on relationships between
+ProductSpecifications defined in ProductSpecContainment and ProductSpecRelationship. The structure is instantiated
+through ProductContainment and ProductRelationship.
+
+A Product is uniquely identified by its Product.ID and Product.version. When information regarding an existing Product
+is changed a new instance is created with the same Product.ID and different Product.version. If a Product has
+associated contained Products defined in ProductContainment then when it changes by definition all of the contained
+Products must have new instances created for them. The history of a product is described by multiple Products with the
+same Product.ID value.
+
+The permitted status transitions of a Product are defined by the provider of any status update operations.
+:
+Derived from PIM entity Product in the domain product.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="activationDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The date on which this version of the Product was activated. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="activationStatus" type="tns:ProductActivationStatus" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The status of the Product. For example ordered, provisioned. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="affectedGroups" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The ProductGroups which are affected by this Product. For example a group level discount may affect the products in the
+group.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="affectedGroup" type="tns:ProductGroup" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="agreement" type="ns1:FrameworkAgreement" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The FrameworkAgreement that governs the Product.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="assignedBillingOffers" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The AssignedBillingOffers that are associated with the Product</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="assignedBillingOffer" type="ns3:AssignedBillingOffer" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="attachments" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The documents attached to the Product.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="attachment" type="ns1:Attachment" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="businessGroup" type="ns4:BusinessGroup" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The BusinessGroup, if any, within which this Product was supplied, typically within a business or enterprise Customer.
+For example, an iPhone supplied to a sales director within a BusinessGroup for Sales Directors.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="characteristicValues" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>ProductCharacteristicValues associated to the Product. For example:
+
+Bandwidth: 10MbS
+Quality-of-Service: Gold
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="characteristicValue" type="ns1:ProductCharacteristicValue" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="contacts" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Contacts that play a role for the Product.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="contact" type="tns:ContactProductInvolvement" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="containedProducts" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The child Products contained by this Product.
+For example, a VoIP Subscription Number contained by a VoIP.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="containedProduct" type="tns:ProductContainment" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="containingProduct" type="tns:ProductContainment" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Product that contains this Product. If not set then this Product is top-level.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="customer" type="ns1:Customer" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The customer who procured the Product.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="depositCalculationResults" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The results of calculations for the amount that should be paid as a Deposit for this Product.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="depositCalculationResult" type="tns:DepositCalculationResult" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="deposits" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Deposits associated to this Product.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="deposit" type="ns3:Deposit" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="effectiveDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The date when this version of the Product is effective. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="expiryDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The date when this version of the Product is no longer effective. This date will typically not be set for the current
+version of a Product. Provider write only
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="externalID" type="ns5:AdditionalId" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>An Identifier allocated by the consumer when the entity is created. May not be updated. For example the originating
+ordering system may populate this field.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="frameworkAgreementItem" type="ns1:FrameworkAgreementItem" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The FrameworkAgreementItem (if any) which this Product represents, such as an allowance or some other shared benefit
+offered to the Customer under a FrameworkAgreement
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier when combined with Product.version. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="initialActivationDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The date on which the product was initially activated.  This differs to Product.activationDate
+which is the date that this version was activated.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="installationAddress" type="ns1:GeographicAddress" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The address at which the Product is installed.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="memberInGroups" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The ProductGroups in which this Product is a member.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="memberInGroup" type="tns:ProductGroup" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="name" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Free format short textual description. Often this I derived from the default name defined in the associated
+ProductSpecification. 
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="notes" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The notes recorded against this Product.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="note" type="ns1:NotesLog" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="offeringInstance" type="tns:ProductInOffering" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The ProductOfferingInstance within which this Product is contained. Typically only populated for the top level Product
+in the Product structure.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="opExtn" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Operation extension attribute. This attribute is used differently on an operation by operation basis when an operation
+requires non business data as a parameter to the operation. The operation must document explicitly how it is used. An
+example of its use is for the consumer technical identifier of new anonymous data types instances such as a product
+instance that has not been created yet.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="1023"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="partyRoleInvolvements" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The PartyRoles involved in the Product.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="partyRoleInvolvement" type="tns:PartyRoleProductInvolvement" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="playedRoles" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Products that receive a role from this Product. For example, a HSIA Connection referred to by a VoIP.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="playedRole" type="tns:ProductRelationship" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="productOrderItem" type="ns2:ProductOrderItem" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The ProductOrderItem that caused the creation of this Product, specifically the version.
+For example a Provide will create the first version, a Change another version, etc.
+The relationship is 0..1 since:
+* ProductOrderItems may be archived after a period of time and so will not be available
+* The Product may have been created by a conversion process
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="productPricings" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The  pricing associated with the product.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="productPricing" type="tns:ProductPricing" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="productSpec" type="ns6:ProductSpecification" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The specification of the product Product.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="productTemplate" type="tns:ProductTemplate" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>ProductTemplate from which this Product was instantiated. 0..1 since not all Products are instantiated via
+ProductTemplate.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="productUser" type="ns1:Party" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Party that is the user of the Product, which may be either Organization or Individual.
+For example, in a family with multiple cellular phones, one of the parents plays the role of customer. The two parents
+and the children are all product users (subscribers) of the phones.
+
+In Amdocs Ordering, this is known as the Using Customer.
+
+Will be empty for an anonymous customer (the user is not known to the CSP).
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="purposeInAgreement" type="tns:ProductPurposeInAgreement" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Describes the purpose played by the Product to
+an Agreement, If the Product is not related to
+an Agreement the field will be empty. See ProductPurposeInAgreement for further information
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="quantity" type="xs:integer" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The quantity of the ProductSpecification procured by the Customer. Unless this procurement is for identical
+configuration then the value must be 1.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="reason" type="ns2:ProductOrderItemReason" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The reason why this Product was created. Typically taken from the originating system such as the ordering system.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="reasonText" type="ns5:BinaryObject" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A free textual description of the reason why this Product was created. Typically copied from the originating system
+such as the ordering system.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="rolesReceived" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Roles received by this Product that are played by other Products. For example, VoIP that refers to a HSIA Connection.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="roleReceived" type="tns:ProductRelationship" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="serviceID" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The users means to identify a Product. For example a mobile telephone number, an e-mail address, an IP address. Not all
+Products have users.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="site" type="ns1:GeographicSite" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The GeographicSite at which the Product is installed.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="state" type="tns:ProductState" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The business state of the Product. For example ordered, assigned. Provider write only</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="subscription" type="ns3:Subscription" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Subscription associated to the Product if relevant to billing.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="topLevelProduct" type="tns:Product" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Product at the top of the containment structure that is defined in associated ProductContainment. For a top-level
+Product, points to itself.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="totalRecurringPrices" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The total recurring price for the Product,  there may be multiple entries for different dates.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="totalRecurringPrice" type="ns2:TotalRecurringCalculatedPrice" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="version" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier when combined with Product.ID. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="withPendingOrders" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If value is TRUE then there are pending ordering activities associated with this Product. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProductGroup" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A group of Products created for a purpose.  A Product can be in many groups. Typically used for administrative purposes
+such as:
+
+	A group contains 100's of cellular phones. The owning company wants to add call waiting feature to all the phones.
+	A group contains 100's of cellular phones. The owning company wants them all to be rated by the special group pricing
+scheme that it negotiated with the CSP (functionality known as Subscription Group in Amdocs Billing).
+
+
+The ProductGroups can form a hierarchical structure of themselves, so that changes made in one group can affect all
+contained groups. The hierarchical structure may replicate or correspond to organizational or billing hierarchies.
+:
+Derived from PIM entity ProductGroup in the domain product.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="affectingProducts" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Products that affect this ProductGroup. For example a group level discount may affect the products in the group.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="affectingProduct" type="tns:Product" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="childGroups" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The ProductGroups contained by this ProductGroup. The association create a hierarchical structure of ProductGroups. A
+ProductGroup can only be part of one structure.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="childGroup" type="tns:ProductGroup" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier.   If the group is used to replicate a business structure such as a billing
+hierarchy then the provider may set this to the unique identifier from that business structure.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="memberProducts" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Products that are members of this ProductGroup.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="memberProduct" type="tns:Product" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="name" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Free format short textual description.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="organization" type="ns1:Organization" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If a ProductGroup structure replicates an organizational structure then this is the Organization  to which this
+ProductGroup corresponds.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="parentGroup" type="tns:ProductGroup" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The ProductGroup that contains this ProductGroup.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="subscriptionGroup" type="ns3:SubscriptionGroup" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If the ProductGroup structure is used for billing purposes then this is the SubscriptionGroup  that this ProductGroup
+corresponds to.t corresponds in the Billing hierarchy to this ProductGroup.This can be used to propagate group level
+pricing associated to Products onto the SubscriptionGroups in the billing hierarchy.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProductTemplate" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>An incomplete instantiation of a ProductSpecification that serves as a template for final instantiation of Products.
+
+For example, suppose that a business customer agrees with the service provider (e.g. under the terms of a
+FrameworkAgreement to purchase iPhone devices under a specific service plan.
+At the time of the agreement, a ProductTemplate will be instantiated from the ProductSpecification, which will include
+(for example) the agreed iPhone model. Later on, each actual iPhone will be a Product instantiated from the values and
+structure of the ProductTemplate.
+
+Note: The ProductTemplate is an empty entity that delegates the partial instantiation (structure and values) to a
+Product structure, by the ProductTemplate.product relationship. The partial instantiation is from the
+ProductSpecification in the ProductTemplate.productSpec relationship according to the terms of the ProductOffering in
+the ProductTemplate.productOffering
+:
+Derived from PIM entity ProductTemplate in the domain product.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="product" type="tns:Product" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Product that contains the actual partially instantiated structure and ProductCharacteristicValues of this
+ProductTemplate.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="productSpec" type="ns6:ProductSpecification" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The ProductSpecification from which this ProductTemplate was instantiated.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ContactProductInvolvement" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The role that  a Contact plays for a Product.  For example a Contact may be the provider of access to the
+GeographicSite where the Product is installed.
+
+This data type is an Association Role entity. It defines the attributes for an Association.
+:
+Derived from PIM entity ContactProductInvolvement in the domain product.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="contactDetails" type="ns1:Contact" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Contact involved in the Product.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="role" type="tns:ContactProductInvolvementType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The role played by the Contact. For example site access provider.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProductContainment" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>Define the hierarchical structure of a number of Products. A Product may only be contained in one containment structure.
+This data type is an Association Role entity. It defines the attributes for an Association.
+:
+Derived from PIM entity ProductContainment in the domain product.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="associationSpec" type="ns6:ProductSpecContainment" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The definition  for this containment relationship.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="containedProduct" type="tns:Product" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Product contained. For example, a VoIP Subscription Number contained by a VoIP.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="containingProduct" type="tns:Product" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Product containing these child Products.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="DepositCalculationResult" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The result of a calculation of the money amount required to be paid as a Deposit for a Product. The amount of a Deposit
+is typically calculated at ordering time, but collected at a later time. The payment of the amount is modeled by the
+Deposit, whilst DepositCalculationResult models the amount to be paid at some time in the future. The calculation
+results include any agreed waiving or overriding of amounts and this information is required at payment time to make
+sure that the right amount is paid in the Deposit.
+:
+Derived from PIM entity DepositCalculationResult in the domain product.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="actualAmount" type="xs:decimal" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The amount to be used to when paying the Deposit. This amount includes any waiving or overrides.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="allowedOverrideType" type="tns:AllowedOverrideType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The type of overriding and waiving that is allowed on the original amount. Provider write only</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="currency" type="ns5:CurrencyCode" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The currency in which the money amounts are applied.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="name" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Free format short textual description.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="originalAmount" type="xs:decimal" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The amount to be paid as a Deposit recommended by the calculation. Provider write only</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="overrideReason" type="tns:OverrideReason" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The reason for any  difference between the actual amount to be paid and the original amount.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="overrideReasonText" type="ns5:BinaryObject" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Free textual additional information regarding the reason for any  difference between the actual amount to be paid and
+the original amount.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProductInOffering" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The Products contained within  a ProductOfferingInstance. The specification of the association is provided in the
+ProductInOffering.associationSpec. This specification defines information such as whether the Product is mandatory in
+the ProductOfferingInstance. This data type is an Association Role entity. It defines the attributes for an Association.
+:
+Derived from PIM entity ProductInOffering in the domain product.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="associationSpec" type="ns6:ProductOfferingProductSpecs" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The definition of this association.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="offeringInstance" type="tns:ProductOfferingInstance" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The ProductOfferingInstance under which this Product was sold. One version of a Product may be sold under a different
+OfferingInstance to another.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="topLevelProduct" type="tns:Product" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Product contained in the ProductOfferingInstance. Typically only Products at the top of a Product structure would
+be associated.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProductOfferingInstance" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A ProductOfferingInstance is a ProductOffering procured by a Customer. The ProductSpecifications procured by the
+Customer within the ProductOfferingInstance are modeled in the Product and ProductInOffering. When a new Product is
+created as an update to an existing Product then the value of its ProductOfferingInstance association may change.
+
+Note: The valid status transitions of an ProductOfferingInstance are controlled by the provider of status update
+operations.
+:
+Derived from PIM entity ProductOfferingInstance in the domain product.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier when combined with ProductOfferingInstance.version. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="name" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Free format short textual description. Often this is derived from the default name defined in the associated
+ProductOffering. 
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="opExtn" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Operation extension attribute. This attribute is used differently on an operation by operation basis when an operation
+requires non business data as a parameter to the operation. The operation must document explicitly how it is used. An
+example of its use is for the consumer technical identifier of new anonymous data types instances such as a product
+instance that has not been created yet.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="1023"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="productOffering" type="ns6:ProductOffering" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation> less-than p greater-than  Points to the defining entity in the product catalog for this ProductOfferingInstance.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="topLevelProducts" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>TheProducts contained in this ProductOfferingInstance. Typically those Products at the top is a Product structure are
+only associated.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="topLevelProduct" type="tns:ProductInOffering" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="version" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier when combined with ProductOfferingInstance.ID. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="BundledProductOfferingInstance" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>An instantiation of the BundledProductOffering that was used when the Customer purchased a Product from the provider.
+:
+Derived from PIM entity BundledProductOfferingInstance in the domain product.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:ProductOfferingInstance">
+        <xs:sequence>
+          <xs:element name="containedProductOfferingInstances" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The ProductOfferingInstances that are contained by this BundledProductOfferingInstance.</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="containedProductOfferingInstance" type="tns:ProductOfferingInstanceInProductBundle" minOccurs="0" maxOccurs="unbounded"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ProductOfferingInstanceInProductBundle" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The attributes for the association between ProductBundle and ProductOfferingInstance. This data type is an Association
+Role entity.
+:
+Derived from PIM entity ProductOfferingInstanceInProductBundle in the domain product.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="associationSpec" type="ns6:BundledProductOfferingOption" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The definition  for this containment relationship.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="productOfferingInstance" type="tns:ProductOfferingInstance" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The ProductOfferingInstance that is contained by this BundledProductOfferingInstance.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProductOfferingInstanceCore" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>Concrete type for ProductOfferingInstance.
+:
+</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:ProductOfferingInstance">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SimpleProductOfferingInstance" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A SimpleProductOfferingInstance is an instantiation of the SimpleProductOffering that was used when the Customer
+purchased a Product from the provider.
+:
+Derived from PIM entity SimpleProductOfferingInstance in the domain product.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:ProductOfferingInstance">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ProductRelationship" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A relationship between Products where one is related to the other with a role name. The role is received by the
+ProductRelationship.roleReceivers. For example an instance of a VoIP Main uses an HSIA Connection. The association is
+derived from the associated specification in ProductSpecRelationship.
+
+This data type is an Association Role entity. It defines the attributes for an Association.
+:
+Derived from PIM entity ProductRelationship in the domain product.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="associationspec" type="ns6:ProductSpecRelationship" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The specification of the relationship that this relationsip is derived from.
+The association cardinality 0-1 allowing the possibilities of creation of non pre-defined relationships between
+Products.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="role" type="ns6:ProductSpecAssociationRole" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The role played by the Product. Although it may be derived from the associated ProductSpecRelationship there may be
+relationships created that are not pre-defined in this specification.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="rolePlayer" type="tns:Product" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Product that plays a role for these Products.
+For example, VoIP that refers to a HSIA Connection.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="roleReceiver" type="tns:Product" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Product that receives the role. For example, a HSIA Connection referred to by a VoIP.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProductPricing" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>Define the association between product and its catalog pricing and billing offer.
+This data type is an Association Role entity. It defines the attributes for an Association.
+Derived from PIM entity ProductPricing in the domain productspecification.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="assignedBillingOffer" type="ns3:AssignedBillingOffer" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The pricing agreement, guiding and other rating related information of a Product that is associated with the
+Subscription. The AssignedBillingOffer includes the price plan, and their related offers (if any exist) for the
+Subscription.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="productSpecPricing" type="ns6:ProductSpecPricing" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The specification of pricing for the ProductSpecification. For example associated price plans or activity charges.
+Attributes control the way that pricing is created when a ProductSpecification is instantiated as a Product</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Equipment" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A type of Product that is a physical item. For example handset, network router, set top box. Equipment can typically be
+rented, leased or acquired and may require delivery. Identifying a specific piece of Equipment is essential for support
+purposes and this is typically done through a Equipment.serialNumber or through the associated ProductSpecification.
+:
+Derived from PIM entity Equipment in the domain product.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:Product">
+        <xs:sequence>
+          <xs:element name="deliverTo" type="ns1:Contact" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The person and address to which the Equipment should be delivered.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="deliveryOption" type="tns:DeliveryOption" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The method by which this Equipment should reach the Customer. For example by parcel courier, collection.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="inventoryNumber" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The identification of the equipment type (for example catalog number, barcode) in the physical inventory system.
+Typically the code that the manufacturer of the item uses to identify the revision of the item.
+</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:maxLength value="255"/>
+                <xs:whiteSpace value="collapse"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element name="reservation" type="tns:EquipmentReservation" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The current reservation for the piece of equipment against an inventory system.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="serialNumber" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The serial number used to identify this piece of Equipment. Typically this is unique within the type of Equipment, but
+maybe unique within the GeographicSite where the item is installed.
+
+The value of the serial number maybe provided an number of different ways. For example:
+
+	by optical scanning of the item
+	by manual data entry from information printed on the item
+	by assignation by an external system and attachment to the item
+</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:maxLength value="255"/>
+                <xs:whiteSpace value="collapse"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element name="serialized" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>If value is TRUE then the Equipment has a serial number that can be used to identify it. Provider write-only.</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:boolean">
+                <xs:pattern value="false|true"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="EquipmentReservation" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The reservation of one or more pieces of Equipment in some form of physical logistics system. The reservation typically
+originates from the processing of a ProductOrder. The reservation information is expected to be persisted in the
+ordering application and passed to delivery applications. A piece of Equipment may have many reservations associated to
+it over its lifetime. The minimum set of information is the external key of the reservation in the logistics system.
+:
+Derived from PIM entity EquipmentReservation in the domain product.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="externalID" type="ns5:AdditionalId" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The external key to the reservation mastered in the logistics system.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProductCore" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>Concrete type for Product.
+:
+</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:Product">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:simpleType name="ProductActivationStatus">
+    <xs:annotation>
+      <xs:documentation>The activation state of the Product. For example active, ceased.
+:
+Derived from PIM entity ProductActivationStatus in the domain product.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ACTIVE">
+        <xs:annotation>
+          <xs:documentation>The Product is active and can receive service (and will incur recurring charges if relevant).</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CEASED">
+        <xs:annotation>
+          <xs:documentation>The Product is disconnected or cancelled and  cannot receive service (and will no longer incur recurring charges).
+Although it is possible for the Product to be re-established to an active state it is generally possible only within a
+window of time after it has moved to a cease state as the associated resources may no longer be available.
+</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SUSPENDED">
+        <xs:annotation>
+          <xs:documentation>The Product is suspended and cannot receive service. It may still incur charges at the same or reduced level, depending
+on business rules. Typically all associated resources remain allocated and it is possible for the Product to move to an
+active state again.
+</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="AllowedOverrideType">
+    <xs:annotation>
+      <xs:documentation>The charge allowable override type. For example can the charge be completely waived or overridden.
+:
+Derived from PIM entity AllowedOverrideType in the domain product.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NONE">
+        <xs:annotation>
+          <xs:documentation>The amount cannot be changed or waived.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="OVERRIDE">
+        <xs:annotation>
+          <xs:documentation>The amount can be changed to a different amount, including completely waived.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="WAIVE_ONLY">
+        <xs:annotation>
+          <xs:documentation>The amount can be completely waived, but not changed to a different amount.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="OverrideReason">
+    <xs:annotation>
+      <xs:documentation>The reason why the original amount of a charge has been changed through an overriding amount or a waive.
+:
+Derived from PIM entity OverrideReason in the domain product.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="OTHER">
+        <xs:annotation>
+          <xs:documentation>This reason requires free text to be entered describe it.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PROTECTED_PRICE">
+        <xs:annotation>
+          <xs:documentation>A price protection due to a framework agreement.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ContactProductInvolvementType">
+    <xs:annotation>
+      <xs:documentation>The type of role that a Contact can play for a Product. The possible types of role for which a Contact might be linked
+to an entity. For example a Contact may be the provider of access to the GeographicSite where the Product is installed.
+:
+Derived from PIM entity ContactProductInvolvementType in the domain product.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="ProductPurposeInAgreement">
+    <xs:annotation>
+      <xs:documentation>Describes the purpose played by a Product in an Agreement, if any. See the defined values for example purposes.
+:
+Derived from PIM entity ProductPurposeInAgreement in the domain product.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="AGREEMENT">
+        <xs:annotation>
+          <xs:documentation>Determines that the Product is an  Agreement</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BUSINESS_OFFER_TEMPLATE">
+        <xs:annotation>
+          <xs:documentation>Determines that the Product is a  FrameworkAgreementItem Business Offer Template type</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SHARED_SERVICE_PLAN">
+        <xs:annotation>
+          <xs:documentation>Determines that the Product is a  FrameworkAgreementItem of Shared Service Plan type</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SUBSCRIPTION_IN_AGREEMENT">
+        <xs:annotation>
+          <xs:documentation>Determines that the Product is a  Product that is governed by an Agreement.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ProductState">
+    <xs:annotation>
+      <xs:documentation>The business lifecycle state of a Product. For example ordered, assigned, cancelled.
+:
+Derived from PIM entity ProductState in the domain product.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ASSIGNED">
+        <xs:annotation>
+          <xs:documentation>The Product is currently installed/supplied for the customer, or was installed/supplied previously but replaced by a
+more recent Product.
+</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CANCELED">
+        <xs:annotation>
+          <xs:documentation>The Product was created as part of a ProductOrderItem that has been cancelled.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ORDERED">
+        <xs:annotation>
+          <xs:documentation>The Product is being ordered. There may be multiple Products with the same Product.ID value, but different Product.
+version values with this state when future orders exist.
+</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="DeliveryOption">
+    <xs:annotation>
+      <xs:documentation>The method that the Equipment should reach the Customer. For example by parcel courier, collection.
+:
+Derived from PIM entity DeliveryOption in the domain product.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="PartyRoleProductInvolvementType">
+    <xs:annotation>
+      <xs:documentation>The type of role that a PartyRole can play for a Product, for example a third party supplier may be the provider of
+access to the GeographicSite where the Product is installed. Values are set by implementation.
+:
+Derived from PIM entity PartyRoleProductInvolvementType in the domain product.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  
+   <xs:complexType name="ProductServiceID">
+    <xs:annotation>
+      <xs:documentation>A ProductSpecification procured by a Customer. A Product models this instance of a ProductSpecification.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence> 
+      <xs:element name="serviceID"  minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>The users means to identify a Product. For example a mobile telephone number, an e-mail address, an IP address. Not all Products have users.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>    
+  
+</xs:schema>
+

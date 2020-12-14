@@ -1,0 +1,1321 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema elementFormDefault="qualified" version="1.0" targetNamespace="http://group.singtel.com/enterprise/types-unqualified/v1" xmlns:ns2="http://group.singtel.com/commonbusinessentities/types-unqualified/v1" xmlns:ns1="http://group.singtel.com/core/types-unqualified/v1" xmlns:ns4="http://group.singtel.com/customerproduct/types-unqualified/v1" xmlns:ns3="http://group.singtel.com/customerprofile/types-unqualified/v1" xmlns:tns="http://group.singtel.com/enterprise/types-unqualified/v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns5="http://group.singtel.com/customerbusinessinteraction/types-unqualified/v1">
+
+  <xs:annotation>
+    <xs:documentation>The enterprise domain describes enterprise wide concepts and processes. For example concepts such as service level
+monitoring, document generation and manual task management.
+: Unqualified model for documentation purposes only.
+Singtel interfaces.
+</xs:documentation>
+  </xs:annotation>
+  <xs:import namespace="http://group.singtel.com/core/types-unqualified/v1" schemaLocation="sdp_singtel_core_types-unqualified_v1.xsd"/>
+
+  <xs:import namespace="http://group.singtel.com/commonbusinessentities/types-unqualified/v1" schemaLocation="sdp_singtel_commonbusinessentities_types-unqualified_v1.xsd"/>
+
+  <xs:import namespace="http://group.singtel.com/customerprofile/types-unqualified/v1" schemaLocation="sdp_singtel_customerprofile_types-unqualified_v1.xsd"/>
+
+  <xs:import namespace="http://group.singtel.com/customerproduct/types-unqualified/v1" schemaLocation="sdp_singtel_customerproduct_types-unqualified_v1.xsd"/>
+
+  <xs:import namespace="http://group.singtel.com/customerbusinessinteraction/types-unqualified/v1" schemaLocation="sdp_singtel_customerbusinessinteraction_types-unqualified_v1.xsd"/>
+
+  <xs:complexType name="ManualTask" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A Manual Task to be handled by an application ApplicationUser. Each ManualTask represents a part of a set of actions
+which accomplish a job, problem or assignment. Each task is owned by an application user, and can be transferred
+between users in order to complete it.
+Manual Tasks contain a WorkItem to maintain the owning user and queue of the Task.
+:
+Derived from PIM entity ManualTask in the domain manualtask.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="additionalId" type="ns1:AdditionalId" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>An Identifier for the Manual Task in the consumer domain, for instance a Task Engine Task identifier.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="attachmentsFor" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Documents related to the ManualTask.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="attachmentFor" type="ns2:Attachment" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="characteristics" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Characteristic values for the ManualTask.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="characteristic" type="ns2:ManualTaskCharacteristicValue" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="completionDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The time the Manual Task was completed, i.e. closed or cancelled. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="contexts" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A relation to entities that are related to the Manual Task, and which are maintained in another systems. The provider
+of services related to Manual Task is independent and indifferent of these IDs, and doesn't assign those any meaning.
+Usually, the data is provided in order to provide a human UI the ability to view and navigate to the external related
+entity.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="context" type="ns2:ExternalContextData" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="controlLevel" type="tns:ManualTaskControlLevel" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The control level that the service provider has over the Manual Task.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="creationDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The time the Manual Task was first created by its originating system</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="customer" type="ns2:Customer" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Customer the ManualTask is involving.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="description" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Free format long textual description.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="1023"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="dueDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The time the Manual Task needs to be completed by. Changes in the Due Date might cause changes to the internal
+processing.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="involvedPartys" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Party either Individualr Organization that are involved with the ManualTask</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="involvedParty" type="ns2:Party" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="jeopardyState" type="tns:SLMState" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Provides the service level monitoring information for each tracked milestone of the Manual Task. Provider write only</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="market" type="ns2:BusinessOrganizationUnit" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Used for Operational separation, to allow categorization of ManualTasks by the Business Organizational Unit they are
+corresponding to.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="name" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Free format short textual description.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="notes" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Notes related to the ManualTask.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="note" type="ns2:NotesLog" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="performedAt" type="ns2:GeographicSite" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The geographical site in which the Manual Task is being performed. represents the Geographical Info for the Manual Task,
+such as timezone.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="priority" type="tns:ManualTaskPriority" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The priority of the Manual Task. Changes in the Priority might cause changes to the Manual Task internal processing.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="project" type="ns2:Project" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Project associated with the task.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="reference" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique reference to be used for this ManualTask. Generated by the provider as a human readable reference string.
+
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="reminderPeriod" type="ns1:TimePeriod" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The period of time before the ManualTask.dueDate that a notification should be triggered to the ManualTask.owner.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="startDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The time the Manual Task was/is started.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="status" type="tns:ManualTaskStatus" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Status of the Manual Task. Reflects the lifecycle of the entity.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="type" type="tns:ManualTaskType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Manual Task Type. Set when the manual task is created and cannot be changed .The provider of Manual Task operations
+may use the type to define additional reference ManualTask metadata, for instance the default priority, the
+service level agreement contract to be used to track the Manual Task against etc.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="workItem" type="ns2:WorkItem" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The work item represents the the ownership of the Manual task. It is created for each Manual Task and indicates the
+current owning ApplicationUser and Queue.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="SLMState" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The current Service Level Monitoring state for external consumption. The most important indicator is whether a specific
+milestone is in jeopardy or not. The state included:
+
+	the milestone name
+	the jeopardy state
+	when the milestone is due
+
+At any one time there maybe multiple milestones in jeopardy, but an instance of SLMState only describes a single
+milestone with no relation to any other.
+:
+Derived from PIM entity SLMState in the domain servicelevelmonitoring.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="jeopardyState" type="tns:JeopardyState" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The current jeopardy state for the milestone. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="milestoneName" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The textual name of the milestone that the SLMState describes the current state of. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="milestoneOrigin" type="tns:MilestoneOrigin" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Indicates the origin of the milestone. Defaults to REFERENCE. Possible values are REFERENCE, DYNAMIC and MANUAL.
+
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="milestoneTarget" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The time that the milestone is targeted. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="suspended" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If value is  TRUE then the service level monitoring is currently suspended, otherwise FALSE. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProcessSpecification" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A definition of a business process, with all the steps, branches and decision points. A ProcessSpecification is
+identified by its ProcessSpecification.ID and ProcessSpecification.version. Business entities (for example Orders) can
+be associated to different versions of a ProcessSpecification. 
+
+In Amdocs Process Manager it is referred to as a  Process Type.
+:
+Derived from PIM entity ProcessSpecification in the domain processdefinition.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="description" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Free format long textual description.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="1023"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="elements" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The ProcessElementSpecifications that are contained in the ProcessSpecification, without representing its detailed
+structure (in terms of the flow of execution).
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="element" type="tns:ProcessElementSpecification" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="endSteps" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The StepSpecification in the ProcessSpecification that ends the path of execution.
+There can be multiple ends points.
+Corresponds to APM end.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="endStep" type="tns:StepSpecification" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="flows" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The FlowSpecifications contained in this ProcessSpecification, without representing its detailed structure (in terms of
+the flow of execution).
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="flow" type="tns:FlowSpecification" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier,  together with the ProcessSpecification.version uniquely identifies the ProcessSpecification.
+
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="name" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Free format short textual description.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="processCategories" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The StepCategorys that can be used to categorise StepSpecifications in this ProcessSpecification.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="processCategorie" type="tns:StepCategory" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="startSteps" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The StepSpecification in the ProcessSpecification, that starts the path of execution. There can be multiple start
+points.
+Corresponds to APM begin.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="startStep" type="tns:StepSpecification" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="version" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The version, together with the ProcessSpecification.ID uniquely identifies the ProcessSpecification.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProcessElementSpecification" abstract="true">
+    <xs:annotation>
+      <xs:documentation>Common base class for all elements in a ProcessSpecification. In Amdocs Process Manager it is referred to as a  Flowed.
+
+:
+Derived from PIM entity ProcessElementSpecification in the domain processdefinition.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="description" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Free format long textual description.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="1023"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="name" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Free format short textual description.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="outFlows" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Lists the FlowSpecifications that flow out from this ProcessSpecificationElement in the ProcessSpecification.
+If more than one, indicates that they are parallel flows that are all executed unconditionally. If empty, means that
+this is a terminating element or a leaf element.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="outFlow" type="tns:FlowSpecification" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FlowSpecification" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A path (flow) of execution between two ProcessElementSpecifications. In Amdocs Process Manager it is referred to as a
+Flow. 
+:
+Derived from PIM entity FlowSpecification in the domain processdefinition.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="description" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Free format long textual description. Especially relevant for a path of execution out of a decision, when it might
+contain text describing the condition for the path.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="1023"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="from" type="tns:ProcessElementSpecification" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The ProcessElementSpecification from which this FlowSpecification issues.
+Maps to APM From.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="to" type="tns:ProcessElementSpecification" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The ProcessElementSpecification to which this FlowSpecification leads.
+Maps to APM To.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="DecisionGatewaySpecification" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A conditional branch out of which only one path of execution would be taken in a business process. In Amdocs Process
+Manager it is referred to as a Decision Gateway. 
+:
+Derived from PIM entity DecisionGatewaySpecification in the domain processdefinition.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:ProcessElementSpecification">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="JunctionSpecification" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A convergence of paths of execution in a ProcessSpecification. In Amdocs Process Manager it is referred to as a
+Junction. 
+:
+Derived from PIM entity JunctionSpecification in the domain processdefinition.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:ProcessElementSpecification">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ProcessElementSpecificationCore" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>Concrete type for ProcessElementSpecification.
+:
+</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:ProcessElementSpecification">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="StepSpecification" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A definition of an individual step in a business process. In Amdocs Process Manager referred to as a Step. Provider
+write only.
+:
+Derived from PIM entity StepSpecification in the domain processdefinition.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:ProcessElementSpecification">
+        <xs:sequence>
+          <xs:element name="actions" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>What action will be poerformed when the StepSpecification is instantiated and executed. Typically will contain an
+expression in some language (possibly with substitutable parameters) that will be executed or instructions for some
+manual processing.
+</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="action" type="ns1:FlexAttr" minOccurs="0" maxOccurs="unbounded"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="categoryItems" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The StepCategoryItems that are used to categorize this StepSpecification.</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="categoryItem" type="tns:StepCategoryItem" minOccurs="0" maxOccurs="unbounded"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="milestone" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>If value is True, then the step is a milestone for reporting purposes. For example:
+
+	In an Ordering process, the transition between the end of order entry and the start of order delivery is commonly
+known as the Commit milestone
+	In an Ordering process, the transition between the end of order delivery and the start of order notification is
+commonly known as the Complete milestone
+</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:boolean">
+                <xs:pattern value="false|true"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element name="type" type="tns:StepSpecificationType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The type of step for example manual, business operation, user interface step.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="StepCategoryItem" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A member of a StepCategory set. 
+:
+Derived from PIM entity StepCategoryItem in the domain processdefinition.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="name" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Free format short textual description.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="StepCategory" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A sequenced set of StepCategoryItems, any one of which can be attached to a StepSpecification in the
+ProcessSpecification. This provides a way of grouping StepSpecifications that is independent of their location within
+the ProcessSpecification.
+
+For example the process might define a StepCategory named Stage with StepCategoryItems named Pick Item, Shipping,
+Payment, Place Order and assign each StepSpecification in the ProcessSpecification an appropriate StepCategoryItem. The
+consumer may use this to report on the progress of the StepCategory.  Only one StepCategoryItem from a specific
+StepCategory may be assigned to any specific StepSpecification.
+
+
+:
+Derived from PIM entity StepCategory in the domain processdefinition.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="items" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The sequenced list of StepCategoryItems in this StepCategory</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="item" type="tns:StepCategoryItem" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="name" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Free format short textual description.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="DocumentTemplate" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A template (such as a mail-merge) that can be instantiated with data to create a document instance. Would contain
+attributes such as:
+
+	MIME type - what type of document will be generated
+	Name - user-readable name of template
+	Categories or keywords
+	Schema - indicating what the data requirements are for the template
+
+:
+Derived from PIM entity DocumentTemplate in the domain documentgeneration.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="externalID" type="ns1:AdditionalId" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The identifier of the document template in the system that masters it.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="EngineerWorkOrder" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>This records the GeographicSite, date and time a support service is carried out and the nature of work that is done.
+The Individuals required may also be listed.
+:
+Derived from PIM entity EngineerWorkOrder in the domain engineerworkorder.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="activities" type="tns:EngineerWorkOrderItem" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The activities to be performed as part of the EngineerWorkOrder.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="appointments" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The time and location of the EngineerWorkOrder.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="appointment" type="ns2:Appointment" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="authorizationDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The date of authorization of the work order.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="contacts" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>PartyRoles playing a role in the work order. For example the property owner.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="contact" type="tns:EngineerWorkOrderPartyRoleRelationship" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="dateOrdered" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The submission date of the work order.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="dateRequired" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The earliest date that the work is required. If null then the work is required as soon as possible.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="notes" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Textual notes recorded woth the EngineerWorkOrder.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="note" type="ns2:NotesLog" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="EngineerWorkOrderItem" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>An activity to be performed as part of the EngineerWorkOrder. Currently a single item is only supported.
+:
+Derived from PIM entity EngineerWorkOrderItem in the domain engineerworkorder.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="activityInformation" type="ns1:BinaryObject" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Structured text string that describes the activity. For example Install new service, move service etc... Typically an
+XML string.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="serviceInformation" type="ns1:BinaryObject" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Structured text string that describes the services, features etc to be used in the work. Typically a XML string.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="EngineerWorkOrderPartyRoleRelationship" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The PartyRoles playing a role in the EngineerWorkOrder. For example the property owner, the signature provider or
+access provider.
+:
+Derived from PIM entity EngineerWorkOrderPartyRoleRelationship in the domain engineerworkorder.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="contact" type="ns2:PartyRole" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The PartyRole that is associated to the work order.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="roleName" type="tns:EngineerWorkOrderPartyRoleName" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The role played by the PartyRole.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Process" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A business process that is running or has already run which is an instantiation of a ProcessSpecification. Provider
+write only.
+:
+Derived from PIM entity Process in the domain process.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="completionDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>When the Process completed running.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="specification" type="tns:ProcessSpecification" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The ProcessSpecification from which this Process was instantiated.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="startDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>When the Process started to run.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="startStep" type="tns:Step" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The first Step that was executed in the Process.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="status" type="tns:ProcessStatus" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The status of the Process.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="steps" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The list of ProcessElements that were instantiated in the Process. All ProcessElements that were already reached will
+appear in the list - future ProcessElements may or may not appear in the list depending on the behaviour of the process
+engine (does it instantiate ProcessElements in advance or not).
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="step" type="tns:ProcessElement" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Step" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A step in the instance of a business process which is an instantiation of a StepSpecification. 
+:
+Derived from PIM entity Step in the domain process.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:ProcessElement">
+        <xs:sequence>
+          <xs:element name="startDate" type="xs:dateTime" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>When the Step started to run.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="status" type="tns:StepStatus" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The status of execution.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ProcessElement" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A element (for example a step, decision, or junction) of a business process which is an instantiation of a
+ProcessElementSpecification. 
+:
+Derived from PIM entity ProcessElement in the domain process.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="completionDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>When the ProcessElement completed running.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="specification" type="tns:ProcessElementSpecification" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The ProcessElementSpecification from which this ProcessElement was instantiated.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="successorSteps" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Lists the ProcessElements that follow this ProcessElement in the Process.
+There is no restriction on which elements are pointed to, including elements that temporally precede this element (thus
+allowing loop-backs in the execution path).
+If empty, means that this is a (terminating) element or a leaf element.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="successorStep" type="tns:ProcessElement" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProcessElementCore" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>Concrete type for ProcessElement.
+:
+</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:ProcessElement">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="Document" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>An item of content that is a document. The Document has a set of meta-data associated with it that varies for each instance of the Document.:
+Derived from PIM entity Document in the domain document.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="content" type="ns1:BinaryObject" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The content of the document.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="creationDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The time the Document was first created by its originating system.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="documentLocation" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A URL (or some other location string) that defines the logical location of the Document within some external
+repository
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:anyURI">
+            <xs:maxLength value="2048"/>
+            <xs:pattern value="https?://.+"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="dynamicProperties" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Meta-data regarding the document in the form of name and value pairs.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="dynamicProperty" type="ns1:FlexAttr" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="externalID" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The identifier of the document set by the consumer who created it.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The identifier of the document in the system that masters it.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="name" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Free format short textual description.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="type" type="tns:DocumentLogicalType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A logical type for the Document, valid values from DocumentType. Examples might include:
+
+	Document
+	Picture
+
+Contrast with mime_type, which is the technical type of the content.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="version" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier when combined with ID.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="ManualTaskControlLevel">
+    <xs:annotation>
+      <xs:documentation>Specifies the control that the operation provider has over the ManualTask. Many manual tasks are originated in foreign
+systems and the available lifecycle functionality around the task may be limited by this.
+:
+Derived from PIM entity ManualTaskControlLevel in the domain manualtask.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="FULL_CONTROL">
+        <xs:annotation>
+          <xs:documentation>All available lifecycle functionality is permitted.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="WORKFLOW">
+        <xs:annotation>
+          <xs:documentation>Only workflow functionality is permitted.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="JeopardyState">
+    <xs:annotation>
+      <xs:documentation>The jeopardy state of a  milestone. Set by implementation.
+:
+Derived from PIM entity JeopardyState in the domain servicelevelmonitoring.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="MilestoneOrigin">
+    <xs:annotation>
+      <xs:documentation>MilestoneOrigin indicates the origin of the milestone.
+REFERENCE - Milestone belonging to the contract associated to SLA of the entity
+DYNAMIC - Milestones added to SLA of the entity at runtime by Activities as defined at design-time. These Milestones
+are added/achieved based on the Activity execution.
+MANUAL - Milestone associated to SLA of the entity manually by the user at runtime from the application UI.
+:
+Derived from PIM entity MilestoneOrigin in the domain servicelevelmonitoring.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="DYNAMIC">
+        <xs:annotation>
+          <xs:documentation>Milestones added to the Entities SLA at runtime by Activities defined at design-time. These Milestones are
+added/achieved based on the Activity execution.
+</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MANUAL">
+        <xs:annotation>
+          <xs:documentation>Milestone associated to SLA of the entity manually by the user at runtime from the application UI.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="REFERENCE">
+        <xs:annotation>
+          <xs:documentation>Milestone belonging to the contract associated to SLA of the entity</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ManualTaskPriority">
+    <xs:annotation>
+      <xs:documentation>The current priority of the ManualTask. This value is typically used to set milestones of  task for service level
+monitoring.
+:
+Derived from PIM entity ManualTaskPriority in the domain manualtask.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="ManualTaskStatus">
+    <xs:annotation>
+      <xs:documentation>The current status of the ManualTask. For example Started, Canceled.
+:
+Derived from PIM entity ManualTaskStatus in the domain manualtask.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="ManualTaskType">
+    <xs:annotation>
+      <xs:documentation>The type of the ManualTask. Used to categorize Manual Tasks to different functional types. The ManualTaskType can be
+used to determine how to handle the Manual Task, for instance, in order to select the task default priority, or the
+internal processing of the ManualTask by the provider of Manual Task operations.
+:
+Derived from PIM entity ManualTaskType in the domain manualtask.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="StepSpecificationType">
+    <xs:annotation>
+      <xs:documentation>The type of the StepSpecification, for example manual, business operation, user interface step. 
+:
+Derived from PIM entity StepSpecificationType in the domain processdefinition.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="EngineerWorkOrderPartyRoleName">
+    <xs:annotation>
+      <xs:documentation>The name of the roles for a EngineerWorkOrderPartyRoleRelationship. Examples include Access Provider, Signature
+Provider, Property Owner.
+:
+Derived from PIM entity EngineerWorkOrderPartyRoleName in the domain engineerworkorder.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="StepStatus">
+    <xs:annotation>
+      <xs:documentation>The status of the Step, for example started, finished. 
+:
+Derived from PIM entity StepStatus in the domain process.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="AVAILABLE">
+        <xs:annotation>
+          <xs:documentation>The step is ready to be started.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DEPENDENCY_UNSATISFIED">
+        <xs:annotation>
+          <xs:documentation>Step is not ready to be executed since steps on which it is dependent were not completed.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FINISHED">
+        <xs:annotation>
+          <xs:documentation>The step instance is complete.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="INITIAL">
+        <xs:annotation>
+          <xs:documentation>The initial state of a step after instantiation.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NEED_INTERVENTION">
+        <xs:annotation>
+          <xs:documentation>Step execution failed and could not be retried.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PRECONDITION_FALSE">
+        <xs:annotation>
+          <xs:documentation>Step is not ready to be executed since a precondition for the step is false.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PRERENDEZVOUS">
+        <xs:annotation>
+          <xs:documentation>Step is not ready to be executed since it is part of a rendezvous and not all the other steps of the rendezvous are
+reached yet.
+</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RETRYING">
+        <xs:annotation>
+          <xs:documentation>Step execution failed and is being retried.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="STARTED">
+        <xs:annotation>
+          <xs:documentation>Step execution has started.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="WAITING">
+        <xs:annotation>
+          <xs:documentation>Step is not ready to be executed due to other configuration (such as additional wait time).</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ProcessStatus">
+    <xs:annotation>
+      <xs:documentation>The status of the Process, for example active, suspended. 
+:
+Derived from PIM entity ProcessStatus in the domain process.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ACTIVE">
+        <xs:annotation>
+          <xs:documentation>The status while running.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CANCELLED">
+        <xs:annotation>
+          <xs:documentation>The status after a cancellation request has been completed.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CANCELLING">
+        <xs:annotation>
+          <xs:documentation>The status after a request has been received to cancel, but before cancellation is complete.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="COMPLETE">
+        <xs:annotation>
+          <xs:documentation>The status reached after the last Step has been completed.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NEW">
+        <xs:annotation>
+          <xs:documentation>The initial status after instantiation but before starting to run.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SUSPENDED">
+        <xs:annotation>
+          <xs:documentation>The status after a suspension request has been completed .</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SUSPENDING">
+        <xs:annotation>
+          <xs:documentation>The status after a request has been received to suspend, but before suspension is complete.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="DocumentLogicalType">
+    <xs:annotation>
+      <xs:documentation>The logical type of a Document for example image, movie, spreadsheet. This is a business field as opposed to the media type code. The media type code can be found in the Document associated BinaryObject.
+:
+Derived from PIM entity DocumentType in the domain document.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="IMAGE">
+        <xs:annotation>
+          <xs:documentation>Image</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SPREADSHEET">
+        <xs:annotation>
+          <xs:documentation>Spreadsheet</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOVIE">
+        <xs:annotation>
+          <xs:documentation>Movie</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="APPLICATION_PDF">
+        <xs:annotation>
+          <xs:documentation>PDF</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+

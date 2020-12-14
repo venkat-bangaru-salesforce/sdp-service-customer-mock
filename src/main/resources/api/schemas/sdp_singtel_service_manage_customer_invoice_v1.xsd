@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema elementFormDefault="qualified" version="1.0"
+	targetNamespace="http://group.singtel.com/billinginquirydisputeadjustmentmanagement/billinquiry/v1"
+	xmlns:ns2="http://group.singtel.com/customerbilling-common/types/v1"
+	xmlns:ns1="http://group.singtel.com/core/types/v1"
+	xmlns:sgc="http://group.singtel.com/enterpriseapplicationintegration/common-types/v1"
+	xmlns:ns4="http://group.singtel.com/customerprofile-common/types/v1"
+	xmlns:ns3="http://group.singtel.com/billinginquirydisputeadjustmentmanagement/types/v1"
+	xmlns:tns="http://group.singtel.com/billinginquirydisputeadjustmentmanagement/billinquiry/v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+
+	<xs:import namespace="http://group.singtel.com/core/types/v1"
+		schemaLocation="../common-schemas/sdp_singtel_core_v1.xsd" />
+
+	<xs:import namespace="http://group.singtel.com/customerbilling-common/types/v1"
+		schemaLocation="../common-schemas/sdp_singtel_customerbilling_common_v1.xsd" />
+
+	<xs:import
+		namespace="http://group.singtel.com/billinginquirydisputeadjustmentmanagement/types/v1"
+		schemaLocation="../common-schemas/sdp_singtel_billinginquirydisputeadjustmentmanagement_v1.xsd" />
+
+	<xs:import namespace="http://group.singtel.com/customerprofile-common/types/v1"
+		schemaLocation="../common-schemas/sdp_singtel_customerprofile_common_v1.xsd" />
+
+	<xs:import
+		namespace="http://group.singtel.com/enterpriseapplicationintegration/common-types/v1"
+		schemaLocation="../common-schemas/sdp_singtel_service_common.xsd" />
+
+	<xs:element name="retrieveStatementForDocument" type="tns:RetrieveStatementForDocument" />
+
+	<xs:element name="retrieveStatementForDocumentResponse"
+		type="tns:RetrieveStatementForDocumentResponse" />
+
+	<xs:element name="searchDocumentForBillSpec" type="tns:SearchDocumentForBillSpec" />
+
+	<xs:element name="searchDocumentForBillSpecResponse" type="tns:SearchDocumentForBillSpecResponse" />
+
+	<xs:element name="getBillImage" type="tns:GetBillImage" />
+
+	<xs:element name="getBillImageResponse" type="tns:GetBillImageResponse" />
+
+	<xs:element name="searchChargesForDocument" type="tns:SearchChargesForDocument" />
+
+	<xs:element name="searchChargesForDocumentResponse" type="tns:SearchChargesForDocumentResponse" />
+
+	<xs:element name="searchUninvoicedCharge" type="tns:SearchUninvoicedCharge" />
+
+	<xs:element name="searchUninvoicedChargeResponse" type="tns:SearchUninvoicedChargeResponse" />
+	
+	<xs:element name="retrieveBillFirstPage" type="tns:RetrieveBillFirstPage" />
+
+	<xs:element name="retrieveBillFirstPageResponse" type="tns:RetrieveBillFirstPageResponse" />
+	
+	<xs:element name="getDocument" type="tns:GetDocument"/>
+	<xs:element name="getDocumentResponse" type="tns:GetDocumentResponse"/>
+	 
+	
+
+
+	<xs:complexType name="SearchChargesForDocument">
+		<xs:annotation>
+			<xs:documentation>The request message.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="paginationInfo" type="tns:PaginationRequest">
+				<xs:annotation>
+					<xs:documentation>The pagination information for the request.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="query" type="ns3:SearchChargesForDocumentQuery">
+				<xs:annotation>
+					<xs:documentation>The filters to apply to the search.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="SearchChargesForDocumentResponse">
+		<xs:annotation>
+			<xs:documentation>The response message.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="sgc:SDPResponse">
+				<xs:sequence>
+					<xs:element name="charges" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The charges returned by this operation.
+							</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="charge" type="ns3:InvoicedCustomerBillingRate"
+									minOccurs="0" maxOccurs="unbounded" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="paginationInfo" type="tns:PaginationResponse">
+						<xs:annotation>
+							<xs:documentation>Pagination information for the response.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="SearchUninvoicedCharge">
+		<xs:annotation>
+			<xs:documentation>The request message.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="query" type="ns3:SearchUninvoicedChargeQuery">
+				<xs:annotation>
+					<xs:documentation>The filters to apply to the search.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="paginationInfo" type="tns:PaginationRequest">
+				<xs:annotation>
+					<xs:documentation>The pagination information for the request.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="SearchUninvoicedChargeResponse">
+		<xs:annotation>
+			<xs:documentation>The response message.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="sgc:SDPResponse">
+				<xs:sequence>
+					<xs:element name="charges" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The AppliedProductUsageRates (rated events)
+								returned by this operation.
+							</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="charge"
+									type="ns3:UninvoicedAppliedCustomerBillingRateSummary"
+									minOccurs="0" maxOccurs="unbounded" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="paginationInfo" type="tns:PaginationResponse">
+						<xs:annotation>
+							<xs:documentation>Pagination information for the response.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+
+	<xs:complexType name="GetBillImage">
+		<xs:annotation>
+			<xs:documentation>The request message.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="documentID" type="ns2:CustomerBillID" />
+			<xs:element name="onDemand" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>This flag is used to decide whether to process
+						the request immediately or record the request for another job to
+						be run in future.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="GetBillImageResponse">
+		<xs:annotation>
+			<xs:documentation>The response message.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="sgc:SDPResponse">
+				<xs:sequence>
+					<xs:element name="billImage" type="tns:BillImage" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="BillImage">
+		<xs:sequence>
+			<xs:element name="contents">
+				<xs:annotation>
+					<xs:documentation>The document file byte array encoded in Base64
+						string.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:base64Binary">
+						<xs:maxLength value="524288" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="PaginationRequest" final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>Pagination information used when requesting large
+				result sets.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="maxRowsCount" type="xs:decimal"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The maximum quantity of rows requested.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="pageNumber">
+				<xs:annotation>
+					<xs:documentation>The number of the page requested.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="pageSize" type="xs:decimal">
+				<xs:annotation>
+					<xs:documentation>The quantity of rows requested for each response
+						page.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="PaginationResponse" final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>Pagination information used when returning a large
+				result set.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="pageID" type="xs:integer">
+				<xs:annotation>
+					<xs:documentation>The number of the page (>=1).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="pageSize" type="xs:integer">
+				<xs:annotation>
+					<xs:documentation>The quantity of rows returned for each page in
+						the response
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="totalRowsCount" type="xs:integer"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The total count of rows requested.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="RetrieveStatementForDocument"
+		final="extension restriction">
+		<xs:sequence>
+			<xs:element name="documentID" type="ns2:CustomerBillID">
+				<xs:annotation>
+					<xs:documentation>The document identifier.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="RetrieveStatementForDocumentResponse">
+		<xs:complexContent>
+			<xs:extension base="sgc:SDPResponse">
+				<xs:sequence>
+					<xs:element name="billDetails" type="ns3:CustomerBillStatement"
+						minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The returned information if the document is a
+								bill (mutually exclusive to invoiceDetails)
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="invoiceDetails" type="ns3:AbstractCustomerInvoiceStatement"
+						minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The returned information if the document is an
+								invoice (mutually exclusive to billDetails)
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="prepaidStatements" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>PrepaidBalanceStatements that are part of this
+								document.
+							</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="prepaidStatement" type="ns3:PrepaidBalanceStatement"
+									minOccurs="0" maxOccurs="unbounded" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="SearchDocumentForBillSpec" final="extension restriction">
+		<xs:sequence>
+			<xs:element name="customerBillSpec" type="ns4:CustomerBillSpecCoreID">
+				<xs:annotation>
+					<xs:documentation>The CustomerBillSpec for which the documents will
+						be returned.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="paginationInfo" type="tns:PaginationRequest"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The pagination information for the request.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="query" type="tns:SearchDocumentForBillSpecQuery">
+				<xs:annotation>
+					<xs:documentation>The filters to apply to the search.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="SearchDocumentForBillSpecQuery"
+		final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>The filter criteria to use when search for
+				Documents.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="fromDate" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>The earliest date in the selection range.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="toDate" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>The latest date in the selection range.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="SearchDocumentForBillSpecResponse"
+		final="extension restriction">
+		<xs:complexContent>
+			<xs:extension base="sgc:SDPResponse">
+				<xs:sequence>
+					<xs:element name="documents" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The documents returned.</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="document" type="ns3:CustomerBill"
+									minOccurs="0" maxOccurs="unbounded" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="paginationInfo" type="tns:PaginationResponse"
+						minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The pagination information for the response.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:simpleType name="SearchChargesEntityType">
+		<xs:annotation>
+			<xs:documentation>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ASSIGNED_BILLING_OFFER">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="BILLING_CYCLE">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CUSTOMER">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CUSTOMERBILLSPEC">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ONE_TIME_CHARGE">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PAY_CHANNEL">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SUBSCRIPTION">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SUBSCRIPTION_GROUP">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:complexType name="RetrieveBillFirstPage">
+		<xs:annotation>
+			<xs:documentation>The request message.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="identificationType">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="127" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="identificationValue">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="postalCode">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="127" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="RetrieveBillFirstPageResponse">
+		<xs:annotation>
+			<xs:documentation>The response message.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="sgc:SDPResponse">
+				<xs:sequence>
+					<xs:element name="documentData">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="GetDocument" final="extension restriction">
+	    <xs:annotation>
+	      <xs:documentation>Operation which retrieves the bill image PDF file for an invoice no.</xs:documentation>
+	    </xs:annotation>
+	    <xs:sequence>
+	      <xs:element name="addDocumentCriteria" type="ns3:AddDocumentCriteria">
+	        <xs:annotation>
+	          <xs:documentation>Bill ID</xs:documentation>
+	        </xs:annotation>
+	      </xs:element>
+	    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="GetDocumentResponse" final="extension restriction">
+  	<xs:complexContent>
+		  <xs:extension base="sgc:SDPResponse">
+		    <xs:annotation>
+		      <xs:documentation>Operation retives pdf invoice for given invoice no.</xs:documentation>
+		    </xs:annotation>
+		    <xs:sequence>
+		      <xs:element name="bFBillImageVO" type="ns3:BFBillImageVO" minOccurs="0">
+		        <xs:annotation>
+		          <xs:documentation>Bill Id</xs:documentation>
+		        </xs:annotation>
+		      </xs:element>
+		    </xs:sequence>
+		    </xs:extension>
+	   </xs:complexContent>
+  </xs:complexType>
+
+</xs:schema>

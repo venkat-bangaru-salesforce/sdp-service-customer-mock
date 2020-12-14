@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema elementFormDefault="qualified" version="1.0" targetNamespace="http://group.singtel.com/supplierpartner/types-unqualified/v1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:annotation>
+    <xs:documentation>The supplier and partner domain describes the service provider's relationships with other commercial organizations that
+are not customers, such as suppliers and partners.
+: Unqualified model for documentation purposes only.
+Singtel interfaces.
+</xs:documentation>
+  </xs:annotation>
+  <xs:complexType name="Dealer" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A distributor (kiosk, store etc) who is authorized by the service provider to sell its products, services or resources.
+
+Note: This entity has not been fully analyzed, and has only minimum attributes. It may become in the future a subclass
+of PartyRole
+:
+Derived from PIM entity Dealer in the domain partner.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The unique internal identifier (key) . Exhibits the standard semantics of any entity identifier.
+
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+

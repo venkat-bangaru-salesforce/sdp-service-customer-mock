@@ -1,0 +1,977 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema elementFormDefault="qualified" version="1.0" targetNamespace="http://group.singtel.com/customerordermanagement-common/types/v1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:annotation>
+    <xs:documentation>Shared types from the customer billing domain which models the information required for the production of the
+CustomerBills and the payment or non-payment of those CustomerBills.
+:
+Singtel interfaces.
+</xs:documentation>
+  </xs:annotation>
+  <xs:complexType name="ProductID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A ProductSpecification procured by a Customer. A Product models this instance of a ProductSpecification.
+
+Note:  In Amdocs Ordering this serves as both an Assigned Product and an Ordered Product. An Ordered Product has no
+activation date and has a status indicating that it is ordered.
+
+A Product may be part of a complex structure of Products. The structure is typically based on relationships between
+ProductSpecifications defined in ProductSpecContainment and ProductSpecRelationship. The structure is instantiated
+through ProductContainment and ProductRelationship.
+
+A Product is uniquely identified by its Product.ID and Product.version. When information regarding an existing Product
+is changed a new instance is created with the same Product.ID and different Product.version. If a Product has
+associated contained Products defined in ProductContainment then when it changes by definition all of the contained
+Products must have new instances created for them. The history of a product is described by multiple Products with the
+same Product.ID value.
+
+The permitted status transitions of a Product are defined by the provider of any status update operations.
+:
+Restriction of {http://amdocs/pbg-portfolio/customerproduct/types-unqualified/v1}Product .
+</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id">
+        <xs:annotation>
+          <xs:documentation>A unique identifier when combined with Product.version. Provider write only.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProductIDAndOpExtn" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A ProductSpecification procured by a Customer. A Product models this instance of a ProductSpecification.
+
+Note:  In Amdocs Ordering this serves as both an Assigned Product and an Ordered Product. An Ordered Product has no
+activation date and has a status indicating that it is ordered.
+
+A Product may be part of a complex structure of Products. The structure is typically based on relationships between
+ProductSpecifications defined in ProductSpecContainment and ProductSpecRelationship. The structure is instantiated
+through ProductContainment and ProductRelationship.
+
+A Product is uniquely identified by its Product.ID and Product.version. When information regarding an existing Product
+is changed a new instance is created with the same Product.ID and different Product.version. If a Product has
+associated contained Products defined in ProductContainment then when it changes by definition all of the contained
+Products must have new instances created for them. The history of a product is described by multiple Products with the
+same Product.ID value.
+
+The permitted status transitions of a Product are defined by the provider of any status update operations.
+:
+Restriction of {http://amdocs/pbg-portfolio/customerproduct/types-unqualified/v1}Product .
+</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id"  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier when combined with Product.version. Provider write only.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="opExtn" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A temporary ID to identify the item in scope of interaction between provider and consumer (transaction).
+This ID always starts with a prefix that indicates if it was added by a consumer or a provider.
+The site that creates the data type is responsible for setting this ID with the right prefix: &#8216;C&#8217; &#8211; Consumer</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="1023"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProductOfferingProductSpecsID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The ProductSpecifications contained in a ProductOffering. Attributes define the way the relationship is instantiated
+when the ProductOfferingInstances is created. For example a Home Package offering may contain a PSTN as mandatory, ADSL
+as mandatory, and a modem as optional. This data type is an Association Role entity. It defines the attributes for an
+Association.
+
+A single ProductOfferingProductSpecs can be associated to many ProductSpecifications. In this case the
+ProductOfferingProductSpecs can model a group of ProductSpecifications to be selected from. Such a group supports
+selections such as 1 out of 4.
+:
+Derived from PIM entity ProductOfferingProductSpecs in the domain productoffering.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id">
+        <xs:annotation>
+          <xs:documentation>A unique identifier.  This attribute identifies uniquely identifies a ProductSpecification within a ProductOffering.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProductOpExtn" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A ProductSpecification procured by a Customer. A Product models this instance of a ProductSpecification.
+
+Note:  In Amdocs Ordering this serves as both an Assigned Product and an Ordered Product. An Ordered Product has no
+activation date and has a status indicating that it is ordered.
+
+A Product may be part of a complex structure of Products. The structure is typically based on relationships between
+ProductSpecifications defined in ProductSpecContainment and ProductSpecRelationship. The structure is instantiated
+through ProductContainment and ProductRelationship.
+
+A Product is uniquely identified by its Product.ID and Product.version. When information regarding an existing Product
+is changed a new instance is created with the same Product.ID and different Product.version. If a Product has
+associated contained Products defined in ProductContainment then when it changes by definition all of the contained
+Products must have new instances created for them. The history of a product is described by multiple Products with the
+same Product.ID value.
+
+The permitted status transitions of a Product are defined by the provider of any status update operations.
+:
+Restriction of {http://amdocs/pbg-portfolio/customerproduct/types-unqualified/v1}Product .
+</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="opExtn">
+        <xs:annotation>
+          <xs:documentation>A temporary ID to identify the item in scope of interaction between provider and consumer (transaction).
+This ID always starts with a prefix that indicates if it was added by a consumer or a provider.
+The site that creates the data type is responsible for setting this ID with the right prefix: &#8216;C&#8217; &#8211; Consumer</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="1023"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProductOrderItemGroup" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A group of ProductOrderItems that derive from the same customer request that are associated to each other for some
+purpose.
+For example:
+
+	A Move request results in a Cease of the Product at the old address and a Provide at the new address
+	A Migrate request results in a Change or Cease for the old Product and a Change or Provide for the new Product
+
+
+Typically, it would not be possible to cancel one of the ProductOrderItems without canceling all the related
+ProductOrderItems in the group.
+
+It is possible, but not mandatory, that as a result of the relation there can also be process-related constraints
+between the ProductOrderItems in the group.
+
+For purposes of Amdocs SMS, a ProductOrderItemGroup can be instantiated with a single ProductOrderItem, and afterwards
+additional ProductOrderItem might be notified to Amdocs SMS with the same ProductOrderItemGroup.
+
+In previous versions of Amdocs Ordering, this was represented by dummy order actions of the parent type (Move, Migrate,
+etc.).
+:
+Restriction of {http://amdocs/pbg-portfolio/customerbusinessinteraction/types-unqualified/v1}ProductOrderItemGroup .
+Derived from PIM entity ProductOrderItemGroup in the domain customerorder.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProductSpecContainmentID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A relationship between ProductSpecifications where one contains the other. The relationship is instantiated in the
+Product structure. The attributes define control information about the way that the relationship is instantiated for
+example the minimum and maximum number of contained Products that can be instantiated.
+
+For example
+
+	VoIP Main contains Subscription Number
+	minimum quantity 1 (means that at least one SN must be present as part of the VoIP
+	default quantity 1 (means that by default one SN will be instantiated when the VoIP is provided)
+	maximum quantity 3 (means that not more than one reference can be instantiated)
+
+
+When ProductSpecContainment.containedProducts is an array of different ProductSpecifications the ProductSpecContainment
+defines a group that can be selected from allowing a choice of different ProductSpecifications up to the maximum
+number
+
+This data type is an Association Role entity. It defines the attributes for an Association.
+:
+Derived from PIM entity ProductSpecContainment in the domain productspecification.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProductSpecPricingID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The specification of pricing for the ProductSpecification. For example associated price plans or activity charges.
+Attributes control the way that pricing is created when a ProductSpecification is instantiated as a Product. The
+definition of the pricing is in the associated PriceSchema or ActivityCharge.
+:
+Derived from PIM entity ProductSpecPricing in the domain productspecification.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="AllowedOrderStatusChangeType">
+    <xs:annotation>
+      <xs:documentation>An action that is permissible to be taken on a Product Order or Product Order Item given the current status of the
+Product Order. For example a canceled order may be re-opened. This information helps the consumer provide valid
+input parameters to operations that perform actions on Product Orders.
+:
+Restriction of {http://amdocs/pbg-portfolio/customerbusinessinteraction/types-unqualified/v1}AllowedOrderStatusChangeType .
+Derived from PIM entity AllowedOrderStatusChange in the domain customerorder.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="AMEND">
+        <xs:annotation>
+          <xs:documentation>Amend.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CANCEL">
+        <xs:annotation>
+          <xs:documentation>Cancel.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CANCEL_OFFER">
+        <xs:annotation>
+          <xs:documentation>Cancel all the Product Order Items participating in a Product Order relating to a particular Product Offering</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CANCEL_PARTIAL">
+        <xs:annotation>
+          <xs:documentation>Cancel one or more Product Order Items in Product Order</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CANCEL_REPLACE_OFFER">
+        <xs:annotation>
+          <xs:documentation>Cancel a Product Order or Product Order Item of type Replace Offer.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CREATE">
+        <xs:annotation>
+          <xs:documentation>Create</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISCONTINUE">
+        <xs:annotation>
+          <xs:documentation>Stop processing the Product Order or Product Order Item.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="EDIT">
+        <xs:annotation>
+          <xs:documentation>Edit.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RELINQUISH_ORDER">
+        <xs:annotation>
+          <xs:documentation>Relinquish the Product Order so that it can be handled in another Sales Channel.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RESUME_NEGOTIATION">
+        <xs:annotation>
+          <xs:documentation>Resume negotiation of the Product Order or Product Order Item.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAKEOVER">
+        <xs:annotation>
+          <xs:documentation>Receive the Product Order into a different Sales Channel.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="WITHDRAW_AMEND">
+        <xs:annotation>
+          <xs:documentation>Withdraw an amending Product Order or Product Order Item.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="WITHDRAW_CANCEL">
+        <xs:annotation>
+          <xs:documentation>Withdraw a canceling Product Order or Product Order Item.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="EXIT_QUICK_ACTION">
+        <xs:annotation>
+          <xs:documentation>Exit Quick Action mode.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="AllowedOverrideType">
+    <xs:annotation>
+      <xs:documentation>The charge allowable override type. For example can the charge be completely waived or overridden.
+:
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NONE">
+        <xs:annotation>
+          <xs:documentation>The amount cannot be changed or waived.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="OVERRIDE">
+        <xs:annotation>
+          <xs:documentation>The amount can be changed to a different amount, including completely waived.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="WAIVE_ONLY">
+        <xs:annotation>
+          <xs:documentation>The amount can be completely waived, but not changed to a different amount.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="CommandType">
+    <xs:annotation>
+      <xs:documentation>A lifecycle action that can be performed for a Product Order Item.
+:
+Restriction of {http://amdocs/pbg-portfolio/customerbusinessinteraction/types-unqualified/v1}CommandType .
+Derived from PIM entity CommandType in the domain customerorder.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="AMEND">
+        <xs:annotation>
+          <xs:documentation>Amend an existing order. The Product Order Item is an amendment to an existing Product Order Item.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CANCEL">
+        <xs:annotation>
+          <xs:documentation>Cancel an existing order. The Product Order Item is an cancellation to an existing Product Order Item.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CREATE">
+        <xs:annotation>
+          <xs:documentation>Create a new order.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NO_OPERATION">
+        <xs:annotation>
+          <xs:documentation>This parameter will be used when no action is required for an existing Product Order Item.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="UPDATE">
+        <xs:annotation>
+          <xs:documentation>Update an existing Product Order Item.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="LineOfBusiness">
+    <xs:annotation>
+      <xs:documentation>A line of business that might require different business treatment. Implementation defined. For example wireline and
+wireless.
+:
+Derived from PIM entity LineOfBusiness in the domain productspecification.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="OverrideAmountType">
+    <xs:annotation>
+      <xs:documentation>The override amount type, for example fixed or percentage.
+
+@since PIM 8.1.0
+:
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="FIXED">
+        <xs:annotation>
+          <xs:documentation>Fixed amount.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="OverrideReason">
+    <xs:annotation>
+      <xs:documentation>The reason why the original amount of a charge has been changed through an overriding amount or a waive.
+:
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="OTHER">
+        <xs:annotation>
+          <xs:documentation>This reason requires free text to be entered describe it.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PROTECTED_PRICE">
+        <xs:annotation>
+          <xs:documentation>A price protection due to a framework agreement.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ProductActionType">
+    <xs:annotation>
+      <xs:documentation>The types of action that can be performed on a Product due to the processing of a  ProductOrderLine.
+:
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="CEASE">
+        <xs:annotation>
+          <xs:documentation>Cease,  for example, a VOIP phone number was removed, so the VOIP has only one number instead of two.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CEASE_MOVE">
+        <xs:annotation>
+          <xs:documentation>Cease in the context of an installation address change (Move), for example, PSTN voice service was ceased at address A
+since it was moved to address B.
+Note: If the Product was removed from the configuration at the old address and will not be in the configuration at the
+new address, the Cease action should be used instead.
+</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CHANGE">
+        <xs:annotation>
+          <xs:documentation>Change one or more ProductCharacteristicValues. For example, bandwidth of HSIA access was increased from 1MBs to 2MBs.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NO_EFFECT">
+        <xs:annotation>
+          <xs:documentation>Take no action on the Product.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PROVIDE">
+        <xs:annotation>
+          <xs:documentation>Provide, for example, voice-mail feature was added to a VOIP phone number.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PROVIDE_MOVE">
+        <xs:annotation>
+          <xs:documentation>Provide in the context of an installation address change (Move), for example, PSTN voice service was provided at
+address B since it was moved from address A.
+Note: If the Product was not present at the old address but added to the configuration at the new address, the Provide
+action should be used instead.
+</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RESUME">
+        <xs:annotation>
+          <xs:documentation>Resume the Product, for example a long distance feature of fixed line voice was resumed.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SUSPEND">
+        <xs:annotation>
+          <xs:documentation>Suspend the Product, for example, long distance feature of fixed line voice was suspended.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ProductOrderItemReasonType">
+    <xs:annotation>
+      <xs:documentation>A reason that Product Order Items might be initiated. For example: win back - a Product is provided perhaps at
+advantageous conditions to retain the customer; left country - a Product is disconnected since the customer emigrated;
+change - changes the configuration of an installed Product; automatic Due to Dependency - initiated by the system to
+resolve a dependency. The reasons are associated to Product Order Item Types as not all reasons are relevant to all
+types. For example a reason of customer deceased would not be relevant for a provide type. Defining the reasons and the
+type/reason relations is an implementation activity.
+:
+Restriction of {http://amdocs/pbg-portfolio/customerbusinessinteraction/types-unqualified/v1}ProductOrderItemReasonType .
+Derived from PIM entity ProductOrderItemReason in the domain customerorder.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="WINBACK">
+        <xs:annotation>
+          <xs:documentation>Attempt to Win the Customer Back</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CUSTOMER_DISSATISFIED">
+        <xs:annotation>
+          <xs:documentation>Customer Was Dissatisfied</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DATA_QUALITY_PROBLEM">
+        <xs:annotation>
+          <xs:documentation>Data Quality Problem</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CUSTOMER_LEFT_WITHOUT_NOTIFYING">
+        <xs:annotation>
+          <xs:documentation>Customer Left without Notifying</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CUSTOMER_DISSATISFIED_PRICE_STRUCTURE">
+        <xs:annotation>
+          <xs:documentation>Customer Was Dissatisfied with Price Structure</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CUSTOMER_DISSATISFIED_SERVICE_QUALITY">
+        <xs:annotation>
+          <xs:documentation>Customer Was Dissatisfied with Service Quality</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SUSPEND_REASON_RESOLVED">
+        <xs:annotation>
+          <xs:documentation>Suspend Reason Was Resolved</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="LEAVING_COUNTRY">
+        <xs:annotation>
+          <xs:documentation>Customer Is Leaving Country</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="OTHER">
+        <xs:annotation>
+          <xs:documentation>Other</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PRECAUTION_BANKRUPTCY">
+        <xs:annotation>
+          <xs:documentation>Precautionary Measure in Advance of Bankruptcy</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CUSTOMER_DECEASED">
+        <xs:annotation>
+          <xs:documentation>Customer Deceased</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PRECAUTION_LAWSUIT">
+        <xs:annotation>
+          <xs:documentation>Precautionary Measure in Advance of Lawsuit</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="LATE_PAYMENT_RECEIVED">
+        <xs:annotation>
+          <xs:documentation>Late Payment Received</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="OLO_REQUEST">
+        <xs:annotation>
+          <xs:documentation>Request from Other Licensed Operator</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="AUTOCAN">
+        <xs:annotation>
+          <xs:documentation>Automatic Cancellation after Failure</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CREQ">
+        <xs:annotation>
+          <xs:documentation>Customer Request</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="POUT">
+        <xs:annotation>
+          <xs:documentation>Port Out</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ProductOrderItemStatus">
+    <xs:annotation>
+      <xs:documentation>The lifecycle status of a Product Order Item.
+:
+Restriction of {http://amdocs/pbg-portfolio/customerbusinessinteraction/types-unqualified/v1}ProductOrderItemStatus .
+Derived from PIM entity ProductOrderItemStatus in the domain customerorder.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="AMENDED">
+        <xs:annotation>
+          <xs:documentation>The Product Order Item was amended by another Product Order Item that was completed.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BEING_AMENDED">
+        <xs:annotation>
+          <xs:documentation>The Product Order Item is being amended by another Product Order Item.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CANCELED">
+        <xs:annotation>
+          <xs:documentation>The Product Order Item was canceled by another Product Order Item that has completed.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="COMPLETION">
+        <xs:annotation>
+          <xs:documentation>The Product Order Item is in the completion phase (in which billing and other systems are notified after provisioning
+was completed).
+</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DELIVERY">
+        <xs:annotation>
+          <xs:documentation>The Product Order Item was submitted for delivery.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISCONTINUED">
+        <xs:annotation>
+          <xs:documentation>The Product Order Item was discontinued (processing was stopped without running any compensating canceling processes).</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DONE">
+        <xs:annotation>
+          <xs:documentation>The Product Order Item was completed.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FICTICIOUS">
+        <xs:annotation>
+          <xs:documentation>The Product Order Item was created by the ordering application for internal processing reasons.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FUTURE">
+        <xs:annotation>
+          <xs:documentation>The Product Order Item is scheduled for future processing.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="INITIAL">
+        <xs:annotation>
+          <xs:documentation>The Product Order Item was created but has not started its execution.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NEGOTIATION">
+        <xs:annotation>
+          <xs:documentation>The Product Order Item is in the negotiation phase.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ON_HOLD">
+        <xs:annotation>
+          <xs:documentation>The Product Order Item processing is suspended and jeopardy will not be triggered due to the delay.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="REJECT">
+        <xs:annotation>
+          <xs:documentation>The Product Order Item has a reject situation from an external system invocation attempt.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TO_BE_CANCELED">
+        <xs:annotation>
+          <xs:documentation>The Product Order Item is being canceled by another Product Order Item.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ProductOrderItemType">
+    <xs:annotation>
+      <xs:documentation>An action to be performed on a Product in the context of a Product Order Item. For example: Provide - installs or
+provides a new instance of a Product; Cease - terminates or disconnects an installed Product; Change - changes the
+configuration of an installed Product. The types are defined in implementation. In Amdocs Ordering, known as Order
+Action Type
+:
+Restriction of {http://amdocs/pbg-portfolio/customerbusinessinteraction/types-unqualified/v1}ProductOrderItemType .
+Derived from PIM entity ProductOrderItemType in the domain customerorder.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="AD">
+        <xs:annotation>
+          <xs:documentation>Add Product to Offer</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="AF">
+        <xs:annotation>
+          <xs:documentation>Add/Remove Component in SMS (provisioning is first)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="AN">
+        <xs:annotation>
+          <xs:documentation>Add/Remove Component in SMS (notify billing first)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="AP">
+        <xs:annotation>
+          <xs:documentation>Add/Remove Price Plan in SMS</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="AS">
+        <xs:annotation>
+          <xs:documentation>Align Subscription</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BA">
+        <xs:annotation>
+          <xs:documentation>Bulk Provide SMB Subscription</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CA">
+        <xs:annotation>
+          <xs:documentation>Cancel</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CE">
+        <xs:annotation>
+          <xs:documentation>Cease</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CG">
+        <xs:annotation>
+          <xs:documentation>Change Part of Migrate</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CH">
+        <xs:annotation>
+          <xs:documentation>Change</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CI">
+        <xs:annotation>
+          <xs:documentation>Cease Part of Migrate</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CM">
+        <xs:annotation>
+          <xs:documentation>Cease Part of Move</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CN">
+        <xs:annotation>
+          <xs:documentation>Set PortIn Number</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CT">
+        <xs:annotation>
+          <xs:documentation>Change Contact</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CW">
+        <xs:annotation>
+          <xs:documentation>Change Ownership</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ES">
+        <xs:annotation>
+          <xs:documentation>Reestablish</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FC">
+        <xs:annotation>
+          <xs:documentation>Change Agreement</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FP">
+        <xs:annotation>
+          <xs:documentation>Provide Agreement</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MC">
+        <xs:annotation>
+          <xs:documentation>Cease Part of Migrate and Move</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MM">
+        <xs:annotation>
+          <xs:documentation>Provide Part of Migrate and Move</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MV">
+        <xs:annotation>
+          <xs:documentation>Move</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ND">
+        <xs:annotation>
+          <xs:documentation>Notify Discounts</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PA">
+        <xs:annotation>
+          <xs:documentation>Prepaid Activation</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PM">
+        <xs:annotation>
+          <xs:documentation>Provide Part of Migrate</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PO">
+        <xs:annotation>
+          <xs:documentation>Port Out</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PR">
+        <xs:annotation>
+          <xs:documentation>Provide</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PS">
+        <xs:annotation>
+          <xs:documentation>Add subscription to agreement</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PV">
+        <xs:annotation>
+          <xs:documentation>Provide Part of Move</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RC">
+        <xs:annotation>
+          <xs:documentation>Cease Part of Replace Offer</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RG">
+        <xs:annotation>
+          <xs:documentation>Change Part of Replace Offer</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RO">
+        <xs:annotation>
+          <xs:documentation>Replace Offer</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RS">
+        <xs:annotation>
+          <xs:documentation>Resume</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SA">
+        <xs:annotation>
+          <xs:documentation>Provide SMB Subscription</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SG">
+        <xs:annotation>
+          <xs:documentation>Change Account</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SU">
+        <xs:annotation>
+          <xs:documentation>Suspend</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ProductOrderMode">
+    <xs:annotation>
+      <xs:documentation>A mode of processing of a Product Order, for example retroactive. Business processes might have branches to exhibit
+different behavior for different modes, for instance to bypass reservation activities in Proposal mode.
+:
+Restriction of {http://amdocs/pbg-portfolio/customerbusinessinteraction/types-unqualified/v1}ProductOrderMode .
+Derived from PIM entity ProductOrderMode in the domain customerorder.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="DELIVERY">
+        <xs:annotation>
+          <xs:documentation>Execute full delivery processing.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RETROACTIVE">
+        <xs:annotation>
+          <xs:documentation>A Product Order that does not make any provisioning changes but corrects application systems with the existing
+provisioning state.
+</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ProductOrderStatus">
+    <xs:annotation>
+      <xs:documentation>The status of a Product Order as a whole, typically calculated from the status of the contained Product Order Items.
+:
+Restriction of {http://amdocs/pbg-portfolio/customerbusinessinteraction/types-unqualified/v1}ProductOrderStatus .
+Derived from PIM entity ProductOrderStatus in the domain customerorder.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="CANCELED">
+        <xs:annotation>
+          <xs:documentation>All the Product Order Item are canceled.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CLOSED">
+        <xs:annotation>
+          <xs:documentation>All the ProductOrderItems are completed.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISCONTINUED">
+        <xs:annotation>
+          <xs:documentation>All the ProductOrderItems are discontinued.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="EXPIRED">
+        <xs:annotation>
+          <xs:documentation>The ProductOrder expiration date has passed.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FUTURE">
+        <xs:annotation>
+          <xs:documentation>All the ProductOrderItems are in future status.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="INITIAL">
+        <xs:annotation>
+          <xs:documentation>The ProductOrder was created but processing of its ProductOrderItems has not started yet.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="OPEN">
+        <xs:annotation>
+          <xs:documentation>Some or all of the ProductOrderItems are still in progress.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="REJECT">
+        <xs:annotation>
+          <xs:documentation>At least one of the ProductOrderItems is in a reject status</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SUBMITTED">
+        <xs:annotation>
+          <xs:documentation>Some or all of the ProductOrderItems are still in progress, but all have been submitted for delivery.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SUBMIT_REQUESTED">
+        <xs:annotation>
+          <xs:documentation>The ProductOrder was send by the consumer to be submitted. After the validation will pass the status will change into
+SUBMITTED.
+</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TO_BE_CANCELED">
+        <xs:annotation>
+          <xs:documentation>All the ProductOrderItems are waiting to be cancelled (some, but not all, may have already been cancelled).</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+

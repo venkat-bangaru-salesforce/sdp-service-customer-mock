@@ -1,0 +1,1225 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema elementFormDefault="qualified" version="1.0" targetNamespace="http://group.singtel.com/servicebusinessinteraction/types-unqualified/v1" xmlns:ns2="http://group.singtel.com/core/types-unqualified/v1" xmlns:ns1="http://group.singtel.com/commonbusinessentities/types-unqualified/v1" xmlns:ns4="http://group.singtel.com/customerbusinessinteraction/types-unqualified/v1" xmlns:ns3="http://group.singtel.com/enterprise/types-unqualified/v1" xmlns:tns="http://group.singtel.com/servicebusinessinteraction/types-unqualified/v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns5="http://group.singtel.com/customerproduct/types-unqualified/v1" xmlns:ns6="http://group.singtel.com/service/types-unqualified/v1" xmlns:ns7="http://group.singtel.com/customerprofile/types-unqualified/v1">
+
+  <xs:annotation>
+    <xs:documentation>The service business interaction domain describes information used in Service Management including Fulfillment and
+Service Assurance.
+: Unqualified model for documentation purposes only.
+Singtel interfaces.
+</xs:documentation>
+  </xs:annotation>
+  <xs:import namespace="http://group.singtel.com/commonbusinessentities/types-unqualified/v1" schemaLocation="sdp_singtel_commonbusinessentities_types-unqualified_v1.xsd"/>
+
+  <xs:import namespace="http://group.singtel.com/core/types-unqualified/v1" schemaLocation="sdp_singtel_core_types-unqualified_v1.xsd"/>
+
+  <xs:import namespace="http://group.singtel.com/enterprise/types-unqualified/v1" schemaLocation="sdp_singtel_enterprise_types-unqualified_v1.xsd"/>
+
+  <xs:import namespace="http://group.singtel.com/customerbusinessinteraction/types-unqualified/v1" schemaLocation="sdp_singtel_customerbusinessinteraction_types-unqualified_v1.xsd"/>
+
+  <xs:import namespace="http://group.singtel.com/customerproduct/types-unqualified/v1" schemaLocation="sdp_singtel_customerproduct_types-unqualified_v1.xsd"/>
+
+  <xs:import namespace="http://group.singtel.com/service/types-unqualified/v1" schemaLocation="sdp_singtel_service_types-unqualified_v1.xsd"/>
+
+  <xs:import namespace="http://group.singtel.com/customerprofile/types-unqualified/v1" schemaLocation="sdp_singtel_customerprofile_types-unqualified_v1.xsd"/>
+
+  <xs:complexType name="ServiceLevelSpec" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A pre-defined set of ServiceLevelObjectives and indicators on how service is consumed. A CustomerServiceLevelAgreement
+may contain references to a number of ServiceLevelSpecs through CustomerSupportPrograms.
+:
+Derived from PIM entity ServiceLevelSpec in the domain servicelevelspec.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="category" type="tns:ServiceLevelScope" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Service scope. For example product-based, site-based, stand alone</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="consumptionType" type="tns:ServiceConsumptionType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>How consumption of the service level is measured. Values by unit (e.g., incident) or by duration (e.g., month)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="laborIncluded" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If set to TRUE then the support entitlement includes labor-related coverage.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="name" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Free format short textual description.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="objective" type="tns:ServiceLevelObjective" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The performance goal definition  that is included in the ServiceLevelSpec. Note that although a single objective is
+defined for each ServiceLevelSpec, a CustomerServiceLevelAgreement can be associated to many ServiceLevelSpec through
+associated CustomerSupportPrograms.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="partsIncluded" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If set to TRUE Indicates that the support entitlement includes parts-related coverage.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="priority" type="tns:ServiceLevelPriority" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The priority in context that this ServiceLevelSpec is used for. For example a high priority CustomerProblem may require
+a different service level to a low priority.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="type" type="tns:ServiceSupportType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The type of the service. For example onsite support, phone support etc.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ServiceLevelObjective" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The quality or performance goal for a ServiceLevelSpec. Currently only a time based performance ServiceLevelObjective.
+responseTime is used. Examples of different objectives include - initial response, engineer on site and fix complete.
+This contains indicators regarding how the target for the performance is calculated.
+:
+Derived from PIM entity ServiceLevelObjective in the domain servicelevelspec.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="active" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If set to TRUE then the performance definition is available to use.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="computedBackwards" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If set to TRUE then target time of the objective will be calculated backwards from the specified start time. If set to
+FALSE then the target time is calculated forwards.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="computedToCustomerSite" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If set to TRUE then an InternalSite will be used in time computations. If set to FALSE then the customer site
+GeographicSite will be used for time computations.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="computedUsingHolidays" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If set to TRUE then the GeographicSite holidays will be taken into account in time computations.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="defaultCoverageApplicabilities" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The default coverage hours for the service level objective.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="defaultCoverageApplicability" type="tns:ServiceLevelWorkPattern" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="milestone" type="tns:Milestone" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Optional Milestone defined by the objective.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="responseTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The objective response time.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:duration">
+            <xs:pattern value="(\-)?P\p{Nd}{1,4}D(T\p{Nd}{1,4}H\p{Nd}{1,4}M\p{Nd}{1,4}(\.\p{Nd}{1,3})?S)?"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="useAsComputationTarget" type="tns:UseAsComputationTarget" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Indicates what date time to use as the actual target time for service level monitoring. For example the start of the
+business day that includes the target time, the end of the business day that includes the target times or the target
+time itself.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ServiceLevelWorkPattern" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>An effective weekly work pattern used as the coverage hours of a service level.
+:
+Derived from PIM entity ServiceLevelWorkPattern in the domain servicelevelspec.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="effectiveDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The time that the work pattern is effective.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="expiryDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The time that the work pattern ceases to be effective.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="weeklyWorkPattern" type="ns1:SimpleWeeklyWorkPattern" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The default coverage hours for the service level objective.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Milestone" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A significant point (milestone) in a ServiceLevelObjective monitored by Service Level Monitoring.
+:
+Derived from PIM entity Milestone in the domain servicelevelspec.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="description" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Free format long description.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="1023"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="fixMilestone" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If set to TRUE then the milestone should be monitored as the fix milestone. A fix milestone is one that it always
+calculated along with any current milestone as a reference point.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="mandatory" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If TRUE then the milestone is mandatory (optional milestones can be skipped).</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="name" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Free format short description.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ServiceOrderItem" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The request to make a change to a specific atomic Service.
+:
+Derived from PIM entity ServiceOrderItem in the domain serviceorder.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="action" type="tns:ServiceFulfillmentAction" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The action to be performed on the Service. For example provide or cease.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="characteristics" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The characteristics for the ServiceOrderItem. Usually contan Line (Service) specific inforamtion which is relevat to
+the Order lifetime only and not to be preserved in the Service Inventory.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="characteristic" type="ns1:ServiceCharacteristicValue" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="externalId" type="ns2:AdditionalId" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>In cases where the ServiceOrderItem recieved from external system, this field stores its identifier.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="isDecomposed" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Indicates if the Service is decomposed based on the decomposition rules</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="jobPlans" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The ServiceOrderJobPlans associated to the item.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="jobPlan" type="tns:ServiceOrderJobPlan" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="originatingServiceOrder" type="tns:ServiceOrder" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The ServiceOrder that this line belongs to.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="priority" type="xs:decimal" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The priority for the processing of this item For example a ServiceOrder for a Service representing a mobile phone may
+be given high priority so that it can be fulfilled in near-real-time. It could have a different value to ServiceOrder.
+priority.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="processReferenceName" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>This reference name should help defining a BPEL process name (in case the SM only exposes the Dependency Manager as a
+service). It is configured in EPC.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="productOrderLines" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The ProductOrderLines that originated the ServiceOrderItem.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="productOrderLine" type="ns4:ProductOrderLine" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="reason" type="tns:ServiceOrderItemReason" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The reason for which this ServiceOrderItem was created.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="reasonText" type="ns2:BinaryObject" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Free text for ServiceOrderItem.reason, if the reason type required input of free text.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="service" type="ns6:ServiceVersion" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The ServiceVersion affected by the ServiceOrderItem. Each ServiceOrderItem creates a new version of the Service.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="status" type="tns:ServiceOrderItemStatus" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The status of progress of fulfillment of the ServiceOrderItem. For example in-design, activated.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="subServiceOrderItems" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Associated ServiceOrderItems for rhe Sub Services of the related Service.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="subServiceOrderItem" type="tns:ServiceOrderItem" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ServiceOrderJobPlan" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A list of ServiceOrderJobs sequenced according to the dependency relation information.
+:
+Derived from PIM entity ServiceOrderJobPlan in the domain serviceorder.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="externalID" type="ns2:AdditionalId" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>An Identifier allocated by the consumer when the entity is created. May not be updated.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="jobs" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The ServiceOrderJobs included in the plan.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="job" type="tns:ServiceOrderJob" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="name" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Free format short textual description.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="status" type="tns:ServiceOrderJobPlanStatus" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The status of progress. For example Not-started, Completed.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="type" type="tns:ServiceOrderJobPlanType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The type of the plan. For example to perform the fulfillment or to undo the fulfillment.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ServiceOrderJob" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>An association entity to associate an ActivationJob or an EngineerWorkOrder to a ServiceOrderJobPlan.
+:
+Derived from PIM entity ServiceOrderJob in the domain serviceorder.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="activationJobContent" type="tns:ActivationJob" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The ActivationJob content for the ServiceOrderJob.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="dependsOnJobs" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The ServiceOrderJob that the current  ServiceOrderJob depended on and will not be sent until it is fulfilled.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="dependsOnJob" type="tns:ServiceOrderJob" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="destinationSystem" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The system id where the job should be sent to.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="externalID" type="ns2:AdditionalId" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>An Identifier allocated by the consumer when the entity is created. May not be updated.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="status" type="tns:ServiceOrderJobStatus" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The status of job.  For example Not-started, Completed.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="undoJob" type="tns:ServiceOrderJob" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The ServiceOrderJob which rollbacks or undoes this job.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ActivationJob" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>An automated fulfillment activity such as activating a new service or opening a device.
+:
+Derived from PIM entity ActivationJob in the domain serviceorder.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="activityInformation" type="ns2:BinaryObject" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Structured text string that describes the activity. For example activating a new service or opening a device.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ServiceOrder" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A request to perform a specific ServiceAction on a specific Service and its contained services. A ServiceOrder contains
+multiple ServiceOrderItems, each representing a change to an affected Service. Since a Service can be an hierarchical
+structure with related additional Services, a single ServiceOrder can include multiple ServiceOrderItems to reflect all
+the changes required to all Services to deliver the ServiceOrder.
+A ServiceOrder can have multiple versions. The ServiceOrder.requestId represents an identifier of the request that
+generated the ServiceOrder. In case an in-flight change to the ServiceOrder is done the same requestId should be
+provided, and a new ServiceOrder is created, with a new ServiceOrder.version value.
+:
+Derived from PIM entity ServiceOrder in the domain serviceorder.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="additionalKeys" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>References to additional entities related to the ServiceOrder, such as the business system originating order, the
+Orchestration Order.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="additionalKey" type="ns2:AdditionalId" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="applicationDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The date on which the ServiceOrder was considered to have been started (for example this date would be used for
+monitoring compliance with Service Level Agreements, or for calculation of feasible due dates). It may be different to
+ServiceOrder.applicationDate.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="characteristics" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The values of the Characteristics for the ServiceOrder</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="characteristic" type="ns1:ServiceCharacteristicValue" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="closeDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The date on which the ServiceOrder was closed.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="contacts" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The contacts (PartyRoles) involved in the ServiceOrder.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="contact" type="tns:PartyRoleServiceOrderInvolvement" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="creationDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The date and time the order was created. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="currentMilestone" type="ns3:SLMState" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Current milestone of the ServiceOrder</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="customer" type="ns1:Customer" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Customer associated to the ServiceOrder. Typically the one that owns the Service which is the focus of the
+ServiceOrder.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="dominantOrders" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The ServiceOrder that constrains (blocks progress in) this (dependent) ServiceOrder.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="dominantOrder" type="tns:ServiceOrder" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="externalID" type="ns2:AdditionalId" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The identification of the ServiceOrder in the originating system. Typically filled for ServiceOrder originated by
+external systems. It permits trace ability to the ServiceOrder in the originating system.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="installationLocation" type="ns1:GeographicSite" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The address for the Service to be installed at.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="market" type="ns1:BusinessOrganizationUnit" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The BusinessOrganizationUnit associated to the ServiceOrder, sometimes referred to as the Market. Derived from the
+Customer market. Typically determines business policies for the service in operational systems
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="name" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Free format short textual description.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="orderAction" type="tns:ServiceOrderAction" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The lifecycle action required to be performed on the ServiceOrder, for example amend or cancel.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="parentOrder" type="tns:ServiceOrder" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The ServiceOrder to which this ServiceOrder is child of. ServiceOrder items are added to the parent ServiceOrders root
+ServiceOrderItem.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="priority" type="xs:decimal" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The priority for the processing of the ServiceOrder. For example a ServiceOrder for a Service representing a mobile
+phone may be given high priority so that it can be fulfilled in near-real-time.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="requestId" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>An identifier of the request that generated the ServiceOrder. When an in-flight change is requested to a ServiceOrder
+the original  ServiceOrder.requestId is provided. A new ServiceOrder is created, with a new ServiceOrder.version.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="rootServiceOrderItem" type="tns:ServiceOrderItem" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The ServiceOrderItem which defines the Service that is the focus of this ServiceOrder. This association is deprecated
+and replaced by ServiceOrder.serviceOrderItem
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="serviceOrderItems" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The ServiceOrderItem(s) which defines the Services contained in this ServiceOrder.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="serviceOrderItem" type="tns:ServiceOrderItem" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="serviceRequiredDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The date on which the Customer wishes the Service to be active.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="status" type="tns:ServiceOrderStatus" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The status typically reflects the aggregated status of the ServiceOrderItems within the ServiceOrder. For example if
+one of the ServiceOrderItems has reached the Point Of No Return then the ServiceOrder itself has reached the Point Of
+No Return.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="version" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The version of the order. When an in-flight change is requested to a ServiceOrder the original ServiceOrder.requestId
+is provided. A new ServiceOrder is created, with a new ServiceOrder.version. 
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="workItem" type="ns1:WorkItem" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The manual workflow state.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PartyRoleServiceOrderInvolvement" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The role that a PartyRole plays for a ServiceOrder. This data type is an Association Role entity. It defines the
+attributes for an Association.
+:
+Derived from PIM entity PartyRoleServiceOrderInvolvement in the domain serviceorder.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="endDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The date that the role ended.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="role" type="tns:PartyRoleServiceOrderInvolvementType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The role played. Values set by implementation.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="startDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The date that the role started.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PartyRoleServiceOrderInvolvementType" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The type of role that a PartyRole can play for a ServiceOrder.
+:
+Derived from PIM entity PartyRoleServiceOrderInvolvementType in the domain serviceorder.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="ServiceOrderGroup" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A group of ServiceOrders that derive from the same fulfillment request in general and from the same ProductOrderItem in
+specific and may be associated to each other for the purpose of its fulfillment.
+For example: Broadband line of business service orders that are handled by the same SM system
+:
+Derived from PIM entity ServiceOrderGroup in the domain serviceorder.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="action" type="tns:ServiceOrderGroupAction" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The action to be performed on the ServiceOrders. For example Amend or Create.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="contacts" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The contacts (PartyRoles) involved in the ServiceOrders.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="contact" type="tns:PartyRoleServiceOrderInvolvement" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="creationDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The date and time the request was created</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="externalId" type="ns2:AdditionalId" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The identification of the ServiceOrders in the originating system. Typically filled for ServiceOrders originated by
+external systems. It permits trace ability to the ServiceOrder in the originating system.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier of the request</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="orderReferenceNumber" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique string that identifies the ServiceOrders and is typically displayed to human users on screens and in reports.
+Typically generated by the calling system or supplied by user, according to business rules.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="priority" type="xs:decimal" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The priority for the processing of this item For example a ServiceOrder for a Service representing a mobile phone may
+be given high priority so that it can be fulfilled in near-real-time. It could have a different value to ServiceOrder.
+priority.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="serviceOrders" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The ServiceOrders that are related together by this ServiceOrderGroup.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="serviceOrder" type="tns:ServiceOrder" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="serviceRequiredDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The date on which the Customer wishes the Service to be active.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="ServiceLevelScope">
+    <xs:annotation>
+      <xs:documentation>The scope of service available. For example by GeographicSite, by Product or stand alone.
+:
+Derived from PIM entity ServiceLevelScope in the domain servicelevelspec.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="PRODUCT">
+        <xs:annotation>
+          <xs:documentation>Service limited to a specific Product.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SITE">
+        <xs:annotation>
+          <xs:documentation>Service limited to a GeographicSite.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="STANDALONE">
+        <xs:annotation>
+          <xs:documentation>Service not limited.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ServiceConsumptionType">
+    <xs:annotation>
+      <xs:documentation>How consumption of the service level is measured. Values by unit (for example incident) or by duration (for example
+month)
+:
+Derived from PIM entity ServiceConsumptionType in the domain servicelevelspec.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="INCIDENT">
+        <xs:annotation>
+          <xs:documentation>Consumed by incident. For example by CustomerProblem.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PERIOD">
+        <xs:annotation>
+          <xs:documentation>Consumed by period. For example by month.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="UseAsComputationTarget">
+    <xs:annotation>
+      <xs:documentation>Indicates what date time to use as the actual target time for service level monitoring. For example the start of the
+business day that includes the target time, the end of the business day that includes the target times or the target
+time itself.
+:
+Derived from PIM entity UseAsComputationTarget in the domain servicelevelspec.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="END_OF_BUSINESS_DAY">
+        <xs:annotation>
+          <xs:documentation>Indicates the end of the business day that includes the calculated target time will be used as the actual target time
+for monitoring.
+</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="START_OF_BUSINESS_DAY">
+        <xs:annotation>
+          <xs:documentation>Indicates the start of the business day that includes the calculated target time will be used as the actual target time
+for monitoring.
+</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TARGET_TIME">
+        <xs:annotation>
+          <xs:documentation>Indicates that the computed target time itself will be used as the target time for monitoring.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ServiceLevelPriority">
+    <xs:annotation>
+      <xs:documentation>The priority in context that this ServiceLevelSpec is used for. For example a high priority CustomerProblem may require
+a different service level to a low priority.
+:
+Derived from PIM entity ServiceLevelPriority in the domain servicelevelspec.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="ServiceSupportType">
+    <xs:annotation>
+      <xs:documentation>The type of the service. For example onsite support, phone support etc.
+:
+Derived from PIM entity ServiceSupportType in the domain servicelevelspec.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="ServiceOrderItemStatus">
+    <xs:annotation>
+      <xs:documentation>The fulfillment status value of the ServiceOrderItem. For example Designed, Implemented, Activated, Completed.
+:
+Derived from PIM entity ServiceOrderItemStatus in the domain serviceorder.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="ServiceFulfillmentAction">
+    <xs:annotation>
+      <xs:documentation>The action that is to be performed on the Service. The values are specified by an implementation.
+:
+Derived from PIM entity ServiceFulfillmentAction in the domain serviceorder.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="CEASE">
+        <xs:annotation>
+          <xs:documentation>Request to Disconnect an existing Service.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MODIFY">
+        <xs:annotation>
+          <xs:documentation>Request to Modify an existing Service.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PROVIDE">
+        <xs:annotation>
+          <xs:documentation>Request to connect a new Service.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RESUME">
+        <xs:annotation>
+          <xs:documentation>Request to resume a Service.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SUSPEND">
+        <xs:annotation>
+          <xs:documentation>Request to suspend a Service.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ServiceOrderJobStatus">
+    <xs:annotation>
+      <xs:documentation>The status of a ServiceOrderJob.
+:
+Derived from PIM entity ServiceOrderJobStatus in the domain serviceorder.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="COMPLETED">
+        <xs:annotation>
+          <xs:documentation>The fulfillment was completed. The destination system indicated that its fulfillment was done successfully.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FAILED">
+        <xs:annotation>
+          <xs:documentation>The fulfillment failed in the destination system.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="IN_PROGRESS">
+        <xs:annotation>
+          <xs:documentation>The fulfillment is in progress and was sent to the destination system to be fulfilled.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MANUALLY_COMPLETED">
+        <xs:annotation>
+          <xs:documentation>The fulfillment was done manually.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NOT_STARTED">
+        <xs:annotation>
+          <xs:documentation>The fulfillment has not started yet. The job was not sent to the destination system which should fulfill it.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ROLLED_BACK">
+        <xs:annotation>
+          <xs:documentation>The fulfillment was rolled back. The corresponding undo job has been sent to the destination system.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ServiceOrderJobPlanStatus">
+    <xs:annotation>
+      <xs:documentation>The status of a ServiceOrderJobPlan.
+:
+Derived from PIM entity ServiceOrderJobPlanStatus in the domain serviceorder.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="COMPLETED">
+        <xs:annotation>
+          <xs:documentation>The fulfillment has completed. All the jobs were fulfilled successfully in all the corresponding destination systems.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FAILED">
+        <xs:annotation>
+          <xs:documentation>The fulfillment failed. One or more of the jobs failed.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="IN_PROGRESS">
+        <xs:annotation>
+          <xs:documentation>The fulfillment has started. Some of the jobs were sent to the destination system to fulfill them.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NOT_STARTED">
+        <xs:annotation>
+          <xs:documentation>The fulfillment has not started. None of the jobs have been sent to the destination system which should fulfill them.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PENDING_ROLLBACK">
+        <xs:annotation>
+          <xs:documentation>The fulfillment is pending roll back. All the jobs are pending roll back.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ROLLED_BACK">
+        <xs:annotation>
+          <xs:documentation>The fulfillment was rolled back. All of the jobs were rolled back successfully in all the corresponding destination
+systems.
+</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ServiceOrderJobPlanType">
+    <xs:annotation>
+      <xs:documentation>The type of a ServiceOrderJobPlan. For example do or undo.
+:
+Derived from PIM entity ServiceOrderJobPlanType in the domain serviceorder.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="DO_PLAN">
+        <xs:annotation>
+          <xs:documentation>The plan is to do the fulfillment.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="UNDO_PLAN">
+        <xs:annotation>
+          <xs:documentation>The plan is to undo the fulfillment.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ServiceOrderAction">
+    <xs:annotation>
+      <xs:documentation>A lifecycle action that can be performed on a ServiceOrder. For example amend the ServiceOrder, cancel the ServiceOrder.
+:
+Derived from PIM entity ServiceOrderAction in the domain serviceorder.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="AMEND">
+        <xs:annotation>
+          <xs:documentation>Amend an existing ServiceOrder.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CANCEL">
+        <xs:annotation>
+          <xs:documentation>Cancel an existing ServiceOrder.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CREATE">
+        <xs:annotation>
+          <xs:documentation>Create a new  ServiceOrder.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ServiceOrderStatus">
+    <xs:annotation>
+      <xs:documentation>The fulfillment status value of the ServiceOrder. For example in design, activated, complete.
+:
+Derived from PIM entity ServiceOrderStatus in the domain serviceorder.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="ServiceOrderItemReason">
+    <xs:annotation>
+      <xs:documentation>A reason that ServiceOrderItems might be initiated.
+
+For example:
+
+	Decomposed from MOP - The ServiceOrderItem was part of ProductOrderItem decomposition plan
+	Automatic due to inventory existence - initiated by the system as the Service exists in the inventory and not part of
+MOP
+
+:
+Derived from PIM entity ServiceOrderItemReason in the domain serviceorder.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="ServiceOrderGroupAction">
+    <xs:annotation>
+      <xs:documentation>The action that can be performed on a group of ServiceOrders: Create ServiceOrders or Amend the ServiceOrders. Cancel
+action will be indicated at the ServiceOrder level
+:
+Derived from PIM entity ServiceOrderGroupAction in the domain serviceorder.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="AMEND">
+        <xs:annotation>
+          <xs:documentation>Amend existing ServiceOrders.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CREATE">
+        <xs:annotation>
+          <xs:documentation>Create new  ServiceOrders.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+

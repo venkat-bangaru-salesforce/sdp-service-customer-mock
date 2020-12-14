@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema elementFormDefault="qualified" version="1.0" targetNamespace="http://group.singtel.com/marketsales/types-unqualified/v1" xmlns:ns2="http://group.singtel.com/customerprofile/types-unqualified/v1" xmlns:ns1="http://group.singtel.com/commonbusinessentities/types-unqualified/v1" xmlns:ns4="http://group.singtel.com/customerbilling/types-unqualified/v1" xmlns:ns3="http://group.singtel.com/core/types-unqualified/v1" xmlns:tns="http://group.singtel.com/marketsales/types-unqualified/v1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:annotation>
+    <xs:documentation>The marketing and sales domain describes the information used when performing Sales and Marketing activities.
+: Unqualified model for documentation purposes only.
+Singtel interfaces.
+</xs:documentation>
+  </xs:annotation>
+  <xs:import namespace="http://group.singtel.com/commonbusinessentities/types-unqualified/v1" schemaLocation="sdp_singtel_commonbusinessentities_types-unqualified_v1.xsd"/>
+
+  <xs:import namespace="http://group.singtel.com/customerprofile/types-unqualified/v1" schemaLocation="sdp_singtel_customerprofile_types-unqualified_v1.xsd"/>
+
+  <xs:import namespace="http://group.singtel.com/core/types-unqualified/v1" schemaLocation="sdp_singtel_core_types-unqualified_v1.xsd"/>
+
+  <xs:import namespace="http://group.singtel.com/customerbilling/types-unqualified/v1" schemaLocation="sdp_singtel_customerbilling_types-unqualified_v1.xsd"/>
+
+  <xs:complexType name="SalesChannel" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A route of communication and access enabling a customer or third party to obtain goods or information. These are
+different business channels for between the CSP and relevant parties. This is distinct from InteractionChannel which
+represents the physical media by which the CSP communicates with the parties (phone, email, fax, etc.)
+
+Some example sales channels include:
+
+
+	CC - Call Center (CSR)
+	SS - Self Service web user)
+	IPTV - IPTV channel (set-top box and TV display as input to ordering)
+	TR - Third-party
+	DL - Dealer
+
+
+Additional channels could include: IVR, Direct Sales Force, Sales Agents, Telemarketers, and Alternate Channels.
+:
+Derived from PIM entity SalesChannel in the domain saleschannel.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="code" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A combination of letters and or numbers that identifies and names one and only one SalesChannel.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="name" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Displayable name for the SalesChannel</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Proposal" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A potential agreement between the service provider and a business Customer, with regard to pricing, services, service
+levels and others.
+:
+Derived from PIM entity Proposal in the domain fieldsales.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="configurationValidated" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Indicates that if configuration of the contents (e.g. of any related Products, FrameworkAgreements, etc.) of the
+Proposal have been validated according to the various applicable business rules.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="contacts" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Contacts that play a role for the Proposal.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="contact" type="tns:ProposalContactInvolvement" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="creationDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The date and time the entity instance was created. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="customer" type="ns1:Customer" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Customer for whom the Proposal is being made.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="expiryDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The date on which the Proposal expires. After this date the service provider will not be obligated by any terms in the
+proposal.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="externalID" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>An Identifier allocated by the consumer when the entity is created. May not be updated.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="lastModificationDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The date on which the Proposal was last modified. Provider write-only</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="name" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Free format short textual description.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="opportunity" type="tns:Opportunity" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>An Opportunity in which this proposal is being offered.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="organization" type="ns1:Organization" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Organization to which the Proposal is being made.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="status" type="tns:ProposalStatus" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The status of the Proposal, for example in progress, accepted.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="workItem" type="ns1:WorkItem" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The manual workflow state of the Proposal.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProposalContactInvolvement" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The role that a Contact plays for an Proposal. For example a Contact may be the person with whom the details were
+negotiated. This data type is an Association Role entity. It defines the attributes for an Association.
+:
+Derived from PIM entity ProposalContactInvolvement in the domain fieldsales.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="contactDetails" type="ns1:Contact" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Contact involved in the Proposal.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="role" type="tns:ProposalContactInvolvementType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The type of the Contact involvement, e.g. the negotiator</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Opportunity" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>An Opportunity is a record of an sales deal from conception through to completion.  It describes the current state of
+the sales deal and any associated information. Note that this domain only contains the minimum information to create
+associations to the main Opportunity data type.
+:
+Derived from PIM entity Opportunity in the domain fieldsales.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="contacts" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Contacts that play a role for the Opportunity.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="contact" type="tns:OpportunityContactInvolvement" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="creationDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The date and time the entity instance was created. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="customer" type="ns1:Customer" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Customer for whom the Opportunity has been identified.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="externalID" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>An Identifier allocated by the consumer when the entity is created. May not be updated.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="organization" type="ns1:Organization" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Organization for which the Opportunity is identified</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="proposals" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>List of the Proposals that are being considered in this Opportunity</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="proposal" type="tns:Proposal" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="workItem" type="ns1:WorkItem" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The manual workflow state of the Opportunity.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="OpportunityContactInvolvement" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The role that a Contact plays for an Opportunity. For example a Contact may be the first person with whom the service
+provider spoke. This data type is an Association Role entity. It defines the attributes for an Association.
+:
+Derived from PIM entity OpportunityContactInvolvement in the domain fieldsales.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="contactDetails" type="ns1:Contact" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Contact involved in the Opportunity.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="role" type="tns:OpportunityContactInvolvementType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The type of the Contact involvement, e.g. initially contacted</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="SalesLiteratureRequest" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A request for sales information. Note that this domain only contains the minimum information to create associations to
+the main SalesLiteratureRequest data type.
+:
+Derived from PIM entity SalesLiteratureRequest in the domain salesliteraturerequest.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="ProposalContactInvolvementType">
+    <xs:annotation>
+      <xs:documentation>The type of role that a Contact can play for an Proposal. For example a Contact may be the person that the service
+provider negotiated the details with.
+:
+Derived from PIM entity ProposalContactInvolvementType in the domain fieldsales.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="OpportunityContactInvolvementType">
+    <xs:annotation>
+      <xs:documentation>The type of role that a Contact can play for an Opportunity. For example a Contact may be the first person that the
+service provider talked with.
+:
+Derived from PIM entity OpportunityContactInvolvementType in the domain fieldsales.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="ProposalStatus">
+    <xs:annotation>
+      <xs:documentation>A status for a Proposal, for example Initial, In progress, Accepted, Rejected, Canceled.
+:
+Derived from PIM entity ProposalStatus in the domain fieldsales.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  
+   <xs:complexType name="SalesChannelID">
+    <xs:annotation>
+      <xs:documentation>A route of communication and access enabling a Customer or third party to obtain goods or information.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence> 
+      <xs:element name="code"  minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>The Catalog code of the Sales Channel.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  
+</xs:schema>
+

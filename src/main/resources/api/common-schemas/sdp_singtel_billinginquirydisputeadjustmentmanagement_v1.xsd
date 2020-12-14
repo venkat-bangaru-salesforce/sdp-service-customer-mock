@@ -1,0 +1,1883 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema elementFormDefault="qualified" version="1.0"
+	targetNamespace="http://group.singtel.com/billinginquirydisputeadjustmentmanagement/types/v1"
+	xmlns:ns2="http://group.singtel.com/customerbilling-common/types/v1"
+	xmlns:ns1="http://group.singtel.com/customerprofile-common/types/v1"
+	xmlns:ns4="http://group.singtel.com/commonbusinessentities-common/types/v1"
+	xmlns:ns3="http://group.singtel.com/core/types/v1"
+	xmlns:ns5="http://group.singtel.com/billinginquirydisputeadjustmentmanagement/billinquiry/v1"
+	xmlns:tns="http://group.singtel.com/billinginquirydisputeadjustmentmanagement/types/v1"
+
+	xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:annotation>
+		<xs:documentation>Singtel interfaces.
+		</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="http://group.singtel.com/customerprofile-common/types/v1"
+		schemaLocation="sdp_singtel_customerprofile_common_v1.xsd" />
+
+	<xs:import namespace="http://group.singtel.com/customerbilling-common/types/v1"
+		schemaLocation="sdp_singtel_customerbilling_common_v1.xsd" />
+
+	<xs:import namespace="http://group.singtel.com/core/types/v1"
+		schemaLocation="sdp_singtel_core_v1.xsd" />
+
+	<xs:import
+		namespace="http://group.singtel.com/billinginquirydisputeadjustmentmanagement/billinquiry/v1"
+		schemaLocation="../schemas/sdp_singtel_service_manage_customer_invoice_v1.xsd" />
+
+	<xs:import
+		namespace="http://group.singtel.com/commonbusinessentities-common/types/v1"
+		schemaLocation="sdp_singtel_commonbusinessentities_common_v1.xsd" />
+
+	<xs:complexType name="AbstractCustomerInvoice" abstract="true">
+		<xs:annotation>
+			<xs:documentation>An abstract base type for different types of
+				invoices such as CustomerInvoice and CustomerCreditNote
+				:
+				Restriction
+				of
+				{http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}AbstractCustomerInvoice
+				.
+				Derived from PIM entity AbstractCustomerInvoice in the domain
+				customerbill.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="tns:FinancialTransaction">
+				<xs:sequence>
+					<xs:element name="id" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>A unique identifier. </xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="255" />
+								<xs:whiteSpace value="collapse" />
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="invoiceNumber" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The unique number assigned to the
+								CustomerInvoice, set according to the business logic.
+							</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="255" />
+								<xs:whiteSpace value="collapse" />
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="netAmount" type="xs:decimal"
+						minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The total net amount of all
+								InvoicedCustomerBillingRates that are included in the
+								AbstractCustomerInvoice. Provider
+								write only.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="taxAmount" type="xs:decimal"
+						minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The total tax amount of all
+								InvoicedCustomerBillingRates that are included in the
+								AbstractCustomerInvoice. Provider
+								write only.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="FinancialTransaction" abstract="true">
+		<xs:annotation>
+			<xs:documentation>A transaction on a CustomerAccount. Transaction
+				stands for every financial activity performed for the
+				CustomerAccount
+				and impacts its balance.
+				:
+				Restriction of
+				{http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}FinancialTransaction
+				.
+				Derived from PIM entity FinancialTransaction in the domain
+				customeraccountactivities.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="amount" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The amount of the transaction.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="date" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The date on which the transaction occurred.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="CustomerInvoice" final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>The new Charges and Credits the Customer is charged
+				for during the coverage period and the payment terms for the
+				Customer. The coverage period can be determined by the associated
+				CustomerBillingCycle (for normal bill runs) or set ad-
+				hoc for bill
+				on demand, immediate payments.
+				:
+				Restriction of
+				{http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}CustomerInvoice
+				.
+				Derived from PIM entity CustomerInvoice in the domain customerbill.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="tns:AbstractCustomerInvoice">
+				<xs:sequence>
+					<xs:element name="dueDate" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The final date a payment may be received and
+								processed to meet customer obligations for timely payment of the
+								CustomerInvoice.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="periodCoverageEndDate" type="xs:dateTime"
+						minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The end date of the billed period for the
+								CustomerInvoice.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="periodCoverageStartDate" type="xs:dateTime"
+						minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The start date of the billed period for the
+								CustomerInvoice.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="AbstractCustomerInvoiceStatement"
+		abstract="true">
+		<xs:annotation>
+			<xs:documentation>An abstract base type for different types of
+				invoices such as CustomerInvoice and CustomerCreditNote
+				:
+				Restriction
+				of
+				{http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}AbstractCustomerInvoice
+				.
+				Derived from PIM entity AbstractCustomerInvoice in the domain
+				customerbill.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="tns:FinancialTransactionForStatement">
+				<xs:sequence>
+					<xs:element name="billSpec" type="ns1:CustomerBillSpecAndChannelID">
+						<xs:annotation>
+							<xs:documentation>The CustomerBillSpec defining the
+								specifications for the bill run.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="documentID" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The ID of the Amdocs RM documents which is
+								associated with this AbstractCustomerInvoice.
+								Note: Document is
+								not modeled explicitly as part of PIM.
+							</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="255" />
+								<xs:whiteSpace value="collapse" />
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="id" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>A unique identifier. </xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="255" />
+								<xs:whiteSpace value="collapse" />
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="invoiceNumber" type="xs:integer"
+						minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The unique number assigned to the
+								CustomerInvoice, set according to the business logic.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="taxAmount" type="xs:decimal"
+						minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The total tax amount of all
+								InvoicedCustomerBillingRates that are included in the
+								AbstractCustomerInvoice. Provider
+								write only.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="FinancialTransactionForStatement"
+		abstract="true">
+		<xs:annotation>
+			<xs:documentation>A transaction on a CustomerAccount. Transaction
+				stands for every financial activity performed for the
+				CustomerAccount
+				and impacts its balance.
+				:
+				Restriction of
+				{http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}FinancialTransaction
+				.
+				Derived from PIM entity FinancialTransaction in the domain
+				customeraccountactivities.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="amount" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The amount of the transaction.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="date" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The date on which the transaction occurred.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="CustomerInvoiceStatement" final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>The new Charges and Credits the Customer is charged
+				for during the coverage period and the payment terms for the
+				Customer. The coverage period can be determined by the associated
+				CustomerBillingCycle (for normal bill runs) or set ad-
+				hoc for bill
+				on demand, immediate payments.
+				:
+				Restriction of
+				{http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}CustomerInvoice
+				.
+				Derived from PIM entity CustomerInvoice in the domain customerbill.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="tns:AbstractCustomerInvoiceStatement">
+				<xs:sequence>
+					<xs:element name="dueDate" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The final date a payment may be received and
+								processed to meet customer obligations for timely payment of the
+								CustomerInvoice.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="overPaymentAmount" type="xs:decimal"
+						minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The amount in overpayment, relevant for invoice
+								receiver only.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="AppliedCustomerBillingDebitForOffer"
+		abstract="true">
+		<xs:annotation>
+			<xs:documentation>An amount of money which the CustomerAccount is
+				charged for. It can be recurring, one time, or usage based rate.
+				:
+				Restriction of
+				{http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}AppliedCustomerBillingDebit
+				.
+				Derived from PIM entity AppliedCustomerBillingDebit in the domain
+				appliedcustomerbillingrate.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="tns:AppliedCustomerBillingRateSummary">
+				<xs:sequence />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="AppliedCustomerBillingRateSummary"
+		abstract="true">
+		<xs:annotation>
+			<xs:documentation>A debit or a credit calculated for to the
+				CustomerAccount, as part of the rating process, as part of the
+				billing
+				process, or as a result of one time activities performed for
+				the
+				CustomerAccount such as rate applied due to duplicate
+				bill
+				request.
+				:
+				Restriction of
+				{http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}AppliedCustomerBillingRate
+				.
+				Derived from PIM entity AppliedCustomerBillingRate in the domain
+				appliedcustomerbillingrate.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="chargeCode" type="ns2:ChargeCode"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>A code associated with the
+						AppliedCustomerBillingRate that defines several characteristics of
+						the
+						AppliedCustomerBillingRate, such as the description. Values of
+						the ChargeCode are
+						implementation specific.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="currency" type="ns3:CurrencyCode"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The currency of the amount. This will be the
+						currency of the AssignedBillingOffer for
+						AppliedCustomerBillingRate that
+						has been calculated based on a
+						billing offer or the currency of the
+						CustomerAccount for others and
+						might be any
+						currency for pre-rated AppliedCustomerBillingRate.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dynamicProperties" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>List of additional properties that were assigned
+						to the AppliedCustomerBillingRate. The list of properties may
+						differ
+						between the different AppliedCustomerBillingRates. Core
+						provider software
+						does not use all these properties but
+						specific
+						implementations may add such properties and change behavior
+						accordingly.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="dynamicPropertie" type="ns3:FlexAttr"
+							minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="effectiveDate" type="xs:dateTime"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The date on which the AppliedCustomerBillingRate
+						became effective. This date is used for tax calculations, and
+						might be
+						used for currency conversion calculation.
+						AppliedCustomerBillingRate
+						will not be considered by the Billing
+						process
+						until it becomes effective.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="id" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>An identifier along with the
+						AppliedCustomerBillingRate.SubID forms the unique identification.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="message" type="tns:Message" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The message to be displayed on the CustomerBill
+						for the AppliedCustomerBillingRate.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="origin" type="ns2:ChargeOrigin"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The process or application that created the
+						AppliedCustomerBillingRate.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="originalAmount" type="xs:decimal"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The net amount of the AppliedCustomerBillingRate
+						in the Billing offer currency.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="paidUsing" type="ns2:PayChannelID"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="receiverBillSpec" type="ns1:CustomerBillSpecID"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The CustomerBillSpec that is billed/credited by
+						this AppliedCustomerBillingRate.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="receiverCustomer" type="ns4:CustomerExternalID"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Customer that is billed/credited by this
+						AppliedCustomerBillingRate.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="receiverSubscription" type="ns2:SubscriptionID"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Subscription that received the service for
+						which the AppliedCustomerBillingRate has been created.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="revenueCode" type="ns2:RevenueCode"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The revenue type of this
+						AppliedCustomerBillingRate
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="subID" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>An identifier along with the
+						AppliedCustomerBillingRate.ID forms the unique identification.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="Message" final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>The message code associated with the
+				AppliedCustomerBillingRate, taken from reference data.
+				:
+				Restriction
+				of
+				{http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}Message
+				.
+				Derived from PIM entity Message in the domain
+				appliedcustomerbillingrate.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="message" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The description of the
+						AppliedCustomerBillingRate, taken from reference table
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="1023" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="AppliedCustomerBillingRateCore"
+		final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>Concrete type for AppliedCustomerBillingRate.
+				:
+				Restriction of
+				{http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}AppliedCustomerBillingRateCore
+				.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="tns:AppliedCustomerBillingRateSummary">
+				<xs:sequence />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="AppliedProductOneTimeRateForOffer"
+		final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>A one time rate applied to a Product, resulting
+				from a one-time activity. For example, a one time amount charged
+				when the customer subscribes for a voice Product.
+				:
+				Restriction of
+				{http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}AppliedProductOneTimeRate
+				.
+				Derived from PIM entity AppliedProductOneTimeRate in the domain
+				appliedcustomerbillingrate.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="tns:AppliedCustomerBillingDebitForOffer">
+				<xs:sequence>
+					<xs:element name="assignedOffer" type="ns2:AssignedBillingOfferID">
+						<xs:annotation>
+							<xs:documentation>The AssignedBillingOffer according to which the
+								AppliedProductOneTimeRate was calculated.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="CustomerBill" final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>A presentation of all AppliedCustomerBillingRates
+				and financial activities made during the defined billing cycle
+				period,
+				and record of the amount due of the CustomerBillSpec.
+				:
+				Restriction of
+				{http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}CustomerBill
+				.
+				Derived from PIM entity CustomerBill in the domain customerbill.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="amountDue" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The total amount to be paid by the customer to
+						the service provider as a result if this CustomerBill. For invoice
+						receiver, the amount due is the amount of the invoice associated
+						with the CustomerBill. For bill receiver, it is the
+						sum of the
+						newly invoice amount plus any amounts due from previous
+						months.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="billDate" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The date when the bill was produced.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cycleSequence" type="tns:CustomerBillingCycle">
+				<xs:annotation>
+					<xs:documentation>The CustomerBillingCycle that defined the period
+						for which this CustomerBill was generated.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="documentType" type="ns1:DocumentType"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The type of document generated by this
+						CustomerBill for example, Bill, Invoice, Prepaid Statement or a
+						combination)
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="id" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Unique identifier of the CustomerBill.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="invoice" type="tns:AbstractCustomerInvoice">
+				<xs:annotation>
+					<xs:documentation>The invoice attached to this CustomerBill.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="productionType" type="ns2:ProductionType"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The production type of the CustomerBill, such as
+						regular bill, first bill, final bill, or revised final bill.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="status" type="tns:CustomerBillStatus"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The current status of the CustomerBill. The
+						status enables tracking the production of each billing document.
+						Provider
+						write only.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="CustomerBillingCycle" final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>An instance of CustomerBillingCycleSpecification
+				for a specific period for which a group of Customers is billed. Each
+				Customer is associated with CustomerBillingCycleSpecification and
+				each month (or a different period based on
+				definitions) a new
+				instance (CustomerBillingCycle is created for the generation
+				of the
+				CustomerBill that covers this
+				period.
+				:
+				Restriction of
+				{http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}CustomerBillingCycle
+				.
+				Derived from PIM entity CustomerBillingCycle in the domain
+				customerbill.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="billingDate" type="xs:dateTime"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>A calendar date that designates when the bill was
+						produced.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cycleInstance" type="xs:integer"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The serial occurrence of the cycle instance in a
+						calendar year. For a weekly cycle it will be the week in the year,
+						for
+						a monthly cycle it will contain the month of the year.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="endDate" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The period end date of the cycle billing run.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="id" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>A unique identifier. </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="startDate" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The period start date of the cycle billing run.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="CustomerBillStatement" final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>A presentation of all AppliedCustomerBillingRates
+				and financial activities made during the defined billing cycle
+				period,
+				and record of the amount due of the CustomerBillSpec.
+				:
+				Restriction of
+				{http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}CustomerBill
+				.
+				Derived from PIM entity CustomerBill in the domain customerbill.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="amountDue" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The total amount to be paid by the customer to
+						the service provider as a result if this CustomerBill. For invoice
+						receiver, the amount due is the amount of the invoice associated
+						with the CustomerBill. For bill receiver, it is the
+						sum of the
+						newly invoice amount plus any amounts due from previous
+						months.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="amountDueHandling" type="tns:AmountDueHandling"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Specifies the specific handling performed on the
+						total amount due of the CustomerBill.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="billDate" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The date when the bill was produced.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="billSpec" type="ns1:CustomerBillSpecAndChannelID">
+				<xs:annotation>
+					<xs:documentation>The CustomerBillSpec defining the specifications
+						for the bill run and the CustomerBill production.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="custAcctFinancialTransAmount" type="xs:decimal"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The total amount, including tax, of financial
+						activities performed for the CustomerAccount since the last
+						produced
+						CustomerBill. This amount is relevant for bill receivers
+						only.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="custAcctPrevBalanceAmount" type="xs:decimal"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The total amount due from the previously produced
+						CustomerBill. Relevant only for bill receivers.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="documentID" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The ID of the Amdocs RM documents which is
+						associated with this CustomerBill.
+						Note: Document is not modeled
+						explicitly as part of PIM.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="id" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Unique identifier of the CustomerBill.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="invoice" type="tns:AbstractCustomerInvoiceStatement">
+				<xs:annotation>
+					<xs:documentation>The invoice attached to this CustomerBill.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="InvoicedCustomerBillingRate"
+		final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>InvoicedCustomerBillingRate is created when the
+				AppliedCustomerBillingRate is charged and associated with a
+				CustomerInvoice - it contains the AppliedCustomerBillingRate amount
+				in the CustomerInvoice currency and the association
+				to the
+				CustomerInvoice. InvoicedCustomerBillingRate can represent
+				either a
+				credit or a debit.
+				:
+				Restriction of
+				{http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}InvoicedCustomerBillingRate
+				.
+				Derived from PIM entity InvoicedCustomerBillingRate in the domain
+				customerbill.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="appliedRate" type="tns:AppliedCustomerBillingRateSummary">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="customerAccountCurrency" type="ns3:CurrencyCode"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The currency of the CustomerAccount). This
+						currency applies to the invoiced charges, and might be different
+						than the
+						AppliedCustomerBillingRate's currency which is the offer
+						currency (or the default customer
+						currency)
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="invoicedAmount" type="xs:decimal"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The amount of the AppliedCustomerBillingRate in
+						the currency of the CustomerAccount.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="invoicedTaxAmount" type="xs:decimal"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The total tax amount of the
+						InvoicedCustomerBilliingRate in the currency of
+						theCustomerAccount.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="PrepaidBalanceStatement" final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>A statement of prepaid charges for a given period.
+				:
+				Restriction of
+				{http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}PrepaidBalanceStatement
+				.
+				Derived from PIM entity PrepaidBalanceStatement in the domain
+				customerbill.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="activityAmount" type="xs:decimal"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The total net amount of all
+						InvoicedCustomerBillingRates that are included in the
+						PrepaidBalanceStatement. Provider
+						write only.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="documentID" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The ID of the Amdocs RM documents which is
+						associated with this PrepaidBalanceStatement.
+						Note: Document is not
+						modeled explicitly as part of PIM.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="id" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Billing prepaid statement identifier.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="payChannel" type="ns1:PrepaidBalanceID">
+				<xs:annotation>
+					<xs:documentation>The PrepaidBalance pay channel that the statement
+						is for.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="produceDocument" type="ns1:ProduceDocument"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Whether a document should be produced or
+						extracted or both.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="taxAmount" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The total tax amount applied to prepaid charges.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:simpleType name="AmountDueHandling">
+		<xs:annotation>
+			<xs:documentation>The way the amount due of the CustomerBill is to be
+				handled. For example, zero the balance.
+				:
+				Restriction of
+				{http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}AmountDueHandling
+				.
+				Derived from PIM entity AmountDueHandling in the domain
+				customerbill.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="CARRY_OVER">
+				<xs:annotation>
+					<xs:documentation>The amount due was not paid and was carried to
+						the next cycle run.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ZERO_BALANCE">
+				<xs:annotation>
+					<xs:documentation>The total amount due was zeroed for the final
+						document because the amount due was under the predefined minimum
+						amount.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="CustomerBillStatus">
+		<xs:annotation>
+			<xs:documentation>The available statuses of the CustomerBill.
+				:
+				Restriction of
+				{http://amdocs/pbg-portfolio/customerbilling/types-unqualified/v1}CustomerBillStatus
+				.
+				Derived from PIM entity CustomerBillStatus in the domain
+				customerbill.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="CALCULATED">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CONFIRMED">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="SearchChargesForDocumentQuery"
+		final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>The filter criteria to use when search charges
+				within a document.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="chargeCode" type="ns2:ChargeCode"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Billing charge code to be returned.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="customerBill" type="ns2:CustomerBillID">
+				<xs:annotation>
+					<xs:documentation>The billing document in which the charges appear.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="entityID" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Billing internal identifier of the entity
+						instance. The entityType must also be specified.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entityType" type="ns5:SearchChargesEntityType"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The type of Billing entity.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fromDate" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>The earliest date in the selection range.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="payChannel" type="ns1:PayInstructionID">
+				<xs:annotation>
+					<xs:documentation>The pay channel of the charges to be returned.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="revenueType" type="ns2:RevenueCode"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The type of revenue (RC, UC, OC).
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="toDate" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>The latest date in the selection range.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="unbilled" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>If set to TRUE, all the billed charges even if
+						not confirmed will be returned. If set of FALSE only billed
+						charges that are confirmed will be returned.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="SearchUninvoicedChargeQuery"
+		final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>The filter criteria to use when search product
+				usage.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="chargeCode" type="ns2:ChargeCode"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Billing charge code to be returned.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="customerBillSpec" type="ns1:CustomerBillSpecID">
+				<xs:annotation>
+					<xs:documentation>The billing document in which the charges appear.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dateTimeRange" type="tns:DateRange">
+				<xs:annotation>
+					<xs:documentation>The earliest date in the selection range.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="entityID" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Billing internal identifier of the entity
+						instance. The entityType must also be specified.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entityType" type="ns5:SearchChargesEntityType"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The type of Billing entity.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="origin" type="ns2:ChargeOrigin"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The process or application that created the
+						AppliedCustomerBillingRate.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="paychannel" type="ns2:PayChannelID">
+				<xs:annotation>
+					<xs:documentation>The PayChannel identifier.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="revenueType" type="ns2:RevenueCode"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The type of revenue (RC, UC, OC).
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="unbilled" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>If set to TRUE, all the billed charges even if
+						not confirmed will be returned. If set of FALSE only billed
+						charges that are confirmed will be returned.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="UninvoicedAppliedCustomerBillingRateSummary"
+		final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>A debit or a credit calculated for to the
+				CustomerAccount, as part of the rating process, as part of the
+				billing
+				process, or as a result of one time activities performed for
+				the
+				CustomerAccount such as rate applied due to duplicate
+				bill
+				request.
+				:
+				Restriction of
+				{http://group.singtel.com/customerbilling/types-unqualified/v1}AppliedCustomerBillingRate,
+				Derived from PIM entity AppliedCustomerBillingRate in the domain
+				appliedcustomerbillingrate.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="chargeCode" type="ns2:ChargeCode"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>A code associated with the
+						AppliedCustomerBillingRate that defines several characteristics of
+						the AppliedCustomerBillingRate, such as the description. Values of
+						the ChargeCode are implementation specific.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="currency" type="ns3:CurrencyCode"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The currency of the amount. This will be the
+						currency of the AssignedBillingOffer for
+						AppliedCustomerBillingRate that has been calculated based on a
+						billing offer or the currency of the CustomerAccount for others
+						and might be any currency for pre-rated
+						AppliedCustomerBillingRate.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dynamicProperties" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>List of additional properties that were assigned
+						to the AppliedCustomerBillingRate. The list of properties may
+						differ between the different AppliedCustomerBillingRates. Core
+						provider software does not use all these properties but specific
+						implementations may add such properties and change behavior
+						accordingly.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="dynamicPropertie" type="ns3:FlexAttrText"
+							minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="effectiveDate" type="xs:dateTime"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The date on which the AppliedCustomerBillingRate
+						became effective. This date is used for tax calculations, and
+						might be used for currency conversion calculation.
+						AppliedCustomerBillingRate will not be considered by the Billing
+						process until it becomes effective.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="id" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Billing internal identifier along with the
+						subID forms the unique identification.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="origin" type="ns2:ChargeOrigin"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The process or application that created the
+						AppliedCustomerBillingRate.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="originalAmount" type="xs:decimal"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The net amount of the AppliedCustomerBillingRate
+						in the Billing offer currency.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="paidUsing" type="ns2:PayChannelID"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="receiverBillSpec" type="ns1:CustomerBillSpecID"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The CustomerBillSpec that is billed/credited by
+						this AppliedCustomerBillingRate.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="receiverCustomer" type="ns4:CustomerExternalID"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Customer that is billed/credited by this
+						AppliedCustomerBillingRate.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="receiverSubscription" type="ns2:SubscriptionID"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Subscription that received the service for
+						which the AppliedCustomerBillingRate has been created.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="revenueCode" type="ns2:RevenueCode"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The revenue type of this
+						AppliedCustomerBillingRate
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="subID" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Billing internal identifier along with the id
+						forms the unique identification.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="DateRange" final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>Date range for searches which return values within
+				a specific date range.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="fromDateTime" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>The earliest time in the selection range.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="toDateTime" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>The latest time in the selection range
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="AddDocumentCriteria" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>Createria to get the document</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="accountNumber" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Account Number</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="144"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="addressInfo" type="tns:AddressInfo" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Address Info</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="application" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Application</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="144"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="billFormat" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Bill Format</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="billMediaChar" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Bill Media Character</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="3"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="billingArrangement" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Requested document billing arrangement in case it is on damand document</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="69"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="copyBillIndicator" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Copy Bill Indicatior</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="customerType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Customer type ([R]esidential or [C]orparate)</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="3"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="documentId" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Document ID (Bill ID)</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="69"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="documentType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Type of requested Document</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="endDate" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>End date</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="nameInfo" type="tns:NameInfo" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Name Info</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="onDemand" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>On demanad document requested flag - true if on demand document, false if reprint</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="pcn" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Pay Channel Number</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="144"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="specialCustomerIndicator" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Special customer indicator</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="startDate" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Start date</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="subscriberId" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Subscriber ID</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="144"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="NameInfo" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>Name details</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="baName" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Name of BA</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="faName" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Name of FA</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="nameElement1" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Name Element1</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="nameElement10" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Name Element10</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="nameElement2" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Name Element2</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="nameElement3" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Name Element3</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="nameElement4" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Name Element4</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="nameElement5" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Name Element5</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="nameElement6" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Name Element6</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="nameElement7" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Name Element7</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="nameElement8" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Name Element8</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="nameElement9" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Name Element9</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="AddressInfo" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>Address Details</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="addressElement1" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Address element 1</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="addressElement10" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Address element 10</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="addressElement11" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Address element 11</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="addressElement12" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Address element 12</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="addressElement13" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Address element 13</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="addressElement14" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Address element 14</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="addressElement15" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Address element 15</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="addressElement16" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Address element 16</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="addressElement17" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Address element 17</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="addressElement18" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Address element 18</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="addressElement19" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Address element 19</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="addressElement2" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Address element 2</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="addressElement20" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Address element 20</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="addressElement3" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Address element 3</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="addressElement4" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Address element 4</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="addressElement5" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Address element 5</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="addressElement6" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Address element 6</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="addressElement7" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Address element 7</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="addressElement8" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Address element 8</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="addressElement9" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Address element 9</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="addressType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Address Type</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  
+    <xs:complexType name="BFBillImageVO" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>Bytes stream returned</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="bFBillImageVO" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>File bytes</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:base64Binary">
+            <xs:maxLength value="20971520"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  
+</xs:schema>
+

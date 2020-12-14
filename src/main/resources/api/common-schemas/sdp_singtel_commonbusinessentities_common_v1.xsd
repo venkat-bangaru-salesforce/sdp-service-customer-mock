@@ -1,0 +1,2319 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema elementFormDefault="qualified" version="1.0" targetNamespace="http://group.singtel.com/commonbusinessentities-common/types/v1"
+ xmlns:ns1="http://group.singtel.com/core/types/v1"
+ xmlns:ns2="http://group.singtel.com/supplierpartner-common/types/v1"
+ xmlns:tns="http://group.singtel.com/commonbusinessentities-common/types/v1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:annotation>
+    <xs:documentation>Shared types from the common business entities domain which describes common modeling concepts across one or more parts
+of the Information Model.
+:
+Singtel interfaces.
+</xs:documentation>
+  </xs:annotation>
+  <xs:import namespace="http://group.singtel.com/core/types/v1" schemaLocation="sdp_singtel_core_v1.xsd"/>
+  <xs:import namespace="http://group.singtel.com/supplierpartner-common/types/v1" schemaLocation="sdp_singtel_supplierpartner_common_v1.xsd"/>
+
+  <xs:complexType name="AgreementID" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An agreement between a service provider and a Customer. The type of agreement is represented in specific subclasses of
+the abstract Agreement entity.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}Agreement .
+Derived from PIM entity Agreement in the domain agreement.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Ordering internal identifier of the FrameworkAgreement.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FrameworkAgreementID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>An agreement between a service provider and a Customer regarding general terms and conditions for all services to be
+supplied to the Customer under the agreement (unless overridden at more specific levels, if this is allowed).
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}FrameworkAgreement .
+Derived from PIM entity FrameworkAgreement in the domain customerframeworkagreement.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:AgreementID">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ApplicationUser" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>This represents an application user , typically an Individual (but see
+ProxyUser), of Amdocs and other software systems in the CSP ecosphere. A
+ApplicationUser performs application activities that may affect one or more
+business entities.
+An ApplicationUser should not be confused with a User Profile managed by a user
+repository.
+Derived from PIM entity ApplicationUser in the domain applicationuser.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The unique internal identifier (key) . Exhibits the standard semantics of any
+entity identifier.
+n</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="name" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The unique string of characters by which an application user identifies itself.
+
+Is not necessarily used as primary key since it is conceivable that some
+authentication systems may support change of user name.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ApplicationUserID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A Business Context Model Identifier.Derived from PIM entity ApplicationUser in the domain applicationuser.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The unique internal identifier (key) . Exhibits the standard semantics of any
+entity identifier.
+n</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ApplicationUserName" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A Business Context Model Identifier.Derived from PIM entity ApplicationUser in the domain applicationuser.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="name" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The unique string of characters by which an application user identifies itself.
+
+Is not necessarily used as primary key since it is conceivable that some
+authentication systems may support change of user name.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="BillingAddressContactMediumID" abstract="true">
+    <xs:annotation>
+      <xs:documentation>The internal identifier of a ContactMedium.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}ContactMedium .
+Derived from PIM entity ContactMedium in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id">
+        <xs:annotation>
+          <xs:documentation>The CRM internal identifier of the ContactMedium.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="BillingAddressEmailContactID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The internal identifier of an EmailContact.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}EmailContact .
+Derived from PIM entity EmailContact in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:BillingAddressContactMediumID">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="BillingAddressPostalContactID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The internal identification of a PostalContact.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}PostalContact .
+Derived from PIM entity PostalContact in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:BillingAddressContactMediumID">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="BusinessOrganizationUnitID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The internal identifier of a BusinessOrganizationUnit.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}BusinessOrganizationUnit .
+Derived from PIM entity BusinessOrganizationUnit in the domain businessorganizationunit.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id">
+        <xs:annotation>
+          <xs:documentation>The Billing internal identifier of the BusinessOrganizationUnit.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ContactID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The internal identifier of a Contact.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}Contact .
+Derived from PIM entity Contact in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:IndividualRoleID">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  
+  <xs:complexType name="IndividualRoleID" abstract="true">
+    <xs:annotation>
+      <xs:documentation>The internal identifier of an IndividualRole.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}IndividualRole .
+Derived from PIM entity IndividualRole in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:PartyRoleID">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="PartyRoleID" abstract="true">
+    <xs:annotation>
+      <xs:documentation>The internal identification of a PartyRole.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}PartyRole .
+Derived from PIM entity PartyRole in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id">
+        <xs:annotation>
+          <xs:documentation>The CRM internal identifier of the IndividualRole.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ContactMediumCoreID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The internal identifier of a ContactMedium.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}ContactMediumCore .
+</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:ContactMediumID">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ContactMediumID" abstract="true">
+    <xs:annotation>
+      <xs:documentation>The internal identifier of a ContactMedium.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}ContactMedium .
+Derived from PIM entity ContactMedium in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id">
+        <xs:annotation>
+          <xs:documentation>The CRM internal identifier of the ContactMedium.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="EmailContactID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The internal identifier of an EmailContact.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}EmailContact .
+Derived from PIM entity EmailContact in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:ContactMediumID">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FaxNumberID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The internal identifier of an FaxNumber.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}FaxNumber .
+Derived from PIM entity FaxNumber in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:ContactMediumID">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="PostalContactID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The internal identification of a PostalContact.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}PostalContact .
+Derived from PIM entity PostalContact in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:ContactMediumID">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="TelephoneNumberID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The internal identification of a TelephoneNumber.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}TelephoneNumber .
+Derived from PIM entity TelephoneNumber in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:ContactMediumID">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="County" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>Particular places of portions of states or provinces in countries which can be located on the globe, e.g., Orange
+county in California state in the USA.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}County .
+Derived from PIM entity County in the domain location.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="name" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Free format short textual description. A name is an informal way of identifying a County.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="timeZone" type="ns1:TimeZoneId" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The TimeZone in which the County is located</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CountyID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The identifier of a County.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}County .
+Derived from PIM entity County in the domain location.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id">
+        <xs:annotation>
+          <xs:documentation>The CRM internal identifier of the County.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CustomerAllID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The internal and external identifier of an Customer. Only one is required.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}Customer .
+Derived from PIM entity Customer in the domain customer.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:PartyRoleCustomerAllID">
+        <xs:sequence>
+          <xs:element name="externalID" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The CRM external identifier of the Customer. The Billing internal identifier of the Customer - this value is also set
+in the CustomerBillingProfile.ID .
+</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:maxLength value="255"/>
+                <xs:whiteSpace value="collapse"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="PartyRoleCustomerAllID" abstract="true">
+    <xs:annotation>
+      <xs:documentation>The internal identification of a PartyRole.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}PartyRole .
+Derived from PIM entity PartyRole in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The CRM internal identifier of the Customer.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+	<xs:complexType name="CustomerExternalID" final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>The external identifier of a Customer.
+				:
+				Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}Customer .
+				Derived from PIM entity Customer in the domain customer.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="tns:PartyRoleExternalID">
+				<xs:sequence>
+					<xs:element name="externalID">
+						<xs:annotation>
+							<xs:documentation>The CRM external identifier of the Customer. The Billing internal
+								identifier of the Customer - this value is also set
+								in the CustomerBillingProfile.ID .
+							</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="255" />
+								<xs:whiteSpace value="collapse" />
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="PartyRoleExternalID" abstract="true">
+		<xs:annotation>
+			<xs:documentation>The external identification of a PartyRole.
+				:
+				Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}PartyRole .
+				Derived from PIM entity PartyRole in the domain party.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence />
+	</xs:complexType>
+
+	<xs:complexType name="CustomerID" final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>The internal identifier of a Customer.
+				:
+				Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}Customer .
+				Derived from PIM entity Customer in the domain customer.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="tns:PartyRoleCustomerID">
+				<xs:sequence />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+  <xs:complexType name="PartyRoleCustomerID" abstract="true">
+    <xs:annotation>
+      <xs:documentation>The internal identification of a PartyRole.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}PartyRole .
+Derived from PIM entity PartyRole in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id">
+        <xs:annotation>
+          <xs:documentation>The CRM internal identifier of the Customer.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FormattedGeographicAddress" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A structured textual way of describing where a Geographic Site is. It is usually composed of an ordered list of names
+of geographic locations according to rules governed by context.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}GeographicAddress .
+Derived from PIM entity GeographicAddress in the domain location.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="formattedAddress1" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>First line of the concatenated address information as fit for location usage.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="1023"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="formattedAddress2" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Second line of the concatenated address information as fit for location usage.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="1023"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="formattedAddress3" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Third line of the concatenated address information as fit for location usage.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="1023"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="formattedAddress4" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Fourth line of the concatenated address information as fit for location usage.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="1023"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="id">
+        <xs:annotation>
+          <xs:documentation>The CRM internal identifier of the address.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="GeographicAddressID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The internal identifier of a GeographicAddress.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}GeographicAddress .
+Derived from PIM entity GeographicAddress in the domain location.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id">
+        <xs:annotation>
+          <xs:documentation>The CRM internal identifier of the address.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="GeographicPostalAreaCode">
+    <xs:annotation>
+      <xs:documentation>Particular places of postal areas (commonly known as postal codes or zip codes) in countries which can be located on
+the globe.
+Derived from PIM entity GeographicPostalArea in the domain location.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="19"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="GeographicSiteAllID" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A Business Context Model Identifier.:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}GeographicSite .
+Derived from PIM entity GeographicSite in the domain location.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="externalID" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The CRM external identifier of the GeographicSite.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The CRM internal identifier of the GeographicSite.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="GeographicSiteCoreAllID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The identifiers of a GeographicSite.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}GeographicSiteCore .
+</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:GeographicSiteAllID">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="GeographicSiteCoreID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The internal identifier of a GeographicSite.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}GeographicSiteCore .
+</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:GeographicSiteID">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="GeographicSiteID" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A Business Context Model Identifier.:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}GeographicSite .
+Derived from PIM entity GeographicSite in the domain location.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id">
+        <xs:annotation>
+          <xs:documentation>The CRM internal identifier of the GeographicSite.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="GeographicSiteExternalID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>Portion of the earth's surface, the air above it or the soil beneath it, that is of interest to the service provider.
+:
+Derived from PIM entity GeographicSite in the domain location.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="externalID">
+        <xs:annotation>
+          <xs:documentation>The CRM external identifier.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="IndividualAllID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The internal and external identifier of an Individual. Only one is required.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}Individual .
+Derived from PIM entity Individual in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:PartyIndividualAllID">
+        <xs:sequence>
+          <xs:element name="externalID" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The CRM external identifier of the Individual.</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:maxLength value="255"/>
+                <xs:whiteSpace value="collapse"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="PartyIndividualAllID" abstract="true">
+    <xs:annotation>
+      <xs:documentation>The internal identification of a Party when always an Individual.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}Party .
+Derived from PIM entity Party in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The CRM internal identifier of the Individual.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="IndividualExternalID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The internal and external identifier of an Individual. Only one is required.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}Individual .
+Derived from PIM entity Individual in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:PartyIndividualExternalID">
+        <xs:sequence>
+          <xs:element name="externalID">
+            <xs:annotation>
+              <xs:documentation>The CRM external identifier of the Individual.</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:maxLength value="255"/>
+                <xs:whiteSpace value="collapse"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="PartyIndividualExternalID" abstract="true">
+    <xs:annotation>
+      <xs:documentation>The internal identification of a Party when always an Individual.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}Party .
+Derived from PIM entity Party in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="IndividualID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The internal identifier of an Individual
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}Individual .
+Derived from PIM entity Individual in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:PartyID">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="PartyID" abstract="true">
+    <xs:annotation>
+      <xs:documentation>The internal identification of a Party.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}Party .
+Derived from PIM entity Party in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id">
+        <xs:annotation>
+          <xs:documentation>The CRM internal identifier of the Party.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="OrganizationID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The internal identifier of an Organization.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}Organization .
+Derived from PIM entity Organization in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:PartyID">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="IndividualNameBilling" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A phrase by which an Individual is known and distinguished from other Individuals. An IndividualName is an informal way
+of identifying an Individual. The model allows only one IndividualName for an Individual. This is a restriction
+compared to TMF/NGOSS SID model which allows for multiple.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}IndividualName .
+Derived from PIM entity IndividualName in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="formattedName" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A concatenation of all the components of the name, including optional additional components that are not separately
+managed such as family generation of qualifications. Also proper punctuation will be included.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="IndividualNameShort" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A phrase by which an Individual is known and distinguished from other Individuals. An IndividualName is an informal way
+of identifying an Individual. The model allows only one IndividualName for an Individual. This is a restriction
+compared to TMF/NGOSS SID model which allows for multiple.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}IndividualName .
+Derived from PIM entity IndividualName in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="familyName" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The (usually) non-chosen inherited name. Also known as last name or surname.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="givenName" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The primary chosen name. Also known as first name.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="IndividualOnlyID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The internal identifier of an Individual when the Party can only be an Individual.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}Individual .
+Derived from PIM entity Individual in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:PartyIndividualID">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="PartyIndividualID" abstract="true">
+    <xs:annotation>
+      <xs:documentation>The internal identification of a Party when always an Individual.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}Party .
+Derived from PIM entity Party in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id">
+        <xs:annotation>
+          <xs:documentation>The CRM internal identifier of the Individual.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="IndividualShortSummary" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A single human being, a person, with whom the service provider does business or who has business-related relevance to
+the service provider.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}Individual .
+Derived from PIM entity Individual in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:IndividualShortSummaryParty">
+        <xs:sequence>
+          <xs:element name="externalID" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>An Identifier allocated by the consumer when the entity is created. May not be updated.</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:maxLength value="255"/>
+                <xs:whiteSpace value="collapse"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element name="name" type="tns:IndividualNameShort" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation></xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="IndividualShortSummaryParty" abstract="true">
+    <xs:annotation>
+      <xs:documentation>Represents an  individual, organization or organization unit. Party is an abstract concept that should be used in
+places where the business says something can be an organization , organization unit or an individual
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}Party .
+Derived from PIM entity Party in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="OrganizationAllID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>Either the internal or external identifier of an Organization. Only one is required.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}Organization .
+Derived from PIM entity Organization in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:PartyOrganizationAllID">
+        <xs:sequence>
+          <xs:element name="externalID" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The CRM external identifier of the Organization.</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:maxLength value="255"/>
+                <xs:whiteSpace value="collapse"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="PartyOrganizationAllID" abstract="true">
+    <xs:annotation>
+      <xs:documentation>The internal identification of a Party when always an Organization.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}Party .
+Derived from PIM entity Party in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The CRM internal identifier of the Organization.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="OrganizationExternalID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>Either the internal or external identifier of an Organization. Only one is required.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}Organization .
+Derived from PIM entity Organization in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:PartyOrganizationExternalID">
+        <xs:sequence>
+          <xs:element name="externalID">
+            <xs:annotation>
+              <xs:documentation>The CRM external identifier of the Organization.</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:maxLength value="255"/>
+                <xs:whiteSpace value="collapse"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="PartyOrganizationExternalID" abstract="true">
+    <xs:annotation>
+      <xs:documentation>The internal identification of a Party when always an Individual.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}Party .
+Derived from PIM entity Party in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="OrganizationNameShort" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A phrase by which an Organization is known and distinguished from other Organizations. An OrganizationName is an
+informal way of identifying an Organization.The model allows only one OrganizationName for an Organization. This is a
+restriction compared to TMF/NGOSS SID model which allows for multiple.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}OrganizationName .
+Derived from PIM entity OrganizationName in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="name" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Free format short textual description. The name is an informal way of identifying an Organization.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="OrganizationOnlyID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The internal identifier of an Organization when the Party can only be an Organization.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}Organization .
+Derived from PIM entity Organization in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:PartyOrganizationID">
+         <xs:sequence>
+          <xs:element name="externalID" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The CRM external identifier of the Organization.</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:maxLength value="255"/>
+                <xs:whiteSpace value="collapse"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="PartyOrganizationID" abstract="true">
+    <xs:annotation>
+      <xs:documentation>The internal identification of a Party when always an Organization.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}Party .
+Derived from PIM entity Party in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id">
+        <xs:annotation>
+          <xs:documentation>The CRM internal identifier of the Organization.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="State" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>Particular geographic place, within a Country, which can be located on the globe, e.g., California in the United States
+of America, Victoria in Canada.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}State .
+Derived from PIM entity State in the domain location.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="code" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A value used as unique identification within a Country, e.g., CA in the United States of America, QC in Canada.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="1023"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="name" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Free format short textual description. A name is an informal way of identifying a State.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="timeZone" type="ns1:TimeZoneId" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The TimeZone in which the State is located</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="StateID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The identifier of a State.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}State .
+Derived from PIM entity State in the domain location.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id">
+        <xs:annotation>
+          <xs:documentation>The CRM internal identifier of the State.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="StateName" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>An name of a State.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}State .
+Derived from PIM entity State in the domain location.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="name" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Free format short textual description. A name is an informal way of identifying a State. The CRM name of the State.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="StoreType" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The type of business store present at the GeographicLocation. The store type is only relevant for certain sub-types of
+GeographicLocation. There is no effort to differentiate the store types available for these sub-types. For example a
+call center may be present at an InternalSite or a retail store may be present at a VendorSite.
+:
+</xs:documentation>
+    </xs:annotation>
+    <xs:sequence/>
+  </xs:complexType>
+  
+  <xs:complexType name="WorkflowType" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>Type of Workflow Item</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="type">
+        <xs:annotation>
+          <xs:documentation>Defined type of Customer Problem</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="ActivityType">
+    <xs:annotation>
+      <xs:documentation>Records the type of activity that was performed.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}ActivityType .
+Derived from PIM entity ActivityType in the domain logs.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="CallType">
+    <xs:annotation>
+      <xs:documentation>Type of phone call.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}CallType .
+Derived from PIM entity CallType in the domain logs.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="ContactPartyRoleType">
+    <xs:annotation>
+      <xs:documentation>The role of the relationship that a Contact plays for a PartyRole
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}ContactPartyRoleType .
+Derived from PIM entity ContactPartyRoleType in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="PRIMARY">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SECONDARY">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Account Holder">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Account Contact">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>            
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ContactType">
+    <xs:annotation>
+      <xs:documentation>The possible types of role for which a Individual may play.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}ContactType .
+Derived from PIM entity ContactType in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="DEFAULT">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FAMILY_MEMBER">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PRIMARY">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="Gender">
+    <xs:annotation>
+      <xs:documentation>The gender of the Individual. Male or female.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}Gender .
+Derived from PIM entity Gender in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="GeographicSiteType">
+    <xs:annotation>
+      <xs:documentation>The type of site, e.g., building, floor, apartment, plant, campus, ranch, property.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}GeographicSiteType .
+Derived from PIM entity GeographicSiteType in the domain location.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="BUILDING">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CABINET">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="COUNTRY_AREA">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ROOM">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="GeographicSiteTypeRole">
+    <xs:annotation>
+      <xs:documentation>The type of site, e.g., building, floor, apartment, plant, campus, ranch, property.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}GeographicSiteType .
+Derived from PIM entity GeographicSiteType in the domain location.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="MaritalStatus">
+    <xs:annotation>
+      <xs:documentation>Status of civil partnership of the Individual. For example single, married, divorced, separated.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}MaritalStatus .
+Derived from PIM entity MaritalStatus in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="OrganizationStandard">
+    <xs:annotation>
+      <xs:documentation>The standard that an Organization may be governed by.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}OrganizationStandard .
+Derived from PIM entity OrganizationStandard in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="OrganizationType">
+    <xs:annotation>
+      <xs:documentation>The type of Organization For example corporate, association, government, union, university, division, department,
+household.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}OrganizationType .
+Derived from PIM entity OrganizationType in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="COMPETITOR">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CORPORATE">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CUSTOMER">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FEDERAL">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="GOVERNMENT">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PARTNER">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RESELLER">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RESIDENTIAL">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SUPPLIER">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="UNKNOWN">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="OtherIndividualIdentificationType">
+    <xs:annotation>
+      <xs:documentation>The type of OtherIndividualIdentification.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}OtherIndividualIdentificationType .
+Derived from PIM entity OtherIndividualIdentificationType in the domain party.</xs:documentation>
+    </xs:annotation>
+
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="FOREIGN_ID">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NRIC">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SINGTEL_ACCOUNT_NUMBER">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FOREIGNER_WORK_PERMIT">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FOREIGNER_SOCIAL_VISIT_PASS">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FOREIGNER_DEPENDENT_PASS">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FOREIGNER_STUDENT_PASS">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FOREIGNER_EMPLOYMENT_PASS">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FOREIGNER_S_PASS">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PASSPORT_NUMBER">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FOREIGN_IDENTIFICATION_NUMBER">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+
+
+  </xs:simpleType>
+
+  <xs:simpleType name="OtherOrganizationIdentificationType">
+    <xs:annotation>
+      <xs:documentation>The type of OtherOrganizationIdentification.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}OtherOrganizationIdentificationType .
+Derived from PIM entity OtherOrganizationIdentificationType in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="COMPANY_NUMBER">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DUNS_NUMBER">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="EMPLOYER_ID">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="RegulatoryAuthority">
+    <xs:annotation>
+      <xs:documentation>The regulator that controls the registration.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}RegulatoryAuthority .
+Derived from PIM entity RegulatoryAuthority in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="FEDERAL">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="LOCAL">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="STATE">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="RevenueRange">
+    <xs:annotation>
+      <xs:documentation>The range of revenue of the Organization. For example zero to one million. Implementation defined.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}RevenueRange .
+Derived from PIM entity RevenueRange in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="FIFTY_MILLION_TO_ONE_HUNDRED_MILLION">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FIVE_MILLION_TO_TWENTY_MILLION">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ONE_MILLION_TO_FIVE_MILLION">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="OVER_ONE_HUNDRED_MILLION">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TWENTY_MILLION_TO_FIFTY_MILLION">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="UNDER_ONE_MILLION">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="UNKNOWN">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="Salutation">
+    <xs:annotation>
+      <xs:documentation>Derived from PIM entity Salutation in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="SizeEmployees">
+    <xs:annotation>
+      <xs:documentation>The ranges of number of employees an Organization may have. The values are implementation defined.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}SizeEmployees .
+Derived from PIM entity SizeEmployees in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ONE_HUNDRED_TO_TWO_HUNDRED_FORTY_NINE">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="OVER_ONE">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TEN_TO_NINETY_NINE">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TWO_HUNDRED_FIFTY_TO_NINE_HUNDRED_NINETY_NINE">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="UNDER_TEN">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="UNKNOWN">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="TelephoneType">
+    <xs:annotation>
+      <xs:documentation>The categorisation of telephone number. For example home, mobile, office, assistant, message service.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}TelephoneType .
+Derived from PIM entity TelephoneType in the domain party.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="CONTACT">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HOME">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOBILE">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOBILE_1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOBILE_2">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="WORK">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="WORK_1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="WORK_2">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="WorkItemCondition">
+    <xs:annotation>
+      <xs:documentation>The value of the condition of the WorkItem selected from a pre-defined list.
+:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}WorkItemCondition .
+Derived from PIM entity WorkItemCondition in the domain manualworkflow.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  
+  <xs:complexType name="GeographicSite" abstract="true">
+    <xs:annotation>
+      <xs:documentation>Abstract type used to model a generic geographic site medium for employee. 
+Portion of the earth's surface, the air above it or the soil beneath it that is of interest to the service provider.
+Derived from PIM entity GeographicSite in the domain location.</xs:documentation>
+    </xs:annotation>
+  </xs:complexType>
+  
+  <xs:complexType name="InternalSite">
+    <xs:annotation>
+      <xs:documentation>This is the GeographicSite where the Employee physically works. Used to determine the regional information including time zone of the employee for notification purposes.
+Derived from PIM entity InternalSite in the domain employee. 
+It extends: GeographicSite</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:GeographicSite">
+        <xs:sequence>
+			<xs:element name="id">
+		        <xs:annotation>
+		          <xs:documentation>A unique identifier</xs:documentation>
+		        </xs:annotation>
+		        <xs:simpleType>
+		          <xs:restriction base="xs:string">
+		            <xs:maxLength value="255"/>
+		            <xs:whiteSpace value="collapse"/>
+		          </xs:restriction>
+		        </xs:simpleType>
+		      </xs:element>        
+        </xs:sequence>        
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>  
+
+  <xs:complexType name="ContactMediumForEmployee" abstract="true">
+    <xs:annotation>
+      <xs:documentation>Abstract type used to model a generic contact medium for employee.</xs:documentation>
+    </xs:annotation>
+  </xs:complexType>
+  
+  <xs:complexType name="TelephoneNumberForEmployee">
+    <xs:annotation>
+      <xs:documentation>A telephone number.
+Derived from PIM entity TelephoneNumber in the domain party. 
+It extends: ContactMediumForEmployee</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:ContactMediumForEmployee">
+        <xs:sequence>
+			<xs:element name="telnumber">
+		        <xs:annotation>
+		          <xs:documentation>A telephone number</xs:documentation>
+		        </xs:annotation>
+		        <xs:simpleType>
+		          <xs:restriction base="xs:string">
+		            <xs:maxLength value="63"/>
+		            <xs:whiteSpace value="collapse"/>
+		          </xs:restriction>
+		        </xs:simpleType>
+		      </xs:element>        
+        </xs:sequence>        
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  
+  <xs:complexType name="EmailContactForEmployee">
+    <xs:annotation>
+      <xs:documentation>An e-mail address used to contact the employee..
+Derived from PIM entity EmailContact in the domain party.
+It extends: ContactMediumForEmployee</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:ContactMediumForEmployee">
+        <xs:sequence>
+			<xs:element name="EmailAddress">
+		        <xs:annotation>
+		          <xs:documentation>The e-mail address.</xs:documentation>
+		        </xs:annotation>
+		        <xs:simpleType>
+		          <xs:restriction base="xs:string">
+		            <xs:maxLength value="254"/>
+		            <xs:whiteSpace value="collapse"/>
+		          </xs:restriction>
+		        </xs:simpleType>
+		      </xs:element>        
+        </xs:sequence>        
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>  
+      
+  <xs:complexType name="EmployeeForUpdate">
+    <xs:annotation>
+      <xs:documentation>A role that an Individual plays for compensation to an employer and whose duties are under the control of the employer. An Employee is located at an InternalSite and has its working hours defined by one or more EmployeeWorkingHours. Note that the model has no association between Employee and Individual due to the lack of support in current applications. ,
+ Derived from PIM entity Employee in the domain employee.
+Employee id should be unique for each employee.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="alternatePhone" type="tns:TelephoneNumberForEmployee" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The employee's alternate phone number.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="emailAddress" type="tns:EmailContactForEmployee" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The employee's email address.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+		<xs:element name="firstName" minOccurs="0">
+		  <xs:annotation>
+		    <xs:documentation>The employee's first name.</xs:documentation>
+		  </xs:annotation>
+		  <xs:simpleType>
+		    <xs:restriction base="xs:string">
+		      <xs:maxLength value="127"/>
+		      <xs:whiteSpace value="collapse"/>
+		    </xs:restriction>
+		  </xs:simpleType>
+		</xs:element>
+		<xs:element name="lastName" minOccurs="0">
+		  <xs:annotation>
+		    <xs:documentation>The employee's last name.</xs:documentation>
+		  </xs:annotation>
+		  <xs:simpleType>
+		    <xs:restriction base="xs:string">
+		      <xs:maxLength value="127"/>
+		      <xs:whiteSpace value="collapse"/>
+		    </xs:restriction>
+		  </xs:simpleType>
+		</xs:element>
+		<xs:element name="locatedAt" type="tns:InternalSite" minOccurs="0">
+		  <xs:annotation>
+		    <xs:documentation>The internalSite where the employee is located.</xs:documentation>
+		  </xs:annotation>
+		</xs:element>
+		<xs:element name="phoneNumber" type="tns:TelephoneNumberForEmployee" minOccurs="0">
+		  <xs:annotation>
+		    <xs:documentation>The employee's phone number.</xs:documentation>
+		  </xs:annotation>
+		</xs:element>
+		<xs:element name="privilegeClass" minOccurs="0">
+		  <xs:annotation>
+		    <xs:documentation>The employee's privilege class.</xs:documentation>
+		  </xs:annotation>
+		  <xs:simpleType>
+		    <xs:restriction base="xs:string">
+		      <xs:maxLength value="127"/>
+		      <xs:whiteSpace value="collapse"/>
+		    </xs:restriction>
+		  </xs:simpleType>
+		</xs:element>
+		<xs:element name="responsibility" minOccurs="0">
+		  <xs:annotation>
+		    <xs:documentation>Responsibility Code will be validated against BPT data. The responsibility code of the Employee.Only valid for SingTel.</xs:documentation>
+		  </xs:annotation>
+		  <xs:simpleType>
+		    <xs:restriction base="xs:string">
+		      <xs:maxLength value="255"/>
+		      <xs:whiteSpace value="collapse"/>
+		    </xs:restriction>
+		  </xs:simpleType>
+		</xs:element>
+		<xs:element name="nric" minOccurs="0">
+		  <xs:annotation>
+		    <xs:documentation>Person Identification for employee like NRIC, Foreign ID, passport etc... Not required for Optus. No validation will be done on the provided ID.</xs:documentation>
+		  </xs:annotation>
+		  <xs:simpleType>
+		    <xs:restriction base="xs:string">
+		      <xs:maxLength value="30"/>
+		      <xs:whiteSpace value="collapse"/>
+		    </xs:restriction>
+		  </xs:simpleType>
+		</xs:element>
+		<xs:element name="AgentFriendlyName" type="xs:string" minOccurs="0">
+		  <xs:annotation>
+		    <xs:documentation>Agent’s friendly name.</xs:documentation>
+		  </xs:annotation>
+		</xs:element>														
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="EmployeeForCreate">
+    <xs:annotation>
+      <xs:documentation>A role that an Individual plays for compensation to an employer and whose duties are under the control of the employer. An Employee is located at an InternalSite and has its working hours defined by one or more EmployeeWorkingHours. Note that the model has no association between Employee and Individual due to the lack of support in current applications. ,
+ Derived from PIM entity Employee in the domain employee.
+Employee id should be unique for each employee.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="alternatePhone" type="tns:TelephoneNumberForEmployee" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The employee's alternate phone number.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="emailAddress" type="tns:EmailContactForEmployee">
+        <xs:annotation>
+          <xs:documentation>The employee's email address.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+		<xs:element name="firstName">
+		  <xs:annotation>
+		    <xs:documentation>The employee's first name.</xs:documentation>
+		  </xs:annotation>
+		  <xs:simpleType>
+		    <xs:restriction base="xs:string">
+		      <xs:maxLength value="127"/>
+		      <xs:whiteSpace value="collapse"/>
+		    </xs:restriction>
+		  </xs:simpleType>
+		</xs:element>
+		<xs:element name="id">
+		  <xs:annotation>
+		    <xs:documentation>The Employee's employee ID or salesman code</xs:documentation>
+		  </xs:annotation>
+		  <xs:simpleType>
+		    <xs:restriction base="xs:string">
+		      <xs:maxLength value="20"/>
+		      <xs:whiteSpace value="collapse"/>
+		    </xs:restriction>
+		  </xs:simpleType>
+		</xs:element>		
+		<xs:element name="lastName">
+		  <xs:annotation>
+		    <xs:documentation>The employee's last name.</xs:documentation>
+		  </xs:annotation>
+		  <xs:simpleType>
+		    <xs:restriction base="xs:string">
+		      <xs:maxLength value="127"/>
+		      <xs:whiteSpace value="collapse"/>
+		    </xs:restriction>
+		  </xs:simpleType>
+		</xs:element>
+		<xs:element name="locatedAt" type="tns:InternalSite">
+		  <xs:annotation>
+		    <xs:documentation>The internalSite where the employee is located.</xs:documentation>
+		  </xs:annotation>
+		</xs:element>
+		<xs:element name="phoneNumber" type="tns:TelephoneNumberForEmployee" minOccurs="0">
+		  <xs:annotation>
+		    <xs:documentation>The employee's phone number.</xs:documentation>
+		  </xs:annotation>
+		</xs:element>
+		<xs:element name="privilegeClass" minOccurs="0">
+		  <xs:annotation>
+		    <xs:documentation>The employee's privilege class.</xs:documentation>
+		  </xs:annotation>
+		  <xs:simpleType>
+		    <xs:restriction base="xs:string">
+		      <xs:maxLength value="127"/>
+		      <xs:whiteSpace value="collapse"/>
+		    </xs:restriction>
+		  </xs:simpleType>
+		</xs:element>
+		<xs:element name="responsibility" minOccurs="0">
+		  <xs:annotation>
+		    <xs:documentation>Responsibility Code will be validated against BPT data. The responsibility code of the Employee.Only valid for SingTel.</xs:documentation>
+		  </xs:annotation>
+		  <xs:simpleType>
+		    <xs:restriction base="xs:string">
+		      <xs:maxLength value="255"/>
+		      <xs:whiteSpace value="collapse"/>
+		    </xs:restriction>
+		  </xs:simpleType>
+		</xs:element>
+		<xs:element name="nric" minOccurs="0">
+		  <xs:annotation>
+		    <xs:documentation>Person Identification for employee like NRIC, Foreign ID, passport etc... Not required for Optus. No validation will be done on the provided ID.</xs:documentation>
+		  </xs:annotation>
+		  <xs:simpleType>
+		    <xs:restriction base="xs:string">
+		      <xs:maxLength value="30"/>
+		      <xs:whiteSpace value="collapse"/>
+		    </xs:restriction>
+		  </xs:simpleType>
+		</xs:element>
+		<xs:element name="AgentFriendlyName" type="xs:string" minOccurs="0">
+		  <xs:annotation>
+		    <xs:documentation>Agent’s friendly name.</xs:documentation>
+		  </xs:annotation>
+		</xs:element>														
+    </xs:sequence>
+  </xs:complexType>    
+
+  <xs:complexType name="ApplicationUserForUpdate">
+    <xs:annotation>
+      <xs:documentation>This represents an application user, typically an Individual (but see ProxyUser), of Amdocs and other software systems in the CSP ecosphere. An ApplicationUser performs application activities that may affect one or more Business entities.
+Derived from PIM entity ApplicationUser in the domain applicationuser.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="effectiveDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Date on which the user login name became valid.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="employee" type="tns:EmployeeForUpdate" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The employee who is the application user. Required in case the application user is employed in the CSP organization. Could also represent a contractor, since it is not clear that the practical difference between employee and contractor is of significance in Amdocs information model. User can point to only a single employee</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+		<xs:element name="expirationDate" minOccurs="0" type="xs:dateTime">
+		  <xs:annotation>
+		    <xs:documentation>Date on which the user login name ceases to be valid.</xs:documentation>
+		  </xs:annotation>
+		</xs:element>
+		<xs:element name="maxSessionNumber" type="xs:decimal" minOccurs="0">
+		  <xs:annotation>
+		    <xs:documentation>The maximum number of sessions to be allowed.</xs:documentation>
+		  </xs:annotation>
+		</xs:element>
+		<xs:element name="roles" type="ns2:RoleForEmployee" minOccurs="0">
+		  <xs:annotation>
+		    <xs:documentation>The role(s) associated with this user. Each user must have at least one role, but may have many, and the privileges of the user are the result of the combinations of the privileges implied by all the user's roles.</xs:documentation>
+		  </xs:annotation>
+		</xs:element>
+		<xs:element name="sessionExpiration" type="xs:duration" minOccurs="0">
+		  <xs:annotation>
+		    <xs:documentation>The time duration after which the session will expire.</xs:documentation>
+		  </xs:annotation>
+		</xs:element>
+		<xs:element name="sessionIdleTime" type="xs:duration" minOccurs="0">
+		  <xs:annotation>
+		    <xs:documentation>The time duration after which the session will become Idle.
+Default value- 24 hours ( can be configured in ASM</xs:documentation>
+		  </xs:annotation>
+		</xs:element>														
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="ApplicationUserForCreate">
+    <xs:annotation>
+      <xs:documentation>This represents an application user, typically an Individual (but see ProxyUser), of Amdocs and other software systems in the CSP ecosphere. An ApplicationUser performs application activities that may affect one or more Business entities.
+Derived from PIM entity ApplicationUser in the domain applicationuser.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="active" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>The status of the employee that determines whether the user is active or not</xs:documentation>
+        </xs:annotation>
+      </xs:element>    
+      <xs:element name="effectiveDate" type="xs:dateTime">
+        <xs:annotation>
+          <xs:documentation>Date on which the user login name became valid.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="employee" type="tns:EmployeeForCreate">
+        <xs:annotation>
+          <xs:documentation>The employee who is the application user. Required in case the application user is employed in the CSP organization. Could also represent a contractor, since it is not clear that the practical difference between employee and contractor is of significance in Amdocs information model. User can point to only a single employee</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+		<xs:element name="expirationDate" type="xs:dateTime">
+		  <xs:annotation>
+		    <xs:documentation>Date on which the user login name ceases to be valid.</xs:documentation>
+		  </xs:annotation>
+		</xs:element>
+		<xs:element name="maxSessionNumber" type="xs:decimal" minOccurs="0">
+		  <xs:annotation>
+		    <xs:documentation>The maximum number of sessions to be allowed.</xs:documentation>
+		  </xs:annotation>
+		</xs:element>
+		<xs:element name="name">
+		  <xs:annotation>
+		    <xs:documentation>The unique string of characters by which an application user identifies itself. Is not necessarily used as primary key since it is conceivable that some authentication systems may support change of user name.</xs:documentation>
+		  </xs:annotation>
+		  <xs:simpleType>
+		    <xs:restriction base="xs:string">
+		      <xs:maxLength value="127"/>
+		      <xs:whiteSpace value="collapse"/>
+		    </xs:restriction>
+		  </xs:simpleType>
+		</xs:element>		
+		<xs:element name="roles" type="ns2:RoleForEmployee">
+		  <xs:annotation>
+		    <xs:documentation>The role(s) associated with this user. Each user must have at least one role, but may have many, and the privileges of the user are the result of the combinations of the privileges implied by all the user's roles.</xs:documentation>
+		  </xs:annotation>
+		</xs:element>
+		<xs:element name="sessionExpiration" type="xs:duration" minOccurs="0">
+		  <xs:annotation>
+		    <xs:documentation>The time duration after which the session will expire.</xs:documentation>
+		  </xs:annotation>
+		</xs:element>
+		<xs:element name="sessionIdleTime" type="xs:duration" minOccurs="0">
+		  <xs:annotation>
+		    <xs:documentation>The time duration after which the session will become Idle.
+Default value- 24 hours ( can be configured in ASM</xs:documentation>
+		  </xs:annotation>
+		</xs:element>														
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="PurposedText" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>Text (names, descriptions, etc.) that has a particular purpose, for example Marketing, Technical, etc.
+:
+Derived from PIM entity PurposedText in the domain purposedtext.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="text" type="ns1:BinaryObject" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The text</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="type" type="tns:TextPurpose" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The purpose of the text.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:simpleType name="TextPurpose">
+    <xs:annotation>
+      <xs:documentation>Valid values for purposes of text. Values are generally supplied by implementation, but the DE (default) purpose must
+be present and is typically used by consumers for display of the text.
+:
+Derived from PIM entity TextPurpose in the domain purposedtext.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="DEFAULT">
+        <xs:annotation>
+          <xs:documentation>Default - The text that is used for general display</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MARKETING">
+        <xs:annotation>
+          <xs:documentation>Marketing</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:complexType name="InternalSiteId" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>This is the GeographicSite where the Employee physically works. Used to determine the regional information including
+time zone of the employee for notification purposes.
+:
+Derived from PIM entity InternalSite in the domain employee.:
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}InternalSite,
+Derived from PIM entity InternalSite in the domain employee.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:GeographicSiteID">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>  
+  
+  <xs:complexType name="IndividualIdentificationDocumentInfo" final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>CR S10088:Document Information used by an Individual as a proof of identity</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="tns:IndividualIdentificationID">
+				<xs:sequence>
+					<xs:element name="docType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The document type of an Individual&#146;s proof of identity.</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="40" />
+								<xs:whiteSpace value="collapse" />
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="IndividualIdentificationID">
+		<xs:annotation>
+			<xs:documentation>CR S10088:Information, usually in a form of a document, used by an Individual as a proof of identity.
+				:
+				Derived from PIM entity IndividualIdentification in the domain party.:
+				Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}IndividualIdentification,
+				Derived from PIM entity IndividualIdentification in the domain party.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="docNumber" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The document number as identifier of an Individual&#146;s proof of identity.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="80" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="id" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The CRM internal identifier of the identification.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="AdditionalContactDetails" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>Additional Contact Details</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="operatorId">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="registrationDate" type="xs:dateTime">
+        <xs:annotation>
+          <xs:documentation>Registration Date</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="transLogId">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="40"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  
+</xs:schema>
+

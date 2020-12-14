@@ -1,0 +1,2879 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema elementFormDefault="qualified" version="1.0" targetNamespace="http://group.singtel.com/productcatalog/types-unqualified/v1" xmlns:ns2="http://group.singtel.com/core/types-unqualified/v1" xmlns:ns1="http://group.singtel.com/commonbusinessentities/types-unqualified/v1" xmlns:ns4="http://group.singtel.com/customerbusinessinteraction/types-unqualified/v1" xmlns:ns3="http://group.singtel.com/marketsales/types-unqualified/v1" xmlns:tns="http://group.singtel.com/productcatalog/types-unqualified/v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns5="http://group.singtel.com/enterprise/types-unqualified/v1" xmlns:ns6="http://group.singtel.com/resource/types-unqualified/v1">
+
+  <xs:annotation>
+    <xs:documentation>The product catalog domain models the technical and business definition of product information.
+: Unqualified model for documentation purposes only.
+Singtel interfaces.
+</xs:documentation>
+  </xs:annotation>
+  <xs:import namespace="http://group.singtel.com/commonbusinessentities/types-unqualified/v1" schemaLocation="sdp_singtel_commonbusinessentities_types-unqualified_v1.xsd"/>
+
+  <xs:import namespace="http://group.singtel.com/core/types-unqualified/v1" schemaLocation="sdp_singtel_core_types-unqualified_v1.xsd"/>
+
+  <xs:import namespace="http://group.singtel.com/marketsales/types-unqualified/v1" schemaLocation="sdp_singtel_marketsales_types-unqualified_v1.xsd"/>
+
+  <xs:import namespace="http://group.singtel.com/customerbusinessinteraction/types-unqualified/v1" schemaLocation="sdp_singtel_customerbusinessinteraction_types-unqualified_v1.xsd"/>
+
+  <xs:import namespace="http://group.singtel.com/enterprise/types-unqualified/v1" schemaLocation="sdp_singtel_enterprise_types-unqualified_v1.xsd"/>
+
+  <xs:import namespace="http://group.singtel.com/resource/types-unqualified/v1" schemaLocation="sdp_singtel_resource_types-unqualified_v1.xsd"/>
+
+  <xs:complexType name="PriceSchema" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A pricing plan or billing offer such as a discount that is attached to a ProductSpecification.
+:
+Derived from PIM entity PriceSchema in the domain productoffering.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="attachments" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Documents that are associated to the PriceScehema</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="attachment" type="ns1:Attachment" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="calculatedPrices" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Calculated list Price of the PriceSchema.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="calculatedPrice" type="tns:ProdOfferPriceCharge" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="categories" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The BrowsingCategorys to which the PriceSchema is categorised. Typically used in filtering to allow retrieval of
+PriceSchema by BrowsingCategory.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="categorie" type="tns:BrowsingCategory" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="description" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A long textual description of the PriceSchema</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="1023"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="descriptions" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Texts that describe the PriceSchema for different purposes.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="description" type="ns1:PurposedText" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="descriptiveCharacteristics" type="ns1:DescriptiveCharacteristics" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Characteristics that describe the PriceSchema.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="displayInformation" type="tns:PriceSchemaDisplay" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Information that describes how the PriceSchema should be displayed in a user interface application.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="dynamicProperties" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>List of additional properties that were assigned to the PriceSchema. Core provider software does not use these
+properties but specific implementations may add such properties and change behavior accordingly.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="dynamicPropertie" type="ns2:FlexAttr" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="effectiveDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The date from which this version of the PriceSchema is effective.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="endDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The date until which this version of the PriceSchema is effective</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="inactive" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If value is TRUE then  PriceSchema is obsolete. A PriceSchema becomes obsolete when it no longer exists in the version
+of the product catalog in context.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="level" type="tns:ProductSpecificationLevel" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The level that the PriceSchema can be applied.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="name" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A word, term, or phrase by which the PriceSchema is known and distinguished from other PriceSchemas.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="names" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A word, term, or phrase by which the PriceSchema is known and distinguished from other PriceSchamas for different
+purposes.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="name" type="ns1:PurposedText" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="payable" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If value is TRUE then the PriceSchema will generate charges that require a payment means for them to be distributed to.
+For example a price plan will generate charges that require distribution to one or more payment means. A PriceSchema
+such as a discount does not require a pay means.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="promotion" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If the value is TRUE then the PriceSchema has a pre-defined lifetime defined by PriceSchema.promotionPeriod and
+PriceSchema.promotionEndDate.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="promotionEndDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The date at which the PriceSchema should end if PriceSchema.promotion is set to value TRUE.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="promotionPeriod" type="xs:duration" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The time period after which a the PriceSchema should end if PriceSchema.promotion is set to value TRUE.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="sellable" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If value is TRUE then the PriceSchema can be offered for sale attached to a ProductSpecification, outside the scope of
+a ProductOffering.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="topPriceSchema" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If value is TRUE then this is a PriceSchema that the marketeer wants to promote. The attribute can be used by the
+consumer for sorting or filtering.
+For example, if the search results returned Unlimited Voice Minutes with this attribute set to TRUE, and 500 free
+minutes this attribute set to FALSE, then consumer might place Unlimited Voice Minutes at the head of the list and/or
+in a dedicated user interface area.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="type" type="tns:PriceSchemaType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The type of the PriceSchema. For example additional or discount.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="usageClassificationRules" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The UsageClassificationRules that are specified for this PriceSchema</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="usageClassificationRule" type="tns:UsageClassificationRule" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProdOfferPriceCharge" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A price associated with a ProductOffering or a ProductSpecification. The price has a currency, revenue type and
+optionally charge frequency. The ProdOfferPriceCharge.structuredAmount indicates whether the price varies depending on
+the context or whether it is a fixed amount.
+:
+Derived from PIM entity ProdOfferPriceCharge in the domain productoffering.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="attachments" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Documents that are associated to the price.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="attachment" type="ns1:Attachment" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="currency" type="ns2:CurrencyCode" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The currency of the price.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="descriptions" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Texts that describe the price for different purposes.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="description" type="ns1:PurposedText" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="finalPrice" type="xs:decimal" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The final price calculated after any adjustments or discounts. This value is only applicable when the ProductOffering
+or ProductSpecification or contained ProductSpecifications only have non structured pricing (ProdOfferPriceCharge.
+structuredAmount equal to false) for the same revenue type.
+
+In the following examples this attribute is not applicable (note all prices of the same revenue type):
+
+	a ProductOffering that contains 3 ProductSpecifications in which at least one has a structured recurring charge
+	a ProductSpecification that contains 2 contained ProductSpecifications in which at least one has a structured
+recurring charge
+	a ProductSpecification that has a non structured recurring charge
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="maximumFinalPrice" type="xs:decimal" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The maximum price that can be applied for a revenue type.
+
+This is calculated from the sum of:
+
+	the not structured ProdOfferPriceCharge.finalPrice amounts
+	the structured ProdOfferPriceCharge.maximumFinalPrice amounts
+
+
+The value is only calculated  when a ProductOffering or a ProductSpecification  has a structured amount.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="minimumFinalPrice" type="xs:decimal" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The minimum price that can be applied for a revenue type.
+
+This is calculated from the sum of:
+
+	the not structured ProdOfferPriceCharge.finalPrice amounts
+	the structured ProdOfferPriceCharge.minimumFinalPrice amounts
+
+
+The value is only calculated  when a ProductOffering or a ProductSpecification  has a structured amount.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="originalPrice" type="xs:decimal" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The original price of the ProdOfferPriceCharge - before any adjustments or discounts.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="recurringChargeFrequency" type="ns2:SimpleFrequency" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The frequency of the ProdOfferPriceCharge - relevant only for recurring charges.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="revenueType" type="tns:ChargeType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The revenue type of the price. For example time based such as recurring or usage based.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="structuredAmount" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If value is TRUE then the ProdOfferPriceCharge is a variable (known as structured) price. For example the structure of
+the price may depend on customer location - 100$ for residents in New York, 120$ for residents in California.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="BrowsingCategory" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A category of catalog items (such as ProductSpecifications and ProductOfferings that can be classified by a keyword
+taxonomy.
+
+BrowsingCategorys are arranged into classification hierarchies by BrowsingCategoryStructure. Each hierarchy is
+associated to one or more SalesChannels allowing differentiation of the classification scheme according to the
+SalesChannel through which the catalog is accessed.
+
+Catalog items can be associated with BrowsingCategorys at any level of the hierarchy. Many different hierarchies can be
+defined.
+
+An example hierarchy for film content might be:
+
+	Films
+	  Science Fiction
+	  Drama
+	  Horror
+
+
+An example hierarchy for equipment might be:
+
+	Equipment
+	  Telephones
+	  Routers and Modems
+	  TV Support (Set-top Boxes)
+
+
+The BrowsingCategory is exposed in the runtime model to help consumers provide navigation through catalog items.
+:
+Derived from PIM entity BrowsingCategory in the domain productspecification.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="code" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A human-readable, language-independent string</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="comparable" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If value is TRUE then ProductOfferings that are related to this BrowsingCategory can be compared with each other.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="description" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Free format long textual description.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="1023"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="dynamicProperties" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>List of additional properties that were assigned to the BrowsingCategory. Core provider software does not use these
+properties but specific implementations may add such properties and change behavior accordingly.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="dynamicPropertie" type="ns2:FlexAttr" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="externalCategoryID" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The reference to a category in an external catalog. Combined with the BrowsingCategory.externalCategoryURL it can
+provide URL reference to additional information from another catalog such as a content catalog.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="externalCategoryURL" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The reference to an external catalog system. (for example, QPass category is accessed by URL). For example http://www.
+qpass.com/demo/.  Combined with the BrowsingCategory.externalCategoryID it can provide URL reference to additional
+information from another catalog such as a content catalog.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:anyURI">
+            <xs:maxLength value="2048"/>
+            <xs:pattern value="https?://.+"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="filterFacets" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The facets that available in faceted searches for items associated to this BrowsingCategory.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="filterFacet" type="tns:FilterFacet" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="linesOfBusiness" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Describes to which LineOfBusinesss the BrowsingCategory is relevant.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="linesOfBusine" type="tns:LineOfBusiness" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="name" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Free format short textual description.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="type" type="tns:BrowsingCategoryType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The type of the BrowsingCategory, for example navigation or list.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FilterFacet" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A facet comprises clearly defined, mutually exclusive, and collectively exhaustive aspects, properties or
+characteristics of a business entity. For example, a collection of  mobile handsets might be classified using an
+manufacturer facet, a price range facet, a style  facet, etc
+
+Faceted classification is used in faceted searches to enable users to navigate information along multiple paths
+corresponding to different orderings of the facets. This contrasts with traditional search taxonomies in which the
+hierarchy of categories is fixed and unchanging.
+
+The facets available to search ProductOfferings and ProductSpecifications depend on the associated BrowsingCategorys.
+Each BrowsingCategory has a set of associated FilterFacets.
+
+The type of a FilterFacet is defined in the associated CharacteristicValueType.
+:
+Derived from PIM entity FilterFacet in the domain productspecification.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="code" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier that is human readable. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="dynamicProperties" type="ns2:BinaryObject" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>List of additional properties that were assigned to the FilterFacet. Core provider software does not use these
+properties but specific implementations may add such properties and change behavior accordingly.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="dynamicPropertiesFlexs" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>List of additional properties that were assigned to the FilterFacet. Core provider software does not use these
+properties but specific implementations may add such properties and change behavior accordingly.
+This attribute is added instead of deprecated FilterFacet.dynamicProperties), that was defined with wrong type (string).
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="dynamicPropertiesFlex" type="ns2:FlexAttr" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="linesOfBusiness" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Describes to which LineOfBusinesss the FilterFacet is relevant.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="linesOfBusine" type="tns:LineOfBusiness" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="name" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Free format short textual description.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="valueType" type="ns1:CharacteristicValueType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The type of value that the FilterFacet can take on.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="values" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A list of values that a FilterFacet can hold.
+For example: Manufacturer filter facet has values Nokia, Apple, etc ...
+Protocols filter facet has values USB, Bluetooth, etc ...
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="value" type="ns1:FilterFacetValue" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PriceSchemaDisplay" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>How a PriceSchema should be displayed in a user interface application.
+:
+Derived from PIM entity PriceSchemaDisplay in the domain productoffering.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="enabled" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If value is TRUE then  the PriceSchema is editable.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="visible" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If value is TRUE then the PriceSchema should be displayed.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="UsageClassificationRule" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A rule defining how charges for usage events can be distributed to different CustomerBillSpecs.
+
+For example a corporate customer might decide that for a fixed line owned by the corporate customer in an employees
+home might have the following usage event types:
+
+
+	Local calls that will be charged to the corporate customer
+	Long-distance calls will be charged to the employee
+
+
+
+For example parents might decide that for a mobile used by their child
+
+	Content usage will be charged to pre-paid account thus limiting the potential spend
+	Calls will be charged to post-paid channel
+
+In both examples, there would be an UsageClassificationRule for each of the above call types.
+:
+Derived from PIM entity UsageClassificationRule in the domain productspecification.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="code" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A human-readable, language-independent string assigned to uniquely identify the UsageClassificationRule.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="descriptions" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The descriptions of the UsageClassificationRule for different purposes.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="description" type="ns1:PurposedText" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="eventGroupParameters" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Characteristics used to differentiate events. For example events from different classes of telephone numbers might be
+distributed differently.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="eventGroupParameter" type="ns1:ProductSpecCharacteristic" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="names" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The names of the UsageClassificationRule for different purposes.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="name" type="ns1:PurposedText" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="paymentCategory" type="tns:PaymentCategory" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Indicates to which type of payment channel the events matching this UsageClassificationRule can be directed. For
+example prepaid, postpaid or both.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="primary" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If value is TRUE then this rule is to be used as the default as a distribution target.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="redirectChargeOnCollection" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If value is TRUE  then if a collection activity (for example suspend) takes place on the CustomerAccount to which the
+charges matching this UsageClassificationRule accrue then the events will be re-directed to the primary
+UsageClassificationRule of the PriceSchema. This may cause the charges to accrue on a different CustomerAccount. If
+value is FALSE then the events will not be re-directed.
+
+Relevant for a non-primary UsageClassificationRule.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  
+  
+  <xs:complexType name="ProductOfferingName">
+    <xs:annotation>
+      <xs:documentation>The presentation of one or more ProductSpecifications to the marketplace for sale, rental, or lease for a
+ProdOfferPriceCharge.  A ProductOffering may target one or more market segments, be included in one or more Product
+Catalogs, presented in support of one or more Product Strategies, and made available in one or more SalesChannels.
+ProductOffering may represent a simple offering of a single ProductSpecification or a bundle of ProductSpecifications.
+:
+Derived from PIM entity ProductOffering in the domain productoffering.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+     
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier  together with the related ProductOffering.version. Since a ProductOffering is always created or
+changed within a given CatalogVersion, it is the combination that uniquely identifies the fixed attributes and
+relations of the ProductOffering. 
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="name" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A word, term, or phrase by which the ProductOffering is known and distinguished from other ProductOfferings.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="version" type="tns:ProductCatalogVersionID" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The version of the catalog in which this ProductOffering was created or changed.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  
+  
+  <xs:complexType name="ProductCatalogVersionID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A set of changes made to product catalog items. Corresponds to Enterprise Product Catalog project, or Amdocs Ordering
+catalog version.
+:
+Derived from PIM entity ProductCatalogVersion in the domain productoffering.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. 
+In Amdocs implementation, ID is concatenation of the major, minor, and revision numbers
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProductOffering" abstract="true">
+    <xs:annotation>
+      <xs:documentation>The presentation of one or more ProductSpecifications to the marketplace for sale, rental, or lease for a
+ProdOfferPriceCharge.  A ProductOffering may target one or more market segments, be included in one or more Product
+Catalogs, presented in support of one or more Product Strategies, and made available in one or more SalesChannels.
+ProductOffering may represent a simple offering of a single ProductSpecification or a bundle of ProductSpecifications.
+:
+Derived from PIM entity ProductOffering in the domain productoffering.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="attachments" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Documents that are associated with the ProductOffering</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="attachment" type="ns1:Attachment" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="bundle" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If value is TRUE then  the ProductOffering is a bundle. A bundle is a ProductOffering that is composed of more than one
+ProductSpecifications, regardless if it is more than one instance of the same product or instances of different
+products.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="candidatesForReplace" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A set of ProductOfferings that can replace a ProductOffering.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="candidateForReplace" type="tns:ProductOffering" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="categories" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The BrowsingCategorys to which the ProductOffering is linked. Typically used in filtering to allow retrieval of
+ProductOffering by BrowsingCategory.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="categorie" type="tns:BrowsingCategory" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="checkAvailabilityRequired" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If value is TRUE then an availability check is required for the ProductSpecifications within this ProductOffering.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="code" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique reference to be used for this ProductOffering. Generated by the provider as a human readable reference string.
+
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="comparisonCharacteristics" type="ns1:DescriptiveCharacteristics" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Characteristics that can be used to compare this offering to other offerings.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="containedProductSpecs" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The ProductSpecifications that are offered for sale by this ProductOffering.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="containedProductSpec" type="tns:ProductOfferingProductSpecs" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="description" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A long textual description of the ProductOffering</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="1023"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="descriptions" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Texts that describe the ProductOffering for different purposes.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="description" type="ns1:PurposedText" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="descriptiveCharacteristics" type="ns1:DescriptiveCharacteristics" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Characteristics that describe the offering.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="displayInformation" type="tns:ProductOfferingDisplay" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>How the ProductOffering should be displayed in a user interface application.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="dynamicProperties" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>List of additional properties that are assigned to the ProductOffering.
+
+The following dynamic properties are pre-defined:
+
+	LAYOUT TEMPLATE: optional dynamic property that enables a consumer to present different UI layouts for different
+offerings. For example, the consumer presents a picture for a phone offering but not for a plan offering.
+
+
+Specific implementations may add more dynamic properties and change the application behavior accordingly.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="dynamicPropertie" type="ns2:FlexAttr" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier  together with the related ProductOffering.version. Since a ProductOffering is always created or
+changed within a given CatalogVersion, it is the combination that uniquely identifies the fixed attributes and
+relations of the ProductOffering. 
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="lineOfBusiness" type="tns:LineOfBusiness" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The line of business. For example wireless or wireline.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="marketingParameters" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Lists the MarketingParameters associated with this ProductOffering</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="marketingParameter" type="tns:MarketingParameter" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="name" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A word, term, or phrase by which the ProductOffering is known and distinguished from other ProductOfferings.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="names" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A word, term, or phrase by which the ProductOffering is known and distinguished from other ProductOfferings for
+different purposes.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="name" type="ns1:PurposedText" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="opExtn" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>This attribute is a unique identifier of a ProductOffering contained by a BundledProductOffering. Therefore, this
+attribute enables to uniquely identify a specific ProductOffering if more than one of the same ProductOffering is
+contained in a BundledProductOffering hierarchy.
+
+This attribute is expected to be populated by certain operations that return ProductOffering. In any case, this
+population takes place only when the ProductOfferings in the product catalog are defined using the Offer Hierarchy mode
+(OfferHierarchyMode is set to true) and only when the ProductOffering is contained by a BundledProductOffering.
+
+For example: consider the following BundledProductOffering structure
+Wireless Bundle
+               Wireless Light User Bundle
+                               200 minutes
+                               400 minutes
+               Wireless Heavy User Bundle
+                               400 minutes
+                               600 minutes
+
+Wireless Bundle, Wireless Light User Bundle, and Wireless Heavy User Bundle are all BundledProductOfferings. The
+minutes are all SimpleProductOfferings.
+
+So, for 400 minutes under Wireless Light User Bundle and under Wireless Heavy User Bundle, the attribute
+ProductOffering.opExtn is populated with different values for the two cases, while the attribute ProductOffering.ID is
+populated with the same value.
+
+The ProductOffering.opExtn attribute is generated by the provider.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="1023"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="prepaid" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If value is TRUE then charges accruing from the ProductOffering will be prepaid, and not billed. Business rules may use
+this  indication. For example in determining whether or not to ask for a deposit when ordering.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="ratingAllowed" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If value is TRUE then rating and review is allowed for this ProductOffering. See ProductOfferingRatingSummary for more
+information.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="saleEffectiveDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The start of the period during which the ProductOffering is available for sale.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="saleEndDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The end of the period during which the ProductOffering is available for sale</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="salesChannels" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The sales channels through which the ProductOffering can be offered. For instance, some complex lines of business might
+not be offered through self-service channels.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="salesChannel" type="ns3:SalesChannel" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="sellable" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If value is TRUE then the ProductOffering can be offered for sale. Typically this is a calculated attribute based on
+the sales effective dates.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="topOffering" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If value is TRUE then this is a Top Offering that the marketeer wants to promote. The attribute can be used by the
+consumer for sorting or filtering. For example, if the search results returned Special Internet Access with this
+attribute set to TRUE, and Student Internet Access and Family Internet Access both with this attribute set to FALSE,
+then consumer might place Special Internet Access at the head of the list and/or in a dedicated user interface area.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="totalCalculatedPrices" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Prices that are related to the ProductOffering.
+There can be only one ProdOfferPriceCharge per revenue type ProdOfferPriceCharge.revenueType.
+
+See how the description on ProductOffering.totalCalculatedPrice.maximumFinalPrice, ProductOffering.totalCalculatedPrice.
+minimumFinalPrice, ProductOffering.totalCalculatedPrice.finalPrice for more details on the prices related to a product
+offering.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="totalCalculatedPrice" type="tns:ProdOfferPriceCharge" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="userRatingAttributes" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Attributes of the ProductOffering that can be rated.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="userRatingAttribute" type="ns1:ProductOfferingRatingAttribute" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="userRatingSummary" type="ns1:ProductOfferingRatingSummary" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The RatingSummary for the ProductOffering</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="version" type="tns:ProductCatalogVersion" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The version of the catalog in which this ProductOffering was created or changed.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProductOfferingProductSpecs" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The ProductSpecifications contained in a ProductOffering. Attributes define the way the relationship is instantiated
+when the ProductOfferingInstances is created. For example a Home Package offering may contain a PSTN as mandatory, ADSL
+as mandatory, and a modem as optional. This data type is an Association Role entity. It defines the attributes for an
+Association.
+
+A single ProductOfferingProductSpecs can be associated to many ProductSpecifications. In this case the
+ProductOfferingProductSpecs can model a group of ProductSpecifications to be selected from. Such a group supports
+selections such as 1 out of 4.
+:
+Derived from PIM entity ProductOfferingProductSpecs in the domain productoffering.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="containingProductOffering" type="tns:ProductOffering" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The ProductOffering that contains the ProductSpecification.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="defaultQuantity" type="xs:integer" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The default number of duplicate instances of the Product that will be created with the parent ProductOfferingInstance.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="dynamicProperties" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>List of additional properties. Core provider software does not use these properties but specific implementations may
+add such properties and change behavior accordingly.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="dynamicPropertie" type="ns2:FlexAttr" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier.  This attribute identifies uniquely identifies a ProductSpecification within a ProductOffering.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="maximumQuantity" type="xs:integer" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The maximum number of the associated  ProductSpecification that can be purchased in the ProductOffering. If the
+ProductOfferingProductSpecs is associated to more than 1 ProductSpecification then this value is the maximum number
+that must be selected from the group of ProductSpecifications that it is associated to.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="minimumQuantity" type="xs:integer" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The minimum number of the associated  ProductSpecification that can be purchased in the ProductOffering. If the
+ProductOfferingProductSpecs is associated to more than 1 ProductSpecification then this value is the minimum number
+that must be selected from the group of ProductSpecifications that it is associated to.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="name" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Free format short textual description.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="productSpecs" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The associated ProductSpecifications.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="productSpec" type="tns:ProductSpecification" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProductSpecification" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The specification of a tangible (equipment) or intangible (network, billing, agreement, etc.) object made available
+externally through a ProductOffering to a Customer. A ProductSpecification is instantiated as a Product.
+
+A ProductSpecification may contain other ProductSpecifications defined by ProductSpecContainment. In Amdocs Ordering, a
+ProductSpecification that is not contained by another ProductSpecification is a Product or Main Component, while a
+ProductSpecification that is contained is a Subproduct or Component.
+
+ProductSpecifications can be classified by various groupings, such as BrowsingCategorys and ProductSpecificationTypes.
+
+ProductSpecifications are versioned by a ProductCatalogVersion, and different versions can be referred to at the same
+time. However, only the most recent version will typically used to instantiate a Product.
+:
+Derived from PIM entity ProductSpecification in the domain productspecification.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="attachments" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Documents associated to the ProductSpecification.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="attachment" type="ns1:Attachment" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="candidatesForMigrate" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The possible ProductSpecifications that are candidates for migration from this ProductSpecification, for example HSIA
+might be a migration candidate from dial-up internet.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="candidateForMigrate" type="tns:ProductSpecification" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="categories" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The BrowsingCategorys to which the ProductSpecification is categorised. Typically used in filtering to allow retrieval
+of ProductSpecification by BrowsingCategory.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="categorie" type="tns:BrowsingCategory" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="characteristics" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The ProductSpecCharacteristics used by a ProductSpecification.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="characteristic" type="ns1:ProductSpecCharacteristic" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="childPricingElements" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The pricing definitions for the ProductSpecification.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="childPricingElement" type="tns:ProductSpecPricing" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="classification" type="tns:ClassificationCategory" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The classification ClassificationCategory related to the ProductSpecification.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="code" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A human-readable, language-independent string.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="comparisonCharacteristics" type="ns1:DescriptiveCharacteristics" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Characteristics that can be used to compare this specification to other specifications.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="configurationRequirement" type="tns:OrderingConfigurationType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The type of configuration required for a ProductSpecification at ordering time.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="containedProducts" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The definition of the ProductSpecifications that are contained by this ProductSpecification.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="containedProduct" type="tns:ProductSpecContainment" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="description" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Free format long textual description.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="1023"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="descriptions" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The descriptions of the ProductSpecification used for various purposes.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="description" type="ns1:PurposedText" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="descriptiveCharacteristics" type="ns1:DescriptiveCharacteristics" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Characteristics that describe the ProductSpecification.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="displayInformation" type="tns:ProductSpecDisplay" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>How the ProductSpecification should be displayed in a user interface application.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="dynamicProperties" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>List of additional properties that were assigned to the ProductSpecification. Core provider software does not use these
+properties but specific implementations may add such properties and change behavior accordingly.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="dynamicPropertie" type="ns2:FlexAttr" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The unique primary key of the ProductSpecification, together with the related ProductCatalogVersion . A
+ProductSpecification is always created or changed within a given ProductCatalogVersion, it is the combination that
+uniquely identifies the fixed attributes and relations of the ProductSpecification.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="impactsQuote" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If value is TRUE then the ProductSpecification affects the quotation for its own one-time and recurring charges or for
+another ProductSpecification.
+Note: A ProductSpecification that affects only usage would not be expected to have this value set, since that makes no
+difference to the quotation.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="inactive" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If value is TRUE then  PriceSchema is obsolete. A PriceSchema becomes obsolete when it no longer exists in the version
+of the product catalog in context.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="level" type="tns:ProductSpecificationLevel" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The billing level at which pricing can be applied. For example Group or Subscription.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="name" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Free format short textual description.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="names" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The names of the ProductSpecification according to the various purposes</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="name" type="ns1:PurposedText" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="notificationSystems" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The systems to which this ProductSpecification should be notified. This allows the consumer to optimize the information
+sent to each system. For example:
+
+	A ProductSpecification representing a directory entry would not be notified to network provisioning
+	A ProductSpecification representing high-speed access would not be notified to directory management
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="notificationSystem" type="tns:NotificationTargetType" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="opExtn" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>This attribute is a unique identifier of a ProductSpecification contained by a BundledProductOffering. Therefore, this
+attribute enables to uniquely identify a specific ProductSpecification if more than one of the same
+ProductSpecification is contained in a BundledProductOffering hierarchy.
+
+This attribute is expected to be populated by certain operations that return ProductSpecification. In any case, this
+population takes place only when the ProductOfferings in the product catalog are defined using the Offer Hierarchy mode
+(OfferHierarchyMode is set to true) and only when the ProductSpecification is contained by a BundledProductOffering.
+
+For example: consider the following BundledProductOffering structure
+Wireless Bundle
+	Student Plan
+		Wireless Product
+	200 Minutes Plan
+		Wireless Product
+
+Wireless Bundle is a BundledProductOffering, Student Plan and 200 Minutes Plan are SimpleProductOfferings. Wireless
+Product is a ProductSpecification.
+
+So, for the Wireless Product under Student Plan and under 200 Minutes Plan, the attribute ProductSpecification.opExtn
+is populated with different values for the two cases, while the attribute ProductSpecification.ID is populated with the
+same value.
+
+The ProductOffering.opExtn attribute is generated by the provider.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="1023"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="playedRoles" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The ProductSpecifications that receive a role played by this ProductSpecification.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="playedRole" type="tns:ProductSpecRelationship" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="processes" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The ProcessSpecifications that are used for ordering this ProductSpecification. In Amdocs Ordering, only top-level
+ProductSpecifications have ProcessSpecifications.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="processe" type="tns:ProductSpecToProcessSpecForOrdering" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="productOffering" type="tns:ProductOffering" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The ProductOffering that contains the ProductSpecification in specific context.
+A ProductSpecification may be used by many ProductOfferings in the catalog, however at sales and ordering time it is
+already known which specific ProductOffering is relevant.
+Provider documentation for specific business operations should specify whether or not this relation will be returned.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="resources" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The LogicalResourceSpecs used by ProductSpecification.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="resource" type="tns:ProductSpecResource" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="saleEffectiveDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The start of the period during which the ProductSpecification is available for sale</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="saleEndDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The end of the period during which the ProductSpecification is available for sale</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="salesChannels" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The sales channels through which the ProductSpecification can be offered for sale directly, outside any ProductOffering.
+For instance, some complex lines of business might not be offered through self-service channels.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="salesChannel" type="ns3:SalesChannel" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="sellableOutsideOffering" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If value is TRUE then the ProductSpecification can be offered for sale directly, outside the scope of a ProductOffering.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="suspendable" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If value is TRUE then  the ProductSpecification can be suspended - typically (but not exclusively) in a network
+provisioning system. For example:
+
+	VoIP line could be suspended
+	Battery (equipment) could not be suspended
+	Paid-for Discount could be suspended
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="totalCalculatedPrices" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Pricing for the ProductSpecification in the context of a ProductOffering. There can be only one ProdOfferPriceCharge
+per revenue type ProdOfferPriceCharge.revenueType.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="totalCalculatedPrice" type="tns:ProdOfferPriceCharge" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="type" type="tns:ProductSpecificationType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The type of the ProductSpecification. A means of classification.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="userRatingSummary" type="ns1:ProductSpecRatingSummary" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The RatingSummary for the ProductSpecification</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="version" type="tns:ProductCatalogVersion" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The version of the catalog in which the ProductSpecification was created or changed.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  
+  
+  <xs:complexType name="ProductSpecificationTypeAndName" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The specification of a tangible (equipment) or intangible (network, billing, agreement, etc.) object made available
+externally through a ProductOffering to a Customer. A ProductSpecification is instantiated as a Product.
+
+A ProductSpecification may contain other ProductSpecifications defined by ProductSpecContainment. In Amdocs Ordering, a
+ProductSpecification that is not contained by another ProductSpecification is a Product or Main Component, while a
+ProductSpecification that is contained is a Subproduct or Component.
+
+ProductSpecifications can be classified by various groupings, such as BrowsingCategorys and ProductSpecificationTypes.
+
+ProductSpecifications are versioned by a ProductCatalogVersion, and different versions can be referred to at the same
+time. However, only the most recent version will typically used to instantiate a Product.
+:
+Derived from PIM entity ProductSpecification in the domain productspecification.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      
+      <xs:element name="code" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A human-readable, language-independent string.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The unique primary key of the ProductSpecification, together with the related ProductCatalogVersion . A
+ProductSpecification is always created or changed within a given ProductCatalogVersion, it is the combination that
+uniquely identifies the fixed attributes and relations of the ProductSpecification.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="name" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Free format short textual description.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="type" type="tns:ProductSpecificationType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The type of the ProductSpecification. A means of classification.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="version" type="tns:ProductCatalogVersion" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The version of the catalog in which the ProductSpecification was created or changed.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProductSpecPricing" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The specification of pricing for the ProductSpecification. For example associated price plans or activity charges.
+Attributes control the way that pricing is created when a ProductSpecification is instantiated as a Product. The
+definition of the pricing is in the associated PriceSchema or ActivityCharge.
+:
+Derived from PIM entity ProductSpecPricing in the domain productspecification.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="chargeEvents" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The actions taken on the containing Product that would cause this ProductSpecPricing to be applied. For instance, a
+Penalty might be applied if a Product was removed from the configuration (ceased).
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="chargeEvent" type="tns:ChargeEventType" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="childActivityCharge" type="tns:ActivityCharge" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The ActivityCharge that defines the pricing.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="childPricingSchema" type="tns:PriceSchema" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The PriceSchema that defines the pricing.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="descriptions" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The descriptions of the pricing for different purposes. In Amdocs Ordering, only a single description is supported for
+association, which will have the default purpose.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="description" type="ns1:PurposedText" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="dynamicProperties" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>List of additional properties that were assigned to the association. Core provider software does not use these
+properties but specific implementations may add such properties and change behavior accordingly.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="dynamicPropertie" type="ns2:FlexAttr" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="includeByDefault" type="tns:InclusionType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If value is TRUE then the pricing is included when the Product is instantiated from the ProductSpecification.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="names" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The names of the pricing for different purposes. In Amdocs Ordering, only a single name is supported for association,
+which will have the default purpose.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="name" type="ns1:PurposedText" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ActivityCharge">
+    <xs:annotation>
+      <xs:documentation>A one-time charge incurred due to some action taken by a Customer, typically (but not exclusively) during an ordering
+process for a Product. The existence of this charge is known independently of any PriceSchema.
+Examples:
+
+	Shipping charge for delivery of equipment
+	Charge for installation (technician visit)
+
+:
+Derived from PIM entity ActivityCharge in the domain productoffering.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="code" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="descriptions" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Texts that describe the ActivityCharge for different purposes.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="description" type="ns1:PurposedText" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="dynamicProperties" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>List of additional properties that were assigned to the ActivityCharge. Core provider software does not use these
+properties but specific implementations may add such properties and change behavior accordingly.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="dynamicPropertie" type="ns2:FlexAttr" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="effectiveDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The date from which this version of the ActivityCharge is effective</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="endDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The date until which this version of the ActivityCharge is effective.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="names" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A word, term, or phrase by which the ActivityCharge is known and distinguished from other ActivityCharges for different
+purposes.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="name" type="ns1:PurposedText" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="type" type="tns:ChargeType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The type of the charge.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ClassificationCategory" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A grouping of business control attributes that can be associated with one or more  ProductSpecifications. A
+ProductSpecification can only be associated to one ClassificationCategory.
+
+Examples of the control attributes include:
+
+	whether a billing subscription is generated when the ProductSpecification is delivered
+	whether rating is allowed on the ProductSpecification
+
+:
+Derived from PIM entity ClassificationCategory in the domain productspecification.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="description" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Free format long textual description.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="1023"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="dynamicProperties" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>List of additional properties that were assigned to the ClassificationCategory. Core provider software does not use
+these properties but specific implementations may add such properties and change behavior accordingly.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="dynamicPropertie" type="ns2:FlexAttr" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="generatesSubscription" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If value is TRUE then a Subscription should be generated as part of the delivery of the ProductSpecification.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="lineOfBusiness" type="tns:LineOfBusiness" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Describes which LineOfBusiness the ProductSpecifications associated to this category belong to.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="name" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Free format short textual description.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="ratingAllowed" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Indication whether rate and review is allowed for ProductSpecifications associated with this ClassificationCategory.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="userRatingAttributes" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Attributes that can be used to rate ProductSpecifications associated with this category.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="userRatingAttribute" type="ns1:ClassificationRatingAttribute" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProductSpecContainment" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A relationship between ProductSpecifications where one contains the other. The relationship is instantiated in the
+Product structure. The attributes define control information about the way that the relationship is instantiated for
+example the minimum and maximum number of contained Products that can be instantiated.
+
+For example
+
+	VoIP Main contains Subscription Number
+	minimum quantity 1 (means that at least one SN must be present as part of the VoIP
+	default quantity 1 (means that by default one SN will be instantiated when the VoIP is provided)
+	maximum quantity 3 (means that not more than one reference can be instantiated)
+
+
+When ProductSpecContainment.containedProducts is an array of different ProductSpecifications the ProductSpecContainment
+defines a group that can be selected from allowing a choice of different ProductSpecifications up to the maximum
+number
+
+This data type is an Association Role entity. It defines the attributes for an Association.
+:
+Derived from PIM entity ProductSpecContainment in the domain productspecification.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="containedProducts" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>ProductSpecification that is contained by another ProductSpecification.When the cardinality is more than one then the
+ProductSpecContainment defines a group that can be selected from allowing a choice of different ProductSpecifications
+up to the maximum number.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="containedProduct" type="tns:ProductSpecification" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="defaultQuantity" type="xs:integer" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The default number of copies of the child Product that are created contained within in the parent Product. When
+ProductSpecContainment.containedProducts is an array of different ProductSpecifications then this value has no meaning.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="description" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Free format long textual description.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="1023"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="dynamicProperties" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>List of additional properties that were assigned to the ProductSpecContainment. Core provider software does not use
+these properties but specific implementations may add such properties and change behavior accordingly.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="dynamicPropertie" type="ns2:FlexAttr" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="maximumQuantity" type="xs:integer" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The maximum number of copies of ProductSpecification that can be instantiated as Products contained within the parent
+Product. When ProductSpecContainment.containedProducts is an array of different ProductSpecifications then this value
+is the ??????.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="minimumQuantity" type="xs:integer" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The minimum number of copies of ProductSpecification that must be instantiated as Products contained within the parent
+Product.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="name" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Free format short textual description.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProductSpecDisplay" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>How the ProductSpecification should be displayed in a user interface application.
+:
+Derived from PIM entity ProductSpecDisplay in the domain productspecification.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="dynamicProperties" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>List of additional properties that were assigned to the ProductSpecDisplay.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="dynamicPropertie" type="ns2:FlexAttr" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="enabled" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If value is TRUE then  the ProductSpecification is editable.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="mandatory" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If value is TRUE then the ProductSpecification should be enforced as mandatory.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="visible" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If value is TRUE then the ProductSpecification should be displayed.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProductSpecRelationship" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A relationship between ProductSpecifications where one is related to the other with a role name. The role is received
+by the ProductSpecRelationship.roleReceivers.
+
+The relationship is instantiated in the Product structure. The attributes define control information about the way that
+the relationship is instantiated for example the minimum and maximum number of contained Products that can be
+instantiated.
+
+For example:
+
+	VoIP Main refers to HSIA Connection (means Voice over IP uses High Speed Internet Access connection)
+	minimum quantity 0 (means that the reference is not mandatory and that the VoIP can be supplied without the HSIA)
+	default quantity 1 (means that by default one reference will be instantiated and that for example a human user will
+have to take explicit action to prevent instantiation of the reference to HSIA)
+	maximum quantity 1 (means that not more than one reference can be instantiated)
+	role of the relationship is technical.
+
+
+When ProductSpecRelationship.roleReceivers is an array of different ProductSpecifications the ProductSpecRelationship
+defines a group that can be selected from allowing a choice of different ProductSpecifications up to the maximum
+number
+
+This data type is an Association Role entity. It defines the attributes for an Association.
+:
+Derived from PIM entity ProductSpecRelationship in the domain productspecification.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="defaultQuantity" type="xs:integer" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The default number of copies of the child Product that are created contained within in the parent Product. When
+ProductSpecRelationship.roleReceivers is an array of different ProductSpecifications then this value has no meaning.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="description" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Free format long textual description.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="1023"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="descriptions" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The descriptions of the relationship for different purposes.
+In Amdocs Ordering, only a single description is supported for association, which will have the default purpose.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="description" type="ns1:PurposedText" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="dynamicProperties" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>List of additional properties that were assigned to the ProductSpecRelationship. Core provider software does not use
+these properties but specific implementations may add such properties and change behavior accordingly.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="dynamicPropertie" type="ns2:FlexAttr" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="maximumQuantity" type="xs:integer" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The maximum number of copies of ProductSpecification that can be instantiated as Products contained within the parent
+Product. When ProductSpecRelationship.roleReceivers is an array of different ProductSpecifications then this value is
+the ??????.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="minimumQuantity" type="xs:integer" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The minimum number of copies of ProductSpecification that must be instantiated as Products contained within the parent
+Product.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="name" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Free format short textual description.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="names" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The names relationship for different purposes.
+In Amdocs Ordering, only a single name is supported for association, which will have the default purpose.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="name" type="ns1:PurposedText" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="productRelationshipMethods" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The available states of Products that this relationship can use as a target, for example other new Products or other
+existing Products. For example when connecting high speed internet to a modem, the modem could be new or already
+installed by the Customer.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="productRelationshipMethod" type="tns:ProductRelationshipMethod" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="role" type="tns:ProductSpecAssociationRole" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The role of that the ProductSpecRelationship.roleReceivers receive from the ProductSpecification.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="roleReceivers" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The ProductSpecifications that receive this role. When the cardinality is more than one then the
+ProductSpecRelationship defines a group that can be selected from allowing a choice of different ProductSpecifications
+up to the maximum number.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="roleReceiver" type="tns:ProductSpecification" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProductSpecToProcessSpecForOrdering" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The specification of a ProcessSpecification to run in various ordering situations involving a ProductSpecification.
+In current Amdocs Ordering functionality, this association has meaning only for a top-level ProductSpecification (one
+that has no parents), since ordering processes can be defined and instantiated only for top-level ProductSpecifications.
+
+This data type is an Association Role entity. It defines the attributes for an Association.
+:
+Derived from PIM entity ProductSpecToProcessSpecForOrdering in the domain productspecification.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="canceling" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If value is TRUE then the process is intended to reverse the effects of the order. For example, if during an ordering
+process logical resources were allocated, then a canceling process would need to ensure that the resources were freed.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="orderItemType" type="ns4:ProductOrderItemType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The order item type associated with this process. For example Provide.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="processSpec" type="ns5:ProcessSpecification" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The specific ProcessSpecification for this combination of ProductSpecification and action type.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="salesChannel" type="ns3:SalesChannel" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The SalesChannel that is relevant for this particular association to ProcessSpecification, allowing different processes
+for different channels.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProductSpecResource" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The relationship between a ProductSpecification and a  LogicalResourceSpec. This data type is an Association Role
+entity. It defines the attributes for an Association.
+:
+Derived from PIM entity ProductSpecResource in the domain productspecification.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="resource" type="ns6:LogicalResourceSpec" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A LogicalResourceSpec used by a ProductSpecification.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProductCatalogVersion" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A set of changes made to product catalog items. Corresponds to Enterprise Product Catalog project, or Amdocs Ordering
+catalog version.
+:
+Derived from PIM entity ProductCatalogVersion in the domain productoffering.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="description" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Free format long textual description.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="1023"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. 
+In Amdocs implementation, ID is concatenation of the major, minor, and revision numbers
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="lifecycleStatus" type="tns:ProductCatalogLifecycleStatus" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The development status. For example testing, in development.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="majorVersionNumber" type="xs:decimal" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Major version number, such as 35 from 35.02.03</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="minorVersionNumber" type="xs:decimal" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Minor version number, such as 02 from 35.02.03</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="revisionNumber" type="xs:decimal" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Revision  number, such as 03 from 35.02.03</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProductOfferingDisplay" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>How a ProductOffering should be displayed in a user interface application.
+:
+Derived from PIM entity ProductOfferingDisplay in the domain productoffering.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="layoutTemplate" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Defines the user interface layout template for the ProductOffering. For example the display picture of a Phone.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="1023"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="MarketingParameter" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>Represents an arbitrary named value that can be added to a ProductOffering for filtering or other purposes - different
+from a dynamic property since it is typed according to the catalog value type model.
+:
+Derived from PIM entity MarketingParameter in the domain productoffering.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="name" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The name of the MarketingParameter</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="valueTypes" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="valueType" type="ns1:CharacteristicValueType" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="BundledProductOffering" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A type of ProductOffering that represents a grouping of ProductOfferings made available to the market. The grouping may
+consist of other BundledProductOfferings or SimpleProductOfferings.
+:
+Derived from PIM entity BundledProductOffering in the domain productoffering.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:ProductOffering">
+        <xs:sequence>
+          <xs:element name="containedProductOfferings" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The ProductOfferings that are offered for sale by this BundledProductOffering.</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="containedProductOffering" type="tns:BundledProductOfferingOption" minOccurs="0" maxOccurs="unbounded"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="BundledProductOfferingOption" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A set of numbers that specifies the minimum and maximum limits for a ProductOffering that can be procured as part of
+the related BundledProductOffering. Values can range from 0 to unbounded.
+:
+Derived from PIM entity BundledProductOfferingOption in the domain productoffering.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="defaultQuantity" type="xs:integer" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The default number of duplicate instances of the ProductOffering that will be created with the parent
+BundledProductOffering.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier.  This attribute identifies uniquely a ProductOffering within a BundledProductOffering. Provider
+write only.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="maximumQuantity" type="xs:integer" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The maximum number of the associated  ProductOfferings that can be procured as part of the BundledProductOffering</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="minimumQuantity" type="xs:integer" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The minimum number of the associated  ProductOfferings that can be procured as part of the BundledProductOffering</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="productOffering" type="tns:ProductOffering" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The ProductOfferings that are offered for sale by this BundledProductOffering.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProductOfferingCore" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>Concrete type for ProductOffering.
+:
+</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:ProductOffering">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SimpleProductOffering" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A type of ProductOffering that does not have any subordinate ProductOfferings, that is, an SimpleProductOffering is a
+leaf-level ProductOffering. SimpleProductOffering can have only one ProductSpecification.
+:
+Derived from PIM entity SimpleProductOffering in the domain productoffering.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:ProductOffering">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="BrowsingCategoryStructure" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A node in a hierarchy of BrowsingCategorys. The node may have a single parent and multiple children. There is no
+indication of which is the top node in the hierarchy.
+:
+Derived from PIM entity BrowsingCategoryStructure in the domain productspecification.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="category" type="tns:BrowsingCategory" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The BrowsingCategory associated to node in the hierarchy.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="childCategories" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The child nodes of this node in the BrowsingCategory hierachy.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="childCategorie" type="tns:BrowsingCategoryStructure" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="NotificationTargetType">
+    <xs:annotation>
+      <xs:documentation>A target of external business system communication. For example network provisioning, billing. It does not model the
+attributes required for communication, just the fact that communication is required.
+:
+Derived from PIM entity NotificationTargetType in the domain productspecification.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="ChargeType">
+    <xs:annotation>
+      <xs:documentation>The type of charge. For example a one time charge, a recurring charge or a charge based on usage.
+:
+Derived from PIM entity ChargeType in the domain productoffering.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ONETIME">
+        <xs:annotation>
+          <xs:documentation>One time charge</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RECURRING">
+        <xs:annotation>
+          <xs:documentation>Recurring charge.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="USAGE">
+        <xs:annotation>
+          <xs:documentation>Usage charge.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="LineOfBusiness">
+    <xs:annotation>
+      <xs:documentation>A line of business that might require different business treatment. Implementation defined. For example wireline and
+wireless.
+:
+Derived from PIM entity LineOfBusiness in the domain productspecification.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="BrowsingCategoryType">
+    <xs:annotation>
+      <xs:documentation>The type of a BrowsingCategory, for example navigation or list.
+:
+Derived from PIM entity BrowsingCategoryType in the domain productspecification.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="LIST">
+        <xs:annotation>
+          <xs:documentation>This category is used as a list of items.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NAVIGATION">
+        <xs:annotation>
+          <xs:documentation>This category is used for navigation.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ProductSpecificationLevel">
+    <xs:annotation>
+      <xs:documentation>The type of level at which the pricing of the ProductSpecification can be applied in the billing hierarchy.
+:
+Derived from PIM entity ProductSpecificationLevel in the domain productspecification.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="GROUP">
+        <xs:annotation>
+          <xs:documentation>Billing group level</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SUBSCRIBER">
+        <xs:annotation>
+          <xs:documentation>Billing subscription level.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PriceSchemaType">
+    <xs:annotation>
+      <xs:documentation>The type of PriceSchema. For example Discount, Basic.
+:
+Derived from PIM entity PriceSchemaType in the domain productoffering.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ADDITIONAL">
+        <xs:annotation>
+          <xs:documentation>Additional.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BASIC">
+        <xs:annotation>
+          <xs:documentation>Basic.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISCOUNT">
+        <xs:annotation>
+          <xs:documentation>Discount.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PRIMARY">
+        <xs:annotation>
+          <xs:documentation>Primary.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PaymentCategory">
+    <xs:annotation>
+      <xs:documentation>The way that charges can be collected (pre-paid or post-paid or both).
+:
+Derived from PIM entity PaymentCategory in the domain productspecification.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="BOTH">
+        <xs:annotation>
+          <xs:documentation>The charges can be collected through both for prepaid and postpaid channels.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="POSTPAID">
+        <xs:annotation>
+          <xs:documentation>The charges must be collected through postpaid channels.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PREPAID">
+        <xs:annotation>
+          <xs:documentation>The charges must be collected through prepaid channels.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ChargeEventType">
+    <xs:annotation>
+      <xs:documentation>The types of charge event. Typically this indicates what activity originated the charge during an ordering process.
+
+For instance, a one-time charge might be attached to a piece of equipment to reflect the cost of shipping from the
+supplier to the customer. This charge would be relevant when the piece of equipment was added to the product
+configuration, but not when it was removed. Or, a one-time charge might be attached to a VPN product to reflect the
+cost of decommissioning. This charge would be relevant only when the VPN was removed, not when it was added or changed.
+
+
+Implementation only. Examples include:
+
+	RCH - Remove in Change (remove sub-element in Change ProductOrderItem)
+	DPR - Add in Provide (add sub-element in Provide ProductOrderItem)
+
+:
+Derived from PIM entity ChargeEventType in the domain productoffering.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="InclusionType">
+    <xs:annotation>
+      <xs:documentation>How child elements are included when an association between specifications is instantiated. Currently used for
+instantiating pricing for ProductSpecPricing
+:
+Derived from PIM entity InclusionType in the domain productspecification.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="INCLUDED_BY_DEFAULT">
+        <xs:annotation>
+          <xs:documentation>The element is included, but can be removed.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MANDATORY">
+        <xs:annotation>
+          <xs:documentation>The element is included and cannot be removed</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NOT_INCLUDED_BY_DEFAULT">
+        <xs:annotation>
+          <xs:documentation>The element is not included and can be added.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="OrderingConfigurationType">
+    <xs:annotation>
+      <xs:documentation>The type of configuration required for a ProductSpecification at ordering time.
+:
+Derived from PIM entity OrderingConfigurationType in the domain productspecification.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NO_CONFIGURATION">
+        <xs:annotation>
+          <xs:documentation>No configuration is required.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PRECONFIGURED">
+        <xs:annotation>
+          <xs:documentation>Configuration is pre-determined typically from a product catalog. Further configuration may be optional.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="REQUIRE_CONFIGURATION">
+        <xs:annotation>
+          <xs:documentation>Configuration is required. The ProductSpecification cannot be ordered without it.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ProductRelationshipMethod">
+    <xs:annotation>
+      <xs:documentation>The method by which a ProductSpecification instantiated as a Product can be related to another Product. For example
+when connecting high speed internet to a modem, the modem could be new or already installed by the Customer.
+:
+Derived from PIM entity ProductRelationshipMethod in the domain productspecification.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ASSIGNED">
+        <xs:annotation>
+          <xs:documentation>The instantiated ProductSpecification can be related to existing Products.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NEW">
+        <xs:annotation>
+          <xs:documentation>The instantiated ProductSpecification can be related to other new Products.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ProductSpecAssociationRole">
+    <xs:annotation>
+      <xs:documentation>The role that one ProductSpecification plays for another. For example optional feature or required equipment.
+:
+Derived from PIM entity ProductSpecAssociationRole in the domain productspecification.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="ProductSpecificationType">
+    <xs:annotation>
+      <xs:documentation>A classification of ProductSpecifications.
+Values are purely implementation-dependent; examples would include:
+
+	ADSL - ADSL
+	VOIP - Voice over IP
+	SWF - Switch Feature
+	SN - Subscription Number (telephone number)
+	GP - Genre Package
+
+:
+Derived from PIM entity ProductSpecificationType in the domain productspecification.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="ProductCatalogLifecycleStatus">
+    <xs:annotation>
+      <xs:documentation>The status of the ProductCatalogVersion. The values in the model are those supported by Amdocs Ordering - other values
+would need to be added in the context of a full product lifecycle management solution.
+:
+Derived from PIM entity ProductCatalogLifecycleStatus in the domain productoffering.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="DEVELOPMENT">
+        <xs:annotation>
+          <xs:documentation>Item is in development and is not ready for testing.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PRODUCTION">
+        <xs:annotation>
+          <xs:documentation>The item has been tested and is ready for production.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TESTING">
+        <xs:annotation>
+          <xs:documentation>The item is ready for testing but not to be seen in production environment.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:complexType name="AddOnID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>Information of Add on pack to be removed</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id">
+        <xs:annotation>
+           <xs:documentation>The unique primary key of the AddOn. 
+ 				For FetchTV - UUID (external Fetch ID) of the theme pack
+	 		</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  
+  </xs:complexType>
+</xs:schema>
+

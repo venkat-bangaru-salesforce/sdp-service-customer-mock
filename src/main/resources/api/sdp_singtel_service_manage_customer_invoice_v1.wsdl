@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="ManageCustomerInvoiceService"
+	targetNamespace="http://group.singtel.com/billinginquirydisputeadjustmentmanagement/billinquiry/v1" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:tns="http://group.singtel.com/billinginquirydisputeadjustmentmanagement/billinquiry/v1" xmlns:sgc="http://group.singtel.com/enterpriseapplicationintegration/common-types/v1">
+
+	<wsdl:types>
+		<xsd:schema>
+			<xsd:import namespace="http://group.singtel.com/billinginquirydisputeadjustmentmanagement/billinquiry/v1"
+				schemaLocation="schemas/sdp_singtel_service_manage_customer_invoice_v1.xsd" />
+			<xsd:import namespace="http://group.singtel.com/enterpriseapplicationintegration/common-types/v1"
+				schemaLocation="common-schemas/sdp_singtel_service_common.xsd" />
+		</xsd:schema>
+	</wsdl:types>
+
+
+	<!--common headers -->
+	<wsdl:message name="sdpServiceHeaders">
+		<wsdl:part name="sdpServiceHeaders" element="sgc:sdpServiceHeaders" />
+	</wsdl:message>
+
+	<wsdl:message name="sdpServiceResponseHeaders">
+		<wsdl:part name="sdpServiceResponseHeaders" element="sgc:sdpServiceResponseHeaders" />
+	</wsdl:message>
+
+	<wsdl:message name="retrieveStatementForDocument">
+		<wsdl:part name="retrieveStatementForDocument" element="tns:retrieveStatementForDocument" />
+	</wsdl:message>
+	<wsdl:message name="retrieveStatementForDocumentResponse">
+		<wsdl:part name="retrieveStatementForDocumentResponse" element="tns:retrieveStatementForDocumentResponse" />
+	</wsdl:message>
+	<wsdl:message name="retrieveStatementForDocumentFault">
+		<wsdl:part name="retrieveStatementForDocumentFault" element="sgc:sdpDetails" />
+	</wsdl:message>
+
+	<wsdl:message name="searchDocumentForBillSpec">
+		<wsdl:part name="searchDocumentForBillSpec" element="tns:searchDocumentForBillSpec" />
+	</wsdl:message>
+	<wsdl:message name="searchDocumentForBillSpecResponse">
+		<wsdl:part name="searchDocumentForBillSpecResponse" element="tns:searchDocumentForBillSpecResponse" />
+	</wsdl:message>
+	<wsdl:message name="searchDocumentForBillSpecFault">
+		<wsdl:part name="searchDocumentForBillSpecFault" element="sgc:sdpDetails" />
+	</wsdl:message>
+
+	<wsdl:message name="getBillImage">
+		<wsdl:part name="getBillImage" element="tns:getBillImage" />
+	</wsdl:message>
+	<wsdl:message name="getBillImageResponse">
+		<wsdl:part name="getBillImageResponse" element="tns:getBillImageResponse" />
+	</wsdl:message>
+	<wsdl:message name="getBillImageFault">
+		<wsdl:part name="getBillImageFault" element="sgc:sdpDetails" />
+	</wsdl:message>
+	
+	<wsdl:message name="searchChargesForDocument">
+		<wsdl:part name="searchChargesForDocument" element="tns:searchChargesForDocument" />
+	</wsdl:message>
+	<wsdl:message name="searchChargesForDocumentResponse">
+		<wsdl:part name="searchChargesForDocumentResponse" element="tns:searchChargesForDocumentResponse" />
+	</wsdl:message>
+	<wsdl:message name="searchChargesForDocumentFault">
+		<wsdl:part name="searchChargesForDocumentFault" element="sgc:sdpDetails" />
+	</wsdl:message>
+	
+	<wsdl:message name="searchUninvoicedCharge">
+		<wsdl:part name="searchUninvoicedCharge" element="tns:searchUninvoicedCharge" />
+	</wsdl:message>
+	<wsdl:message name="searchUninvoicedChargeResponse">
+		<wsdl:part name="searchUninvoicedChargeResponse" element="tns:searchUninvoicedChargeResponse" />
+	</wsdl:message>
+	<wsdl:message name="searchUninvoicedChargeFault">
+		<wsdl:part name="searchUninvoicedChargeFault" element="sgc:sdpDetails" />
+	</wsdl:message>
+	
+	<wsdl:message name="retrieveBillFirstPage">
+		<wsdl:part name="retrieveBillFirstPage" element="tns:retrieveBillFirstPage" />
+	</wsdl:message>
+	<wsdl:message name="retrieveBillFirstPageResponse">
+		<wsdl:part name="retrieveBillFirstPageResponse" element="tns:retrieveBillFirstPageResponse" />
+	</wsdl:message>
+	<wsdl:message name="retrieveBillFirstPageFault">
+		<wsdl:part name="retrieveBillFirstPageFault" element="sgc:sdpDetails" />
+	</wsdl:message>
+	<wsdl:message name="getDocument">		
+    	<wsdl:part name="getDocument" element="tns:getDocument" />
+    </wsdl:message>
+    <wsdl:message name="getDocumentResponse">
+	    <wsdl:part name="getDocumentResponse" element="tns:getDocumentResponse" />	    
+   </wsdl:message>    
+   <wsdl:message name="getDocumentFault">
+	    <wsdl:part name="getDocumentFault" element="sgc:sdpDetails"/>	    
+   </wsdl:message>
+ 
+
+	<wsdl:portType name="ManageCustomerInvoicePort">
+		<wsdl:operation name="retrieveStatementForDocument">
+			<wsdl:input name="retrieveStatementForDocument" message="tns:retrieveStatementForDocument" />
+			<wsdl:output name="retrieveStatementForDocumentResponse" message="tns:retrieveStatementForDocumentResponse" />
+			<wsdl:fault name="retrieveStatementForDocumentFault" message="tns:retrieveStatementForDocumentFault" />
+		</wsdl:operation>
+		<wsdl:operation name="searchDocumentForBillSpec">
+			<wsdl:input name="searchDocumentForBillSpec" message="tns:searchDocumentForBillSpec" />
+			<wsdl:output name="searchDocumentForBillSpecResponse" message="tns:searchDocumentForBillSpecResponse" />
+			<wsdl:fault name="searchDocumentForBillSpecFault" message="tns:searchDocumentForBillSpecFault" />
+		</wsdl:operation>
+		<wsdl:operation name="getBillImage">
+			<wsdl:input name="getBillImage" message="tns:getBillImage" />
+			<wsdl:output name="getBillImageResponse" message="tns:getBillImageResponse" />
+			<wsdl:fault name="getBillImageFault" message="tns:getBillImageFault" />
+		</wsdl:operation>
+		<wsdl:operation name="searchChargesForDocument">
+			<wsdl:input name="searchChargesForDocument" message="tns:searchChargesForDocument" />
+			<wsdl:output name="searchChargesForDocumentResponse" message="tns:searchChargesForDocumentResponse" />
+			<wsdl:fault name="searchChargesForDocumentFault" message="tns:searchChargesForDocumentFault" />
+		</wsdl:operation>
+		<wsdl:operation name="searchUninvoicedCharge">
+			<wsdl:input name="searchUninvoicedCharge" message="tns:searchUninvoicedCharge" />
+			<wsdl:output name="searchUninvoicedChargeResponse" message="tns:searchUninvoicedChargeResponse" />
+			<wsdl:fault name="searchUninvoicedChargeFault" message="tns:searchUninvoicedChargeFault" />
+		</wsdl:operation>
+		<wsdl:operation name="retrieveBillFirstPage">
+			<wsdl:input name="retrieveBillFirstPage" message="tns:retrieveBillFirstPage" />
+			<wsdl:output name="retrieveBillFirstPageResponse" message="tns:retrieveBillFirstPageResponse" />
+			<wsdl:fault name="retrieveBillFirstPageFault" message="tns:retrieveBillFirstPageFault" />
+		</wsdl:operation>
+		<wsdl:operation name="getDocument">
+				<wsdl:documentation>The operation fetch Subscriber cycle info and shared services info. A customer Id, Subscriber type, logical Resource will be given in the request.</wsdl:documentation>
+			    <wsdl:input name="getDocument" message="tns:getDocument"/>			    
+			    <wsdl:output name="getDocumentResponse" message="tns:getDocumentResponse"/>
+			    <wsdl:fault name="getDocumentFault" message="tns:getDocumentFault"/>			    
+	    </wsdl:operation>
+	</wsdl:portType>
+
+
+
+	<wsdl:binding name="ManageCustomerInvoicePort_SOAPBinding" type="tns:ManageCustomerInvoicePort">
+
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+
+		<wsdl:operation name="retrieveStatementForDocument">
+			<soap:operation soapAction="retrieveStatementForDocument" style="document" />
+			<wsdl:input name="retrieveStatementForDocument">
+				<soap:body use="literal" />
+				<soap:header message="tns:sdpServiceHeaders" part="sdpServiceHeaders" use="literal" />
+			</wsdl:input>
+			<wsdl:output name="retrieveStatementForDocumentResponse">
+				<soap:header message="tns:sdpServiceResponseHeaders" part="sdpServiceResponseHeaders" use="literal" />
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="retrieveStatementForDocumentFault">
+				<soap:fault name="retrieveStatementForDocumentFault" use="literal" />
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="searchDocumentForBillSpec">
+			<soap:operation soapAction="searchDocumentForBillSpec" style="document" />
+			<wsdl:input name="searchDocumentForBillSpec">
+				<soap:body use="literal" />
+				<soap:header message="tns:sdpServiceHeaders" part="sdpServiceHeaders" use="literal" />
+			</wsdl:input>
+			<wsdl:output name="searchDocumentForBillSpecResponse">
+				<soap:header message="tns:sdpServiceResponseHeaders" part="sdpServiceResponseHeaders" use="literal" />
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="searchDocumentForBillSpecFault">
+				<soap:fault name="searchDocumentForBillSpecFault" use="literal" />
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="getBillImage">
+			<soap:operation soapAction="getBillImage" style="document" />
+			<wsdl:input name="getBillImage">
+				<soap:body use="literal" />
+				<soap:header message="tns:sdpServiceHeaders" part="sdpServiceHeaders" use="literal" />
+			</wsdl:input>
+			<wsdl:output name="getBillImageResponse">
+				<soap:header message="tns:sdpServiceResponseHeaders" part="sdpServiceResponseHeaders" use="literal" />
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="getBillImageFault">
+				<soap:fault name="getBillImageFault" use="literal" />
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="searchChargesForDocument">
+			<soap:operation soapAction="searchChargesForDocument" style="document" />
+			<wsdl:input name="searchChargesForDocument">
+				<soap:body use="literal" />
+				<soap:header message="tns:sdpServiceHeaders" part="sdpServiceHeaders" use="literal" />
+			</wsdl:input>
+			<wsdl:output name="searchChargesForDocumentResponse">
+				<soap:header message="tns:sdpServiceResponseHeaders" part="sdpServiceResponseHeaders" use="literal" />
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="searchChargesForDocumentFault">
+				<soap:fault name="searchChargesForDocumentFault" use="literal" />
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="searchUninvoicedCharge">
+			<soap:operation soapAction="searchUninvoicedCharge" style="document" />
+			<wsdl:input name="searchUninvoicedCharge">
+				<soap:body use="literal" />
+				<soap:header message="tns:sdpServiceHeaders" part="sdpServiceHeaders" use="literal" />
+			</wsdl:input>
+			<wsdl:output name="searchUninvoicedChargeResponse">
+				<soap:header message="tns:sdpServiceResponseHeaders" part="sdpServiceResponseHeaders" use="literal" />
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="searchUninvoicedChargeFault">
+				<soap:fault name="searchUninvoicedChargeFault" use="literal" />
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="retrieveBillFirstPage">
+			<soap:operation soapAction="retrieveBillFirstPage" style="document" />
+			<wsdl:input name="retrieveBillFirstPage">
+				<soap:body use="literal" />
+				<soap:header message="tns:sdpServiceHeaders" part="sdpServiceHeaders" use="literal" />
+			</wsdl:input>
+			<wsdl:output name="retrieveBillFirstPageResponse">
+				<soap:header message="tns:sdpServiceResponseHeaders" part="sdpServiceResponseHeaders" use="literal" />
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="retrieveBillFirstPageFault">
+				<soap:fault name="retrieveBillFirstPageFault" use="literal" />
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="getDocument">
+	      <soap:operation soapAction="getDocument" style="document"/>
+	      <wsdl:input name="getDocument">
+	        <soap:body use="literal"/>
+	        <soap:header message="tns:sdpServiceHeaders" part="sdpServiceHeaders" use="literal" />
+	      </wsdl:input>
+	      <wsdl:output name="getDocumentResponse">
+	      	<soap:header message="tns:sdpServiceResponseHeaders" part="sdpServiceResponseHeaders" use="literal" />
+	        <soap:body use="literal"/>
+	      </wsdl:output>
+	      <wsdl:fault name="getDocumentFault">
+	        <soap:fault name="getDocumentFault" use="literal"/>
+	      </wsdl:fault>	      
+	    </wsdl:operation>
+	</wsdl:binding>
+
+
+	<wsdl:service name="ManageCustomerInvoiceService">
+		<wsdl:port binding="tns:ManageCustomerInvoicePort_SOAPBinding" name="ManageCustomerInvoice">
+			<soap:address location="http://localhost:9090/ManageCustomerInvoice" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

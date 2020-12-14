@@ -1,0 +1,795 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema elementFormDefault="qualified" version="1.0" targetNamespace="http://group.singtel.com/service/types-unqualified/v1" xmlns:ns2="http://group.singtel.com/core/types-unqualified/v1" xmlns:ns1="http://group.singtel.com/servicebusinessinteraction/types-unqualified/v1" xmlns:ns4="http://group.singtel.com/customerproduct/types-unqualified/v1" xmlns:ns3="http://group.singtel.com/commonbusinessentities/types-unqualified/v1" xmlns:tns="http://group.singtel.com/service/types-unqualified/v1" xmlns:ns9="http://group.singtel.com/customerbusinessinteraction/types-unqualified/v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns5="http://group.singtel.com/servicecatalog/types-unqualified/v1" xmlns:ns6="http://group.singtel.com/productcatalog/types-unqualified/v1" xmlns:ns7="http://group.singtel.com/customerbilling/types-unqualified/v1" xmlns:ns10="http://group.singtel.com/enterprise/types-unqualified/v1" xmlns:ns8="http://group.singtel.com/customerprofile/types-unqualified/v1">
+
+  <xs:annotation>
+    <xs:documentation>The service domain describes information used in Service Management including Fulfillment and Service Assurance.
+: Unqualified model for documentation purposes only.
+Singtel interfaces.
+</xs:documentation>
+  </xs:annotation>
+  <xs:import namespace="http://group.singtel.com/servicebusinessinteraction/types-unqualified/v1" schemaLocation="sdp_singtel_servicebusinessinteraction_types-unqualified_v1.xsd"/>
+
+  <xs:import namespace="http://group.singtel.com/core/types-unqualified/v1" schemaLocation="sdp_singtel_core_types-unqualified_v1.xsd"/>
+
+  <xs:import namespace="http://group.singtel.com/commonbusinessentities/types-unqualified/v1" schemaLocation="sdp_singtel_commonbusinessentities_types-unqualified_v1.xsd"/>
+
+  <xs:import namespace="http://group.singtel.com/customerproduct/types-unqualified/v1" schemaLocation="sdp_singtel_customerproduct_types-unqualified_v1.xsd"/>
+
+  <xs:import namespace="http://group.singtel.com/servicecatalog/types-unqualified/v1" schemaLocation="sdp_singtel_servicecatalog_types-unqualified_v1.xsd"/>
+
+  <xs:import namespace="http://group.singtel.com/productcatalog/types-unqualified/v1" schemaLocation="sdp_singtel_productcatalog_types-unqualified_v1.xsd"/>
+
+  <xs:import namespace="http://group.singtel.com/customerbilling/types-unqualified/v1" schemaLocation="sdp_singtel_customerbilling_types-unqualified_v1.xsd"/>
+
+  <xs:import namespace="http://group.singtel.com/customerprofile/types-unqualified/v1" schemaLocation="sdp_singtel_customerprofile_types-unqualified_v1.xsd"/>
+
+  <xs:import namespace="http://group.singtel.com/customerbusinessinteraction/types-unqualified/v1" schemaLocation="sdp_singtel_customerbusinessinteraction_types-unqualified_v1.xsd"/>
+
+  <xs:import namespace="http://group.singtel.com/enterprise/types-unqualified/v1" schemaLocation="sdp_singtel_enterprise_types-unqualified_v1.xsd"/>
+
+  <xs:complexType name="DependencyEntity" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A DependencyEntity is an endpoint of a plan dependency, acting as either the parent or the dependent entity. It can
+represent PO, POI, SO or SOI as defined by DependencyEntity.type
+
+The DependencyEntity.ID represents a reference to a servicedomain entity as defined by a DependencyEntity.
+DependenyEntityType
+:
+Derived from PIM entity DependencyEntity in the domain servicedependency.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="entityID" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The unique ID of the DependencyEntity from the order (ID of the entity being referred to by DependencyEntity , not of
+the DependencyEntity itself).
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="type" type="tns:DependencyEntityType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The unique type of the entity (SO, SOI, POL, POI).</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="DependencyEntityDescriptor" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>An DependencyEntityDescriptor defines a dependency between two DependencyEntity 's. Each role of the dependency
+entities in this dependency (parent or dependent) can be further restricted to a particular status.
+
+Where a dependency is a data dependency DependencyEntityDescriptor.dataFlow defines the attributes that should flow
+from parent to dependent.
+:
+Derived from PIM entity DependencyEntityDescriptor in the domain servicedependency.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="dataFlow" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Where a dependency is a data dependency DependencyEntityDescriptor.dataFlow defines the attributes that should flow
+from parent to dependent. These attributes are comma separated.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="1023"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="dependencyType" type="tns:DependencyType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The type of the dependency. Currently only status-to-start is supported.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="dependent" type="tns:DependencyEntity" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The dependent DependencyEntity represents an entity that should wait until the parent DependencyEntity completes (or
+reached a status) before starting fulfillment.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="dependentStatus" type="ns1:ServiceOrderItemStatus" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The fulfillment status value of the ServiceOrderItem. For example Designed, Implemented, Activated, Completed.
+The status of the dependent entity.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="parent" type="tns:DependencyEntity" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The parent DependencyEntity represents an entity that should be completed (or reached a status) before the dependent
+DependencyEntity can start fulfillment.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="parentStatus" type="ns1:ServiceOrderItemStatus" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The fulfillment status value of the ServiceOrderItem. For example Designed, Implemented, Activated, Completed.
+The status of the parent entity.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="DependencyGroup" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A DependencyGroup is a collection of the DependencyEntity's held in the plan.
+
+Constraints of groups:
+- Entities on different groups cannot be directly dependent on each other.
+- Entities on the same group should be executed in parallel.
+- Groups support only simple finish-to-start dependencies as defined by DependencyGroupDescriptor
+:
+Derived from PIM entity DependencyGroup in the domain servicedependency.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="entities" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The DependencyEntity s associated with the DependencyGroup.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="entitie" type="tns:DependencyEntity" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The group identifier of the DependencyGroup, so it will be possible for the client to correlate the group complete
+callback and the data model.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="DependencyGroupDescriptor" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A DependencyGroupDescriptor defines a simple finish-to-start dependency between two DependencyGroup's.
+:
+Derived from PIM entity DependencyGroupDescriptor in the domain servicedependency.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="dependent" type="tns:DependencyGroup" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The dependent DependencyGroup represents a group of entities that should wait until the parent DependencyGroup finished
+fulfillment.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="parent" type="tns:DependencyGroup" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The parent DependencyGroup represents a group of entities that should be completed before the dependent DependencyGroup
+can start fulfillment.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="DependencyPlan" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>DependencyPlan is a container object holding all dependencies for fulfillment a set of ServiceOrder 's or
+ServiceOrderItem's. These dependencies can be simple entity-to-entity (finish-to-start or status-to-status) or group
+dependencies where a group is a collection of entities.
+:
+Derived from PIM entity DependencyPlan in the domain servicedependency.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="dependencyGroups" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The DependencyGroup (optional) in the plan. It contains references to descriptors and entities in the DependencyPlan.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="dependencyGroup" type="tns:DependencyGroup" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="dependencyGroupDescriptors" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The descriptors of the DependencyGroup's in the plan.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="dependencyGroupDescriptor" type="tns:DependencyGroupDescriptor" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="entityDependencyDescriptors" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The descriptor of a dependcy. It contains references to DependencyEntitys with parent or dependent roles together with
+their statuses.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="entityDependencyDescriptor" type="tns:DependencyEntityDescriptor" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="planEntities" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The DependencyEntitys associated with the DependencyPlan.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="planEntitie" type="tns:DependencyEntity" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Service" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A piece of logical functionality that is packaged as part of a Product. A Service represents the object that will be
+instantiated to represent the piece of functionality. Service is limited to owning just the changeable attributes and
+associations that can be instantiated. The invariant attributes and associations that can be instantiated are defined
+by a ServiceSpecification.
+
+Service has two purposes - to define attributes and associations that are common to all Service and provide a
+convenient point to define how a service interacts with other parts of the Portfolio Information Model.
+
+The Service has one or more ServiceVersions that reflect the history of modifications to the service.
+:
+Derived from PIM entity Service in the domain service.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="activationDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The date the Service was first activated.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="alias" type="ns2:AdditionalId" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>An identifier as provided by an external system.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="alternativeAlias" type="ns2:AdditionalId" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Additional identifier as provided by an external system</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="containingService" type="tns:ServiceVersion" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The containing Service.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="creationDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The date and time the entity instance was created. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="endDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The date on which the service was ceased.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="feasible" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Indicates if the Service is feasible. Only applicable for RFS.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="modifyDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The date and time the entity instance was last modified. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="name" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Free format short textual description.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="serviceComposition" type="ns5:ProdSpecRealizedAsServiceSpec" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="spec" type="ns5:ServiceSpecification" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The definition of the specifcation of the Service.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="status" type="tns:ServiceStatus" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The provision status of the Service. For example active, ceased, modify in progress.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="technologyOption" type="ns5:TechnologySpecificServiceSpec" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The technology that was selected from all the possible ResourceFacingServiceSpecs attached to a
+ResourceFacingServiceSpec of the Service. The technology option is passed later to the network management system to
+provide a clear specification on the technology required for activating the Service.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="versions" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The one or more versions of the Service. A new version is created when the Service is updated.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="version" type="tns:ServiceVersion" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ServiceVersion" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A version of a Service. A new version is created every time a service is updated. The ServiceVersion.status reflects
+whether this version is the live version for the service. The Service.status reflects the provisioning status of the
+service.
+:
+Derived from PIM entity ServiceVersion in the domain service.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="characteristics" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The values of the characteristics of the ServiceVersion.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="characteristic" type="ns3:ServiceCharacteristicValue" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="containedServices" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Services contained in the ServiceVersion. This creates a hierarchical structure of Services. The hierarchy may
+change betwen ServiceVersions of the same Service.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="containedService" type="tns:Service" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="effectiveDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The time at which the version became effective.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="expiryDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The time when the version ceased to be effective.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="installationLocation" type="ns3:GeographicSite" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The installation location.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="market" type="ns3:BusinessOrganizationUnit" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The BusinessOrganizationUnit for the ServiceVersion, sometimes referred to as the Market. Typically determines business
+policies for the service in operational systems.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="partyRoleRelationships" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The roles that the ServiceVersion receive from PartyRoles.  For example:
+- an association to the owning Customer
+- an association to the Contact details for this service
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="partyRoleRelationship" type="tns:ServicePartyRoleRelationship" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="products" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Product that originated the Service.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="product" type="ns4:Product" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="productCharacteristicGroup" type="ns3:ProductCharacteristicValue" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The product characteristic group (PCV of type Complex) from which the quantified service version was created.
+
+Example may be 2 groups of email:
+group1: emailAddress=john@host.com, quota=500
+group2: emailAddress=jane@host.com, quota=1000
+
+Two services were created, one for each group. Each of these services will point to its group using this relation.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="service" type="tns:Service" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="serviceOrderItem" type="ns1:ServiceOrderItem" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="status" type="tns:ServiceVersionStatus" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The business state of the service version. For example live, working copy.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="targetServices" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Services that plays a role for the ServiceVersion.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="targetService" type="tns:ServiceRelationship" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="version" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Version number, incremented for each generation of a service. A unique key within a Service. Provider write-only.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ServicePartyRoleRelationship" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The relationship that a PartyRole has a ServiceVersion expressed as a role that the PartyRole plays and the period for
+which they held this role. For example the Customer who owns the service.
+:
+Derived from PIM entity ServicePartyRoleRelationship in the domain service.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="endDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The date when the PartyRole finished playing this role.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="partyDetails" type="ns3:PartyRole" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The PartyRole that plays the role. For example a Customer or Contact.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="role" type="tns:ServicePartyRoleType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The role the PartyRole plays for the ServiceVersion. For example owning.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="startDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The date when the PartyRole started playing this role.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ServiceRelationship" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A relation between two Services expressed as a role that the Service plays for a ServiceVersion. For example the
+Service may play the access provider role for a ServiceVersion.
+:
+Derived from PIM entity ServiceRelationship in the domain service.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="role" type="tns:ServiceRelationshipRole" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Role that the Service plays for the ServiceVersion.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="status" type="tns:ServiceRelationStatus" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Status of the ServiceRelation.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="targetService" type="tns:Service" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Service that plays the role.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ServiceDependencyPlan" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>ServiceDependencyPlan is a complete specification for a ServiceOrderItem's and DependencyPlan's required for
+fulfillment orchestration.
+
+Remark: the ServiceDependencyPlan does not require an ID since it is always created by an operation (not by navigation).
+:
+Derived from PIM entity ServiceDependencyPlan in the domain servicedependency.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="dependencyPlan" type="tns:DependencyPlan" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The DependencyPlan that was created for the ServiceOrder 's.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="serviceOrders" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The ServiceOrder for which a DependencyPlan was decomposed.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="serviceOrder" type="ns1:ServiceOrder" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="AccessRestriction">
+    <xs:annotation>
+      <xs:documentation>Access Restriction applicable for ServiceCharacteristic
+:
+Derived from PIM entity AccessRestriction in the domain service.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="MASKED">
+        <xs:annotation>
+          <xs:documentation>Access restriction to indicate a service characteristic as Masked. Characters in the characteristic are masked from
+being read/visible.
+</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="READONLY">
+        <xs:annotation>
+          <xs:documentation>Access restriction to indicate a service characteristic as read-only</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="READWRITE">
+        <xs:annotation>
+          <xs:documentation>Access restriction to indicate a service characteristic as editable</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="DependencyEntityType">
+    <xs:annotation>
+      <xs:documentation>The possible types of a DependencyEntity
+:
+Derived from PIM entity DependencyEntityType in the domain servicedependency.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="PRODUCT_ORDER_ITEM">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PRODUCT_ORDER_LINE">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SERVICE_ORDER">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SERVICE_ORDER_ITEM">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="DependencyType">
+    <xs:annotation>
+      <xs:documentation>The possible types of a DependencyEntityDescriptor
+:
+Derived from PIM entity DependencyType in the domain servicedependency.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="STATUS_TO_STATUS">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ServicePartyRoleType">
+    <xs:annotation>
+      <xs:documentation>The role of the relationship that a PartyRole plays for a ServiceVersion. For example the Customer who owns the service.
+:
+Derived from PIM entity ServicePartyRoleType in the domain service.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="OWNING">
+        <xs:annotation>
+          <xs:documentation>The owner.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PRIMARY_CONTACT">
+        <xs:annotation>
+          <xs:documentation>The primary contact.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ServiceVersionStatus">
+    <xs:annotation>
+      <xs:documentation>The business status of  a ServiceVersion which reflects the lifecycle of the version. For example whether the version
+is the current live version, a planned version or an obsolete version.
+:
+Derived from PIM entity ServiceVersionStatus in the domain service.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="CANCELLED">
+        <xs:annotation>
+          <xs:documentation>The version was cancelled without becoming live.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HISTORIC">
+        <xs:annotation>
+          <xs:documentation>The version was superceded by a later version.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="LIVE">
+        <xs:annotation>
+          <xs:documentation>The live version.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="WORKING_COPY">
+        <xs:annotation>
+          <xs:documentation>A working version of the service, i.e. in the process of being fulfilled.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ServiceRelationshipRole">
+    <xs:annotation>
+      <xs:documentation>The role of a ServiceRelationship. Defined by an implementation.
+:
+Derived from PIM entity ServiceRelationshipRole in the domain service.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="TECHNICAL_DEPENDENCY">
+        <xs:annotation>
+          <xs:documentation>The target Service plays a technical dependency role for the source ServiceVersion.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ServiceRelationStatus">
+    <xs:annotation>
+      <xs:documentation>The status of the relation between Services.
+:
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="AVAILABLE">
+        <xs:annotation>
+          <xs:documentation>The relation was not yet set and the target service can be selected for this relation.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="EXISTING">
+        <xs:annotation>
+          <xs:documentation>The relation exists, for example in service inventory</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ServiceStatus">
+    <xs:annotation>
+      <xs:documentation>The provisioning status of a ServiceVersion.
+:
+Derived from PIM entity ServiceStatus in the domain service.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ACTIVE">
+        <xs:annotation>
+          <xs:documentation>In service.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ACTIVE_MODIFY_IN_PROGRESS">
+        <xs:annotation>
+          <xs:documentation>Modification in progress while in service.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CANCELED">
+        <xs:annotation>
+          <xs:documentation>Canceled before activation.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CEASED">
+        <xs:annotation>
+          <xs:documentation>No longer in service.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CEASE_IN_PROGRESS">
+        <xs:annotation>
+          <xs:documentation>Cease  is in progress.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CHANGE_IN_PROGRESS">
+        <xs:annotation>
+          <xs:documentation>Change  in progress.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NEW">
+        <xs:annotation>
+          <xs:documentation>The initial status of a service.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RESUME_IN_PROGRESS">
+        <xs:annotation>
+          <xs:documentation>Resumption in progress.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SUSPENDED">
+        <xs:annotation>
+          <xs:documentation>In suspension.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SUSPENDED_CEASE_IN_PROGRESS">
+        <xs:annotation>
+          <xs:documentation>Cease in progress while in suspension</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SUSPENDED_MODIFY_IN_PROGRESS">
+        <xs:annotation>
+          <xs:documentation>Modification in progress while in suspension</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SUSPEND_IN_PROGRESS">
+        <xs:annotation>
+          <xs:documentation>Suspension in progress.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+

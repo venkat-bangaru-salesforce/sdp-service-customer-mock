@@ -1,0 +1,1564 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema elementFormDefault="qualified" version="1.0" 
+	targetNamespace="http://group.singtel.com/customerprofile-common/types/v1" 
+	xmlns:tns="http://group.singtel.com/customerprofile-common/types/v1" 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://group.singtel.com/resource/types-unqualified/v1"
+	xmlns:ns2="http://group.singtel.com/commonbusinessentities/types-unqualified/v1"
+	xmlns:ns3="http://group.singtel.com/core/types/v1">
+
+  <xs:annotation>
+    <xs:documentation>Shared types from the the customer profile domain which describes the information used when performing Customer
+Management activities.
+
+Customer Managment activities are business activities that encompass the acquisition, maintenance and retention of a
+relationship with a residential or corporate customer. Customer Management encompasses the end to end lifecycle of the
+customer and is performed through all customer touchpoint.
+:
+Singtel interfaces.
+</xs:documentation>
+  </xs:annotation>
+  
+  <xs:import namespace="http://group.singtel.com/resource/types-unqualified/v1"
+		schemaLocation="sdp_singtel_resource_types-unqualified_v1.xsd" />
+	<xs:import
+		namespace="http://group.singtel.com/commonbusinessentities/types-unqualified/v1"
+		schemaLocation="sdp_singtel_commonbusinessentities_types-unqualified_v1.xsd" />
+	<xs:import namespace="http://group.singtel.com/core/types/v1"
+		schemaLocation="sdp_singtel_core_v1.xsd" />
+		
+  <xs:complexType name="BankAccountID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A Business Context Model Identifier.:
+Restriction of {http://amdocs/pbg-portfolio/customerprofile/types-unqualified/v1}BankAccount .
+Derived from PIM entity BankAccount in the domain customer.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id">
+        <xs:annotation>
+          <xs:documentation>The CRM internal identifier of the BankAccount.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CardID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A Business Context Model Identifier.:
+Restriction of {http://amdocs/pbg-portfolio/customerprofile/types-unqualified/v1}Card .
+Derived from PIM entity Card in the domain customer.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id">
+        <xs:annotation>
+          <xs:documentation>The CRM internal identifier of the Card.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CustomerAccountID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A Business Context Model Identifier.:
+Restriction of {http://amdocs/pbg-portfolio/customerprofile/types-unqualified/v1}CustomerAccount .
+Derived from PIM entity CustomerAccount in the domain customer.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id">
+        <xs:annotation>
+          <xs:documentation>The Billing internal identifier of the CustomerAccount. The CRM external identifier of the CustomerAccount.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CustomerAccountIDAndName" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>Derived from PIM entity CustomerAccount in the domain customer.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id">
+        <xs:annotation>
+          <xs:documentation>The Billing internal identifier of the CustomerAccount. The CRM external identifier of the CustomerAccount.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="name">
+        <xs:annotation>
+          <xs:documentation>Short text, description of the CustomerAccount.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CustomerBillSpecAndChannelID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>Derived from PIM entity CustomerBillSpec in the domain customer.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id">
+        <xs:annotation>
+          <xs:documentation>The Billing internal identifier of the CustomerBillSpec. The CRM external identifier of the CustomerBillSpec.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="payInstruction" type="tns:PayInstructionID">
+        <xs:annotation>
+          <xs:documentation>The PayInstruction that creates automatic postpaid payment for this CustomerBillSpec.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PayInstructionID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A Business Context Model Identifier.:
+Restriction of {http://amdocs/pbg-portfolio/customerprofile/types-unqualified/v1}PayInstruction .
+Derived from PIM entity PayInstruction in the domain customer.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id">
+        <xs:annotation>
+          <xs:documentation>The Billing internal identifier of the pay channel.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CustomerBillSpecCoreID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A Business Context Model Identifier.:
+Restriction of {http://amdocs/pbg-portfolio/customerprofile/types-unqualified/v1}CustomerBillSpecCore .
+</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:CustomerBillSpecID">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="CustomerBillSpecID" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A Business Context Model Identifier.:
+Restriction of {http://amdocs/pbg-portfolio/customerprofile/types-unqualified/v1}CustomerBillSpec .
+Derived from PIM entity CustomerBillSpec in the domain customer.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id">
+        <xs:annotation>
+          <xs:documentation>The Billing internal identifier of the CustomerBillSpec. The CRM external identifier of the CustomerBillSpec.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CustomerBillSpecIDAndName" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>Derived from PIM entity CustomerBillSpec in the domain customer.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id">
+        <xs:annotation>
+          <xs:documentation>The Billing internal identifier of the CustomerBillSpec. The CRM external identifier of the CustomerBillSpec.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="name">
+        <xs:annotation>
+          <xs:documentation>Short text, description of the CustomerBillSpec.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CustomerBillingProfileID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The billing specific attributes and associations for the Customer. These attributes and associations have no meaning
+for a Customer which is not instantiated in the billing system.
+:
+Restriction of {http://amdocs/pbg-portfolio/customerprofile/types-unqualified/v1}CustomerBillingProfile .
+Derived from PIM entity CustomerBillingProfile in the domain customer.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id">
+        <xs:annotation>
+          <xs:documentation>The Billing internal identifier of the Customer. The CRM external identifier of the Customer.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PartyRoleCustomerAccountInvolvementID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The role that  a PartyRole plays for a CustomerAccount.  This data type is an Association Role entity. It defines the
+attributes for an Association.
+:
+Restriction of {http://amdocs/pbg-portfolio/customerprofile/types-unqualified/v1}PartyRoleCustomerAccountInvolvement .
+Derived from PIM entity PartyRoleCustomerAccountInvolvement in the domain customer.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id">
+        <xs:annotation>
+          <xs:documentation>The CRM internal identifier of the involvement.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PartyRoleCustomerBillSpecInvolvementID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>The role that  a PartyRole plays for a CustomerBillSpec.  This data type is an Association Role entity. It defines the
+attributes for an Association.
+:
+Restriction of {http://amdocs/pbg-portfolio/customerprofile/types-unqualified/v1}PartyRoleCustomerBillSpecInvolvement .
+Derived from PIM entity PartyRoleCustomerBillSpecInvolvement in the domain customer.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id">
+        <xs:annotation>
+          <xs:documentation>The CRM internal identifier of the involvement.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PayInstructionPayMeans" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A standing order for automatic collection of payments (in order to pay bills - for example) via electronic fund
+transfer.
+:
+Restriction of {http://amdocs/pbg-portfolio/customerprofile/types-unqualified/v1}PayInstruction .
+Derived from PIM entity PayInstruction in the domain customer.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="bankAccount" type="tns:BankAccountID" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The BankAccount which is used to automatically collect payments for the CustomerAccount.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="card" type="tns:CardID" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Card which is used to automatically collect payments for the CustomerAccount.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PrepaidBalanceID" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A monetary amount that is used to pay for usage and other charges that acrue from a pre-paid Product. Typically:
+
+	The customer tops up the balance from time to time, either by an automatic PayInstruction or manually (e.g. by making
+payments at a retail outlet, at the call center, etc.)
+	The charges are debited from the balance in real-time as usage is made of the Product.
+	Usage of the product will be blocked in real-time if the amount decreases to zero
+:
+Restriction of {http://amdocs/pbg-portfolio/customerprofile/types-unqualified/v1}PrepaidBalance .
+Derived from PIM entity PrepaidBalance in the domain customer.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id">
+        <xs:annotation>
+          <xs:documentation>The Billing internal identifier of the PrepaidBalance.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ResourcePool" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A code identifying a resource pool to be used for retrieving LogicalResource values.
+:
+Restriction of {http://amdocs/pbg-portfolio/customerprofile/types-unqualified/v1}ResourcePool .
+Derived from PIM entity ResourcePool in the domain customer.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The identifier of the resource pool.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="AccountStatus">
+    <xs:annotation>
+      <xs:documentation>The status of a CustomerAccount , for example suspended.
+:
+Restriction of {http://amdocs/pbg-portfolio/customerprofile/types-unqualified/v1}AccountStatus .
+Derived from PIM entity AccountStatus in the domain customer.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string" />
+  </xs:simpleType>
+
+  <xs:simpleType name="BalancePolicy">
+    <xs:annotation>
+      <xs:documentation>The method in which the CustomerAccount balance is maintained, for example open items, balance forward.
+:
+Restriction of {http://amdocs/pbg-portfolio/customerprofile/types-unqualified/v1}BalancePolicy .
+Derived from PIM entity BalancePolicy in the domain customer.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="BALANCEFORWARD">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="OPENITEM">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="BankCode">
+    <xs:annotation>
+      <xs:documentation>The code identifying the bank where a BankAccount is maintained.
+:
+Restriction of {http://amdocs/pbg-portfolio/customerprofile/types-unqualified/v1}BankCode .
+Derived from PIM entity BankCode in the domain customer.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="BillSpecStatus">
+    <xs:annotation>
+      <xs:documentation>The status of a CustomerBillSpec, for example tentative, open, cancel.
+:
+Restriction of {http://amdocs/pbg-portfolio/customerprofile/types-unqualified/v1}BillSpecStatus .
+Derived from PIM entity BillSpecStatus in the domain customer.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="CANCELLED">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="INITIATE">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="OPEN">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TENTATIVE">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="Brand">
+    <xs:annotation>
+      <xs:documentation>The brand of the card, for example, Visa, MasterCard, AMEX, Diners Club.
+:
+Restriction of {http://amdocs/pbg-portfolio/customerprofile/types-unqualified/v1}Brand .
+Derived from PIM entity Brand in the domain customer.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ChangeCycleStatus">
+    <xs:annotation>
+      <xs:documentation>The status of a change cycle request.
+:
+Restriction of {http://amdocs/pbg-portfolio/customerprofile/types-unqualified/v1}ChangeCycleStatus .
+Derived from PIM entity ChangeCycleStatus in the domain customer.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="COMPLY">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NONE">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NOT_COMPLY">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="CustomerAccountDocumentType">
+    <xs:annotation>
+      <xs:documentation>The type of periodical document, for example invoice, bill.
+:
+Restriction of {http://amdocs/pbg-portfolio/customerprofile/types-unqualified/v1}CustomerAccountDocumentType .
+Derived from PIM entity CustomerAccountDocumentType in the domain customer.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="BILL">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="INVOICE">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="CustomerTypeLevel1All">
+    <xs:annotation>
+      <xs:documentation>The first level categorization of a Customer. For example residential, business, corporate, government.
+:
+Restriction of {http://amdocs/pbg-portfolio/customerprofile/types-unqualified/v1}CustomerTypeLevel1 .
+Derived from PIM entity CustomerTypeLevel1 in the domain customer.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="BUSINESS_ANON">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CORPORATE">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="GOVERNMENT">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RESIDENTIAL">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RESIDENTIAL_ANON">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SMALL_BUSINESS">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BUSINESS_ANONYMOUS">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CONSUMER">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="CustomerTypeLevel2All">
+    <xs:annotation>
+      <xs:documentation>The second level categorization of a Customer. for example residential - consumer, residential - home office,
+residential - family, business - local, business - affiliate, business - chain. The first level categorization is
+defined in CustomerTypeLevel1.
+:
+Restriction of {http://amdocs/pbg-portfolio/customerprofile/types-unqualified/v1}CustomerTypeLevel2 .
+Derived from PIM entity CustomerTypeLevel2 in the domain customer.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="EXCEPTIONAL">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FEDERAL_GOVERNMENT">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="INDIVIDUAL">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PUBLIC_LTD_CO">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SMALL_PARTNERSHIP">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NORMAL">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SECRET">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CONFIDENTIAL">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="LIMITED">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="DocumentType">
+    <xs:annotation>
+      <xs:documentation>The type of a CustomerBill.
+:
+Restriction of {http://amdocs/pbg-portfolio/customerprofile/types-unqualified/v1}DocumentType .
+Derived from PIM entity DocumentType in the domain customerbill.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="BILL">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BILL_AND_PP">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="INVOICE">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="INVOICE_AND_PP">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PREPAID_STATEMENT">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="FrequencyUnit">
+    <xs:annotation>
+      <xs:documentation>The unit of measure for the intervals between auto collection of payments, for example day, week, month. It must be
+specified for prepay payments. It is inapplicable for payment of postpaid bills as payment terms are determined by the
+service provider.
+:
+Restriction of {http://amdocs/pbg-portfolio/customerprofile/types-unqualified/v1}FrequencyUnit .
+Derived from PIM entity FrequencyUnit in the domain customer.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="IndividualCustomerTypeLevel1">
+    <xs:annotation>
+      <xs:documentation>The first level categorization of a Customer. For example residential, business, corporate, government.
+:
+Restriction of {http://amdocs/pbg-portfolio/customerprofile/types-unqualified/v1}CustomerTypeLevel1 .
+Derived from PIM entity CustomerTypeLevel1 in the domain customer.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="RESIDENTIAL">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="IndividualCustomerTypeLevel2">
+    <xs:annotation>
+      <xs:documentation>The second level categorization of a Customer. for example residential - consumer, residential - home office,
+residential - family, business - local, business - affiliate, business - chain. The first level categorization is
+defined in CustomerTypeLevel1.
+:
+Restriction of {http://amdocs/pbg-portfolio/customerprofile/types-unqualified/v1}CustomerTypeLevel2 .
+Derived from PIM entity CustomerTypeLevel2 in the domain customer.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="EXCEPTIONAL">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="INDIVIDUAL">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="IntervalSize">
+    <xs:annotation>
+      <xs:documentation>The quantity of unit of measure for the intervals between auto collection of payments, for example 10 (days), 2 (weeks),
+1 (month). It must be specified for prepay payments. It is inapplicable for payment of postpaid bills as payment terms
+are determined by the service.
+:
+Restriction of {http://amdocs/pbg-portfolio/customerprofile/types-unqualified/v1}IntervalSize .
+Derived from PIM entity IntervalSize in the domain customer.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="CustomerTypeLevel1">
+    <xs:annotation>
+      <xs:documentation>The first level categorization of a Customer. For example residential, business, corporate, government.
+:
+Derived from PIM entity CustomerTypeLevel1 in the domain customer.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="BUSINESS_ANON">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CORPORATE">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="GOVERNMENT">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SMALL_BUSINESS">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="CustomerTypeLevel2">
+    <xs:annotation>
+      <xs:documentation>The second level categorization of a Customer. for example residential - consumer, residential - home office,
+residential - family, business - local, business - affiliate, business - chain. The first level categorization is
+defined in CustomerTypeLevel1.
+:
+Derived from PIM entity CustomerTypeLevel2 in the domain customer.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="FEDERAL_GOVERNMENT">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PUBLIC_LTD_CO">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SMALL_PARTNERSHIP">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PartyRoleCustomerAccountInvolvementType">
+    <xs:annotation>
+      <xs:documentation>The type of role that a PartyRole can play for a CustomerBillSpec. Values are set by implementation.
+:
+Restriction of {http://amdocs/pbg-portfolio/customerprofile/types-unqualified/v1}PartyRoleCustomerAccountInvolvementType .
+Derived from PIM entity PartyRoleCustomerAccountInvolvementType in the domain customer.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="PRIMARY">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SECONDARY">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PartyRoleCustomerBillSpecInvolvementType">
+    <xs:annotation>
+      <xs:documentation>The type of role that a PartyRole can play for a CustomerBillSpec. Values are set by implementation.
+:
+Restriction of {http://amdocs/pbg-portfolio/customerprofile/types-unqualified/v1}PartyRoleCustomerBillSpecInvolvementType .
+Derived from PIM entity PartyRoleCustomerBillSpecInvolvementType in the domain customer.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="PRIMARY">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SECONDARY">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PartyRolePrepaidBalanceInvolvementType">
+    <xs:annotation>
+      <xs:documentation>The type of role that a PartyRole can play for a PrepaidBalance. Values are set by implementation.
+:
+Restriction of {http://amdocs/pbg-portfolio/customerprofile/types-unqualified/v1}PartyRolePrepaidBalanceInvolvementType .
+Derived from PIM entity PartyRolePrepaidBalanceInvolvement in the domain customer.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="PRIMARY">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SECONDARY">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PrepaidBalanceStatus">
+    <xs:annotation>
+      <xs:documentation>The status of a PrepaidBalance, for example tentative, open, cancel.
+:
+Restriction of {http://amdocs/pbg-portfolio/customerprofile/types-unqualified/v1}PrepaidBalanceStatus .
+Derived from PIM entity PrepaidBalanceStatus in the domain customer.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="CLOSE">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HOLD">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="OPEN">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TENTATIVE">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ProduceDocument">
+    <xs:annotation>
+      <xs:documentation>Whether a document should be produced or extracted for the CustomerBillSpec.
+:
+Restriction of {http://amdocs/pbg-portfolio/customerprofile/types-unqualified/v1}ProduceDocument .
+Derived from PIM entity ProduceDocument in the domain customer.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="DONT_PRODUCE_OR_EXTRACT">
+        <xs:annotation>
+          <xs:documentation>Dropped Bill</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="EXTRACT_DONT_PRODUCE">
+        <xs:annotation>
+          <xs:documentation>The data is extracted to AmDD and formatting is done. Bill is produced only for archiving purpose. It is not sent to the end customer.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PRODUCE_AND_EXTRACT">
+        <xs:annotation>
+          <xs:documentation>Normal bill produced and sent to the customer.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="WriteOffStatus">
+    <xs:annotation>
+      <xs:documentation>The status of uncollected debt on which the service provider has given up expecting to receive.
+:
+Restriction of {http://amdocs/pbg-portfolio/customerprofile/types-unqualified/v1}WriteOffStatus .
+Derived from PIM entity WriteOffStatus in the domain customer.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string" />
+     
+  </xs:simpleType>
+  
+	<xs:simpleType name="ContactPartyRoleType">
+		<xs:annotation>
+          <xs:documentation>The role of the relationship that a Contact plays for a PartyRole.
+Restriction of {http://amdocs/pbg-portfolio/commonbusinessentities/types-unqualified/v1}ContactPartyRoleType
+Derived from PIM entity ContactPartyRoleType in the domain party.</xs:documentation>
+        </xs:annotation>	
+		<xs:restriction base="xs:string">
+			<xs:whiteSpace value="collapse" />
+			<xs:enumeration value="CUSTOMER_NAME_ADDRESS" />
+			<xs:enumeration value="MAILING_NAME_ADDRESS" />
+			<xs:enumeration value="PRIMARY" />
+			<xs:enumeration value="SECONDARY" />
+			<xs:enumeration value="TAX_NAME_ADDRESS" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+  <xs:complexType name="SubscriptionResourcesForGuidings" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>This is an array of objects of type ResourcePool. These objects are references by the Customer Profile.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="logicalResourceSummary" type="tns:LogicalResourceSummary" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Array of objects of type ResourcePool.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  
+  
+   <xs:complexType name="LogicalResourceSummary" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>An instance of a logical resource, such as telephone number 09-7761333, e-mail address info@amdocs.com, URL http://www.
+amdocs.com . It may also represent multiple instances of consecutive values where this is relevant for the value type,
+such as a range of consecutive telephone numbers.
+:
+Restriction of {http://amdocs/pbg-portfolio/resource/types-unqualified/v1}LogicalResource,
+Derived from PIM entity LogicalResource in the domain logicalresource.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:ResourceSummary">
+        <xs:sequence>
+          <xs:element name="type" type="tns:LogicalResourceTypeName" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The type of the LogicalResource</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="value" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>the actual value of the LogicalResource (e.g. for telephone number type 097761333, for e-mail address type info@amdocs.
+com, etc.).
+</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:maxLength value="1023"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  
+  <xs:simpleType name="LogicalResourceTypeName">
+    <xs:annotation>
+      <xs:documentation>Names the type for LogicalResources. Implementation only, would include types such as:
+
+	telephone number
+	e-mail address
+	web space URL
+	SIM card number
+
+:
+Restriction of {http://amdocs/pbg-portfolio/resource/types-unqualified/v1}LogicalResourceTypeName,
+Derived from PIM entity LogicalResourceTypeName in the domain logicalresource.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  
+ <xs:complexType name="ResourceSummary" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An abstract data type  all entities that are inherently manageable and make up a Product. There are 2 basic sub-types
+of Resource which are PhysicalResource and LogicalResource.
+:
+Restriction of {http://amdocs/pbg-portfolio/resource/types-unqualified/v1}Resource,
+Derived from PIM entity Resource in the domain resourcedomain.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence/>
+  </xs:complexType>
+  
+    
+  <xs:simpleType name="WorkItemCondition">
+    <xs:annotation>
+      <xs:documentation></xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="CLOSED">
+        <xs:annotation>
+          <xs:documentation>The WorkItem is now closed to routing.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISPATCH">
+        <xs:annotation>
+          <xs:documentation>The WorkItem has been dispatched to a Queue for acceptance.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FORWARD">
+        <xs:annotation>
+          <xs:documentation>The WorkItem has been forwarded to a ApplicationUser.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="OPEN">
+        <xs:annotation>
+          <xs:documentation>The WorkItem is owned by an ApplicationUser and is not currently being routed.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="REJECT">
+        <xs:annotation>
+          <xs:documentation>The WorkItem has been rejected from a Queue or ApplicationUser.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:complexType name="ApplicationUser" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>
+      	This represents an application user , typically an Individual (but see ProxyUser), of Amdocs and other software systems in the CSP ecosphere. A
+		ApplicationUser performs application activities that may affect one or more business entities. An ApplicationUser should not be confused with 
+		a User Profile managed by a user repository.
+	</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>
+          	The unique internal identifier (key) . Exhibits the standard semantics of any entity identifier.
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="name" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>
+          	The unique string of characters by which an application user identifies itself.
+			Is not necessarily used as primary key since it is conceivable that some
+			authentication systems may support change of user name.
+		</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="BinaryObject" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>type should be used for embedding textual documents and other common content types such as word, pdf, gif, etc.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="characterSetCode" type="tns:CharacterSetCode" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>the character set associated with the binary content (if the media-type is text)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="content" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>binary content</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:base64Binary">
+            <xs:maxLength value="524288"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="filename" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>the file name associated with the binary content</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="mediaTypeCode" type="tns:MediaTypeCode" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>the media type associated with the binary content</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:simpleType name="MediaTypeCode">
+    <xs:annotation>
+      <xs:documentation>Represents an Internet Media Type, as defined in the HTTP specification:
+Restriction of {http://amdocs/pbg-portfolio/core/types-unqualified/v1}MediaTypeCode.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="*/*">
+        <xs:annotation>
+          <xs:documentation>media type that includes all media ranges (i.e. */*).</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="application/xml">
+        <xs:annotation>
+          <xs:documentation>see http://www.rfc-editor.org/rfc/rfc3023.txt</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="application/atom+xml">
+        <xs:annotation>
+          <xs:documentation>see http://www.rfc-editor.org/rfc/rfc3023.txt and http://www.rfc-editor.org/rfc/rfc4287.txt</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="application/xhtml+xml">
+        <xs:annotation>
+          <xs:documentation>see http://www.rfc-editor.org/rfc/rfc3236.txt</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="application/json">
+        <xs:annotation>
+          <xs:documentation>see http://www.ietf.org/rfc/rfc4627.txt</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="application/smil+xml">
+        <xs:annotation>
+          <xs:documentation>see http://www.ietf.org/rfc/rfc4536.txt</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="application/soap+xml">
+        <xs:annotation>
+          <xs:documentation>see http://www.rfc-editor.org/rfc/rfc3902.txt</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="application/zip">
+        <xs:annotation>
+          <xs:documentation>see http://www.iana.org/assignments/media-types/application</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="application/gzip">
+        <xs:annotation>
+          <xs:documentation>see http://www.iana.org/assignments/media-types/application</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="application/pdf">
+        <xs:annotation>
+          <xs:documentation>see http://www.iana.org/assignments/media-types/application</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="application/msword">
+        <xs:annotation>
+          <xs:documentation>see http://www.iana.org/assignments/media-types/application/msword</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="application/vnd.ms-excel">
+        <xs:annotation>
+          <xs:documentation>see http://www.iana.org/assignments/media-types/application/vnd.ms-excel</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+        <xs:annotation>
+          <xs:documentation>see https://www.iana.org/assignments/media-types/application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="application/widget">
+        <xs:annotation>
+          <xs:documentation>see http://www.w3.org/TR/widgets/#media-type-registration-for-applicationw</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="application/x-www-form-urlencoded">
+        <xs:annotation>
+          <xs:documentation>see http://www.w3.org/TR/html401/interact/forms.html#h-17.13.4.1</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="multipart/form-data">
+        <xs:annotation>
+          <xs:documentation>see http://www.rfc-editor.org/rfc/rfc2388.txt</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="application/octet-stream">
+        <xs:annotation>
+          <xs:documentation>see http://www.rfc-editor.org/rfc/rfc2045.txt and http://www.rfc-editor.org/rfc/rfc2046.txt</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="text/plain">
+        <xs:annotation>
+          <xs:documentation>see http://www.rfc-editor.org/rfc/rfc2046.txt and http://www.rfc-editor.org/rfc/rfc3676.txt and http://www.rfc-editor.org/rfc/rfc5147.txt</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="text/xml">
+        <xs:annotation>
+          <xs:documentation>see http://www.rfc-editor.org/rfc/rfc3023.txt</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="text/html">
+        <xs:annotation>
+          <xs:documentation>see http://www.iana.org/assignments/media-types/text/html</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="text/csv">
+        <xs:annotation>
+          <xs:documentation>see http://www.rfc-editor.org/rfc/rfc4180.txt</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="text/richtext">
+        <xs:annotation>
+          <xs:documentation>see http://www.rfc-editor.org/rfc/rfc2045.txt and http://www.rfc-editor.org/rfc/rfc2046.txt</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="image/svg+xml">
+        <xs:annotation>
+          <xs:documentation>see http://www.w3.org/TR/SVGTiny12/mimereg.html</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="image/g3fax">
+        <xs:annotation>
+          <xs:documentation>see http://www.rfc-editor.org/rfc/rfc1494.txt</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="image/tiff">
+        <xs:annotation>
+          <xs:documentation>see http://www.rfc-editor.org/rfc/rfc2302.txt</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="image/png">
+        <xs:annotation>
+          <xs:documentation>see http://www.iana.org/assignments/media-types/image/png</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="image/jpeg">
+        <xs:annotation>
+          <xs:documentation>see http://www.rfc-editor.org/rfc/rfc2045.txt and http://www.rfc-editor.org/rfc/rfc2046.txt</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="image/gif">
+        <xs:annotation>
+          <xs:documentation>see http://www.rfc-editor.org/rfc/rfc2045.txt and http://www.rfc-editor.org/rfc/rfc2046.txt</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:simpleType name="CharacterSetCode">
+    <xs:annotation>
+      <xs:documentation>The character set of the binary object if the Media Type is text:
+Restriction of {http://amdocs/pbg-portfolio/core/types-unqualified/v1}CharacterSetCode.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="US-ASCII">
+        <xs:annotation>
+          <xs:documentation>Seven-bit ASCII, a.k.a. ISO646-US, a.k.a. the Basic Latin block of the Unicode character set</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ISO-8859-1">
+        <xs:annotation>
+          <xs:documentation>ISO Latin Alphabet No. 1, a.k.a. ISO-LATIN-1</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ISO-8859-2">
+        <xs:annotation>
+          <xs:documentation>Latin Alphabet No. 2</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ISO-8859-4">
+        <xs:annotation>
+          <xs:documentation>Latin Alphabet No. 4</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ISO-8859-5">
+        <xs:annotation>
+          <xs:documentation>Latin/Cyrillic Alphabet</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ISO-8859-7">
+        <xs:annotation>
+          <xs:documentation>Latin/Greek Alphabet (ISO-8859-7:2003)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ISO-8859-9">
+        <xs:annotation>
+          <xs:documentation>Latin Alphabet No. 5</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ISO-8859-13">
+        <xs:annotation>
+          <xs:documentation>Latin Alphabet No. 7</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ISO-8859-15">
+        <xs:annotation>
+          <xs:documentation>Latin Alphabet No. 9</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="UTF-8">
+        <xs:annotation>
+          <xs:documentation>Eight-bit UCS Transformation Format</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="UTF-16BE">
+        <xs:annotation>
+          <xs:documentation>Sixteen-bit UCS Transformation Format, big-endian byte order</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="UTF-16LE">
+        <xs:annotation>
+          <xs:documentation>Sixteen-bit UCS Transformation Format, little-endian byte order</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="UTF-16">
+        <xs:annotation>
+          <xs:documentation>Sixteen-bit UCS Transformation Format, byte order identified by an optional byte-order mark</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="UTF-32">
+        <xs:annotation>
+          <xs:documentation>32-bit Unicode (or UCS) Transformation Format, byte order identified by an optional byte-order mark</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="UTF-32BE">
+        <xs:annotation>
+          <xs:documentation>32-bit Unicode (or UCS) Transformation Format, big-endian byte order</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="UTF-32LE">
+        <xs:annotation>
+          <xs:documentation>32-bit Unicode (or UCS) Transformation Format, little-endian byte order</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+	<xs:complexType name="CustomerAccountDetails" final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>The financial reflection of the Customer relationship.
+			A financial bottom line, in terms of outstanding balance and debt amounts, 
+			of the log of financial transactions such as invoices and payments that 
+			stem from the Customer relationship.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="accountStatus">
+				<xs:annotation>
+					<xs:documentation>The status of the CustomerAccount, for example suspend, cancel.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="127" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="collStatus" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Indicates whether the CustomerAccount is in collections treatment, 
+					not in collections treatment, or in trial period.  Trial period is a pre-defined period 
+					of time after CustomerAccount leaves collection treatment, in which special handling is taken for activities </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="127" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="collectionTreatments" minOccurs="0">
+		        <xs:annotation>
+		          <xs:documentation>Characteristics for the CollectionTreatment.</xs:documentation>
+		        </xs:annotation>
+		        <xs:complexType>
+		          <xs:sequence>
+		            <xs:element name="collectionTreatment" type="tns:CollectionTreatment" minOccurs="0" maxOccurs="unbounded"/>
+		          </xs:sequence>
+		        </xs:complexType>
+     	 	</xs:element>
+     	 	<xs:element name="id">
+				<xs:annotation>
+					<xs:documentation>The Billing internal identifier of the account. The CRM external identifier of the account. </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="127" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="openDate" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>The Billing internal identifier of the account. The CRM external identifier of the account. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="CharacteristicValue" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A number, text, or date that can be assigned to an instance of a Characteristic.
+
+The defining Characteristic has a  CharacteristicValueType that defines the valid form and range of the value.
+
+The value attribute (and valueTo attribute if it is populated) is a string that contains a canonical representation
+(locale and time-zone independent) of the value of the characteristic in a format according to the elementary type of
+the value (CharacteristicValueBasicType) as follows:
+
+	BOOLEAN ? true (for Boolean True) or false (for Boolean False)
+	STRING ? as is (no translation)
+	DATE ? string representing the date and time in UTC, in the format (italics are replaced, non-italics are literal)
+YYYY-MM-DD HH:MM:SS e.g. 2007-07-31 14:30:54
+	INTEGER ? string of numeric digits; if negative preceded by a minus sign, e.g. 1, -5561
+	DOUBLE ? string of numeric digits, decimal separator period, string of numeric digits; if negative preceded by a minus
+sign, e.g. 0.55123, 14436536.44, -5523.2
+	COMPLEX - Used to define a group of CharacteristicValues
+
+
+It is the data provider?s responsibility to ensure that values are correctly formatted and the data consumer?s
+responsibility to ensure that values are correctly parsed.
+:
+Derived from PIM entity CharacteristicValue in the domain characteristicvalue.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="value" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A value that the Characteristic can take on. In the case of a range value, this represents the lower value of the range.
+
+See the class notes for the formatting rules for a value whose type is other than String.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="1023"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CollectionTreatmentCharacteristicValue" final="extension restriction">
+	<xs:annotation>
+		<xs:documentation>The value of an attribute of a CollectionTreatment. An additional attribute that may be associated with a
+			CollectionTreatment.
+			:
+			Derived from PIM entity CollectionTreatmentCharacteristicValue in the domain customercollections.
+		</xs:documentation>
+	</xs:annotation>
+	<xs:complexContent>
+		<xs:extension base="tns:CharacteristicValue">
+			<xs:sequence />
+		</xs:extension>
+	</xs:complexContent>
+</xs:complexType>
+
+	<xs:complexType name="CollectionTreatment" final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>A treatment that is assigned to a CustomerAccount when it enters Collections. Each CollectionTreatment
+				contains a list
+				of CollectionTreatmentActivitys and an optional PaymentArrangement according to the progress of the CollectionTreatment.
+				:
+				Derived from PIM entity CollectionTreatment in the domain customercollections.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="characteristics" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Characteristics for the CollectionTreatment.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="characteristic" type="tns:CollectionTreatmentCharacteristicValue" minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="collInd" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Indicator if Account is in collection or not.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="10" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="startDate" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The date on which collection treatment started - when the first collection step was activated or scheduled.
+						Provider
+						write only.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="BillMethodInfo" final="extension restriction">
+		<xs:annotation>
+			<xs:documentation>CR S10088:The Bill Method Information of the CustomerBillSpec</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="barId" type="tns:CustomerBillSpecID" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>A unique identifier. Provider write only.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="billDelivery" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Bill Delivery of the bill preference for the corresponding CustomerBillSpec</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="40" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="billType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Bill Layout Type of the bill preference for the corresponding CustomerBillSpec</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="40" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="noPaperRsn" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Reason for Non Paper Bill Delivery Method for the corresponding CustomerBillSpec</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="40" />
+						<xs:whiteSpace value="collapse" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="SubscriberServiceNumber" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>Subcriber Serial Number Details</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="serviceNumber">
+        <xs:annotation>
+          <xs:documentation>The manufacturer-allocated number used to identify different instances of the same hardware item.  This is a mandatory attribute.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="30"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+

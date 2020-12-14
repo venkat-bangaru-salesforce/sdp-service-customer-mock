@@ -1,0 +1,2405 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema elementFormDefault="qualified" version="1.0" targetNamespace="http://group.singtel.com/core/types-unqualified/v1" xmlns:tns="http://group.singtel.com/core/types-unqualified/v1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:annotation>
+    <xs:documentation>The common package contains data types that support the unqualified Information nModel standard patterns such as external keys and code/de-code types. The types included in the package are not
+business data types.
+: Unqualified model for documentation purposes only.
+Singtel interfaces.
+</xs:documentation>
+  </xs:annotation>
+  <xs:complexType name="BinaryObject" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>type should be used for embedding textual documents and other common content types such as word, pdf, gif, etc.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="characterSetCode" type="tns:CharacterSetCode" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>the character set associated with the binary content (if the media-type is text)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="content" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>binary content</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:base64Binary">
+            <xs:maxLength value="524288"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="filename" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>the file name associated with the binary content</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="mediaTypeCode" type="tns:MediaTypeCode" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>the media type associated with the binary content</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="TimeZoneId">
+    <xs:annotation>
+      <xs:documentation>The time zone id has to be identical to one of the values listed under the "TZ" column of "List of TZ database time zones". The standard list, which is defined by the Internet Assigned Numbers Authority (http://www.iana.org/time-zones), can be downloaded from: ftp://ftp.iana.org/tz/releases/tzdata2014b.tar.gz and it also can be reviewed here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones/</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="255"/>
+      <xs:whiteSpace value="collapse"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="AdditionalId" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>Defines the unique key in an external system of an object instance in the Amdocs informaiton model. Entities that might
+be stored in external systems include an attribute additionalKeys whose type is AdditionalId[]. These additional keys
+are provided by consumers to create/update operations, and then used to identify object instances according to the
+rules defined by the information model
+:
+Derived from PIM entity AdditionalId in the domain common.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="entityId" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Identifies the corresponding entity in the external system. For example the table name or class name.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="key" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The key that identifies an object instance in this .getSystemId() system. Keys are represented here as simple
+strings; for non-string data, or concatenated keys, it is up to the external system to provide a canonical format of
+the key.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="systemId" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A unique identifier representing the external system that hosts this object instance. These identifiers are internal to
+Amdocs and defined by each implementation.
+</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="SimpleFrequency">
+    <xs:annotation>
+      <xs:documentation>A simple pattern to express a regular pattern based on fixed time units. For example 6 months or 2 years.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:duration">
+      <xs:pattern value="P((\p{Nd}{1,9}Y)|(\p{Nd}{1,9}M)|(\p{Nd}{1,9}D)|(T((\p{Nd}{1,9}H)|(\p{Nd}{1,9}M)|(\p{Nd}{1,9}S))))"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="FlexAttr" abstract="true">
+    <xs:annotation>
+      <xs:documentation>Defines a flexble attribute; an attribute of an object that is not statically defined, but rather defined by some application specific meta-data about the entity. Entities that might have flexible attributes include anattribute flexAttrs whose type is FlexAttr[]. The definition and derivation of the flexible attributes is defined by the provider.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="name" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The name of this flexible attribute.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="127"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FlexAttrDateTime" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A flexible attribute that is a date and time value.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:FlexAttr">
+        <xs:sequence>
+          <xs:element name="value" type="xs:dateTime" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The value of the flexible attribute.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlexAttrDecimal" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A flexible attribute that is a decimal number.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:FlexAttr">
+        <xs:sequence>
+          <xs:element name="value" type="xs:decimal" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The value of the flexible attribute.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlexAttrIndicator" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A flexible attribute that is an indicator.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:FlexAttr">
+        <xs:sequence>
+          <xs:element name="value" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The value of the flexible attribute.</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:boolean">
+                <xs:pattern value="false|true"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlexAttrInteger" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A flexible attribute that is an integer.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:FlexAttr">
+        <xs:sequence>
+          <xs:element name="value" type="xs:integer" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The value of the flexible attribute.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlexAttrText" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A flexible attribute that is text.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:FlexAttr">
+        <xs:sequence>
+          <xs:element name="value" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The value of the flexible attribute.</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:maxLength value="1023"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlexAttrURI" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>A flexible attribute that is a URL.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="tns:FlexAttr">
+        <xs:sequence>
+          <xs:element name="value" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The value of the flexible attribute.</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:anyURI">
+                <xs:maxLength value="2048"/>
+                <xs:pattern value="https?://.+"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:simpleType name="TimePeriod">
+    <xs:annotation>
+      <xs:documentation>Represents a period of time. The meaning of the individual fields is defined by
+the provider, and is typically influenced by a  and lt;i and gt;business calendar and lt;
+/i and gt; that determines significant time. For example, 3 days might span a
+weekend from Friday to Tuesday.
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:duration">
+      <xs:pattern value="(\-)?P\p{Nd}{1,4}Y\p{Nd}{2}M\p{Nd}{2}DT\p{Nd}{2}H\p{Nd}{2}M\p{Nd}{2}(\.\p{Nd}{1,3})?S"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="ApplicationContext" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>Common contexual data that is supplied by the consumer to most operations.
+Application context may be used to enable service middleware to route an
+operation to a provider.
+</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="countryCode" type="tns:CountryCode" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If support it, provider localizes according to the specified countryCode</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="languageCode" type="tns:LanguageCode" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If support it, provider localizes according to the specified languageCode</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="SortCriterion" final="extension restriction">
+    <xs:annotation>
+      <xs:documentation>Defines a single sort citerion to be applied by the provider during a search operation.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ascending" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If true then sort in ascending order, else descending order.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean">
+            <xs:pattern value="false|true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="fieldName" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The name of the field to sort by.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="CharacterSetCode">
+    <xs:annotation>
+      <xs:documentation>The character set of the binary object if the Media Type is text</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="US-ASCII">
+        <xs:annotation>
+          <xs:documentation>Seven-bit ASCII, a.k.a. ISO646-US, a.k.a. the Basic Latin block of the Unicode character set</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ISO-8859-1">
+        <xs:annotation>
+          <xs:documentation>ISO Latin Alphabet No. 1, a.k.a. ISO-LATIN-1</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ISO-8859-2">
+        <xs:annotation>
+          <xs:documentation>Latin Alphabet No. 2</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ISO-8859-4">
+        <xs:annotation>
+          <xs:documentation>Latin Alphabet No. 4</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ISO-8859-5">
+        <xs:annotation>
+          <xs:documentation>Latin/Cyrillic Alphabet</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ISO-8859-7">
+        <xs:annotation>
+          <xs:documentation>Latin/Greek Alphabet (ISO-8859-7:2003)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ISO-8859-9">
+        <xs:annotation>
+          <xs:documentation>Latin Alphabet No. 5</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ISO-8859-13">
+        <xs:annotation>
+          <xs:documentation>Latin Alphabet No. 7</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ISO-8859-15">
+        <xs:annotation>
+          <xs:documentation>Latin Alphabet No. 9</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="UTF-8">
+        <xs:annotation>
+          <xs:documentation>Eight-bit UCS Transformation Format</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="UTF-16BE">
+        <xs:annotation>
+          <xs:documentation>Sixteen-bit UCS Transformation Format, big-endian byte order</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="UTF-16LE">
+        <xs:annotation>
+          <xs:documentation>Sixteen-bit UCS Transformation Format, little-endian byte order</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="UTF-16">
+        <xs:annotation>
+          <xs:documentation>Sixteen-bit UCS Transformation Format, byte order identified by an optional byte-order mark</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="UTF-32">
+        <xs:annotation>
+          <xs:documentation>32-bit Unicode (or UCS) Transformation Format, byte order identified by an optional byte-order mark</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="UTF-32BE">
+        <xs:annotation>
+          <xs:documentation>32-bit Unicode (or UCS) Transformation Format, big-endian byte order</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="UTF-32LE">
+        <xs:annotation>
+          <xs:documentation>32-bit Unicode (or UCS) Transformation Format, little-endian byte order</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="MediaTypeCode">
+    <xs:annotation>
+      <xs:documentation>Represents an Internet Media Type, as defined in the HTTP specification</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="*/*">
+        <xs:annotation>
+          <xs:documentation>media type that includes all media ranges (i.e. */*).</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="application/xml">
+        <xs:annotation>
+          <xs:documentation>see http://www.rfc-editor.org/rfc/rfc3023.txt</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="application/atom+xml">
+        <xs:annotation>
+          <xs:documentation>see http://www.rfc-editor.org/rfc/rfc3023.txt and http://www.rfc-editor.org/rfc/rfc4287.txt</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="application/xhtml+xml">
+        <xs:annotation>
+          <xs:documentation>see http://www.rfc-editor.org/rfc/rfc3236.txt</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="application/json">
+        <xs:annotation>
+          <xs:documentation>see http://www.ietf.org/rfc/rfc4627.txt</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="application/smil+xml">
+        <xs:annotation>
+          <xs:documentation>see http://www.ietf.org/rfc/rfc4536.txt</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="application/soap+xml">
+        <xs:annotation>
+          <xs:documentation>see http://www.rfc-editor.org/rfc/rfc3902.txt</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="application/zip">
+        <xs:annotation>
+          <xs:documentation>see http://www.iana.org/assignments/media-types/application</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="application/gzip">
+        <xs:annotation>
+          <xs:documentation>see http://www.iana.org/assignments/media-types/application</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="application/pdf">
+        <xs:annotation>
+          <xs:documentation>see http://www.iana.org/assignments/media-types/application</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="application/msword">
+        <xs:annotation>
+          <xs:documentation>see http://www.iana.org/assignments/media-types/application/msword</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="application/vnd.ms-excel">
+        <xs:annotation>
+          <xs:documentation>see http://www.iana.org/assignments/media-types/application/vnd.ms-excel</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+        <xs:annotation>
+          <xs:documentation>see https://www.iana.org/assignments/media-types/application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="application/widget">
+        <xs:annotation>
+          <xs:documentation>see http://www.w3.org/TR/widgets/#media-type-registration-for-applicationw</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="application/x-www-form-urlencoded">
+        <xs:annotation>
+          <xs:documentation>see http://www.w3.org/TR/html401/interact/forms.html#h-17.13.4.1</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="multipart/form-data">
+        <xs:annotation>
+          <xs:documentation>see http://www.rfc-editor.org/rfc/rfc2388.txt</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="application/octet-stream">
+        <xs:annotation>
+          <xs:documentation>see http://www.rfc-editor.org/rfc/rfc2045.txt and http://www.rfc-editor.org/rfc/rfc2046.txt</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="text/plain">
+        <xs:annotation>
+          <xs:documentation>see http://www.rfc-editor.org/rfc/rfc2046.txt and http://www.rfc-editor.org/rfc/rfc3676.txt and http://www.rfc-editor.org/rfc/rfc5147.txt</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="text/xml">
+        <xs:annotation>
+          <xs:documentation>see http://www.rfc-editor.org/rfc/rfc3023.txt</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="text/html">
+        <xs:annotation>
+          <xs:documentation>see http://www.iana.org/assignments/media-types/text/html</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="text/csv">
+        <xs:annotation>
+          <xs:documentation>see http://www.rfc-editor.org/rfc/rfc4180.txt</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="text/richtext">
+        <xs:annotation>
+          <xs:documentation>see http://www.rfc-editor.org/rfc/rfc2045.txt and http://www.rfc-editor.org/rfc/rfc2046.txt</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="image/svg+xml">
+        <xs:annotation>
+          <xs:documentation>see http://www.w3.org/TR/SVGTiny12/mimereg.html</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="image/g3fax">
+        <xs:annotation>
+          <xs:documentation>see http://www.rfc-editor.org/rfc/rfc1494.txt</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="image/tiff">
+        <xs:annotation>
+          <xs:documentation>see http://www.rfc-editor.org/rfc/rfc2302.txt</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="image/png">
+        <xs:annotation>
+          <xs:documentation>see http://www.iana.org/assignments/media-types/image/png</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="image/jpeg">
+        <xs:annotation>
+          <xs:documentation>see http://www.rfc-editor.org/rfc/rfc2045.txt and http://www.rfc-editor.org/rfc/rfc2046.txt</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="image/gif">
+        <xs:annotation>
+          <xs:documentation>see http://www.rfc-editor.org/rfc/rfc2045.txt and http://www.rfc-editor.org/rfc/rfc2046.txt</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="CountryCode">
+    <xs:annotation>
+      <xs:documentation>The 3-letter ISO 3166-1 codes for countries</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="LanguageCode">
+    <xs:annotation>
+      <xs:documentation>The 3-letter ISO 639 language codes</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="aar">
+        <xs:annotation>
+          <xs:documentation>Afar</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="abk">
+        <xs:annotation>
+          <xs:documentation>Abkhazian</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ave">
+        <xs:annotation>
+          <xs:documentation>Avestan</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="afr">
+        <xs:annotation>
+          <xs:documentation>Afrikaans</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="aka">
+        <xs:annotation>
+          <xs:documentation>Akan</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="amh">
+        <xs:annotation>
+          <xs:documentation>Amharic</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="arg">
+        <xs:annotation>
+          <xs:documentation>Aragonese</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ara">
+        <xs:annotation>
+          <xs:documentation>Arabic</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="asm">
+        <xs:annotation>
+          <xs:documentation>Assamese</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ava">
+        <xs:annotation>
+          <xs:documentation>Avaric</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="aym">
+        <xs:annotation>
+          <xs:documentation>Aymara</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="aze">
+        <xs:annotation>
+          <xs:documentation>Azerbaijani</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="bak">
+        <xs:annotation>
+          <xs:documentation>Bashkir</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="bel">
+        <xs:annotation>
+          <xs:documentation>Belarusian</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="bul">
+        <xs:annotation>
+          <xs:documentation>Bulgarian</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="bih">
+        <xs:annotation>
+          <xs:documentation>Bihari</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="bis">
+        <xs:annotation>
+          <xs:documentation>Bislama</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="bam">
+        <xs:annotation>
+          <xs:documentation>Bambara</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ben">
+        <xs:annotation>
+          <xs:documentation>Bengali</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="bod">
+        <xs:annotation>
+          <xs:documentation>Tibetan</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="bre">
+        <xs:annotation>
+          <xs:documentation>Breton</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="bos">
+        <xs:annotation>
+          <xs:documentation>Bosnian</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="cat">
+        <xs:annotation>
+          <xs:documentation>Catalan</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="che">
+        <xs:annotation>
+          <xs:documentation>Chechen</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="cha">
+        <xs:annotation>
+          <xs:documentation>Chamorro</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="cos">
+        <xs:annotation>
+          <xs:documentation>Corsican</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="cre">
+        <xs:annotation>
+          <xs:documentation>Cree</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ces">
+        <xs:annotation>
+          <xs:documentation>Czech</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="chu">
+        <xs:annotation>
+          <xs:documentation>Church Slavic</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="chv">
+        <xs:annotation>
+          <xs:documentation>Chuvash</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="cym">
+        <xs:annotation>
+          <xs:documentation>Welsh</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="dan">
+        <xs:annotation>
+          <xs:documentation>Danish</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="deu">
+        <xs:annotation>
+          <xs:documentation>German</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="div">
+        <xs:annotation>
+          <xs:documentation>Divehi</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="dzo">
+        <xs:annotation>
+          <xs:documentation>Dzongkha</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ewe">
+        <xs:annotation>
+          <xs:documentation>Ewe</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ell">
+        <xs:annotation>
+          <xs:documentation>Greek</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="eng">
+        <xs:annotation>
+          <xs:documentation>English</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="epo">
+        <xs:annotation>
+          <xs:documentation>Esperanto</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="spa">
+        <xs:annotation>
+          <xs:documentation>Spanish</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="est">
+        <xs:annotation>
+          <xs:documentation>Estonian</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="eus">
+        <xs:annotation>
+          <xs:documentation>Basque</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="fas">
+        <xs:annotation>
+          <xs:documentation>Persian</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ful">
+        <xs:annotation>
+          <xs:documentation>Fulah</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="fin">
+        <xs:annotation>
+          <xs:documentation>Finnish</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="fij">
+        <xs:annotation>
+          <xs:documentation>Fijian</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="fao">
+        <xs:annotation>
+          <xs:documentation>Faroese</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="fra">
+        <xs:annotation>
+          <xs:documentation>French</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="fry">
+        <xs:annotation>
+          <xs:documentation>Frisian</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="gle">
+        <xs:annotation>
+          <xs:documentation>Irish</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="gla">
+        <xs:annotation>
+          <xs:documentation>Scottish Gaelic</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="glg">
+        <xs:annotation>
+          <xs:documentation>Gallegan</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="grn">
+        <xs:annotation>
+          <xs:documentation>Guarani</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="guj">
+        <xs:annotation>
+          <xs:documentation>Gujarati</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="glv">
+        <xs:annotation>
+          <xs:documentation>Manx</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="hau">
+        <xs:annotation>
+          <xs:documentation>Hausa</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="heb">
+        <xs:annotation>
+          <xs:documentation>Hebrew</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="hin">
+        <xs:annotation>
+          <xs:documentation>Hindi</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="hmo">
+        <xs:annotation>
+          <xs:documentation>Hiri Motu</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="hrv">
+        <xs:annotation>
+          <xs:documentation>Croatian</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="hat">
+        <xs:annotation>
+          <xs:documentation>Haitian</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="hun">
+        <xs:annotation>
+          <xs:documentation>Hungarian</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="hye">
+        <xs:annotation>
+          <xs:documentation>Armenian</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="her">
+        <xs:annotation>
+          <xs:documentation>Herero</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ina">
+        <xs:annotation>
+          <xs:documentation>Interlingua</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ind">
+        <xs:annotation>
+          <xs:documentation>Indonesian</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ile">
+        <xs:annotation>
+          <xs:documentation>Interlingue</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ibo">
+        <xs:annotation>
+          <xs:documentation>Igbo</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="iii">
+        <xs:annotation>
+          <xs:documentation>Sichuan Yi</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ipk">
+        <xs:annotation>
+          <xs:documentation>Inupiaq</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ido">
+        <xs:annotation>
+          <xs:documentation>Ido</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="isl">
+        <xs:annotation>
+          <xs:documentation>Icelandic</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ita">
+        <xs:annotation>
+          <xs:documentation>Italian</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="iku">
+        <xs:annotation>
+          <xs:documentation>Inuktitut</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="jpn">
+        <xs:annotation>
+          <xs:documentation>Japanese</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="yid">
+        <xs:annotation>
+          <xs:documentation>Yiddish (old)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="jav">
+        <xs:annotation>
+          <xs:documentation>Javanese</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="kat">
+        <xs:annotation>
+          <xs:documentation>Georgian</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="kon">
+        <xs:annotation>
+          <xs:documentation>Kongo</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="kik">
+        <xs:annotation>
+          <xs:documentation>Kikuyu</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="kua">
+        <xs:annotation>
+          <xs:documentation>Kwanyama</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="kaz">
+        <xs:annotation>
+          <xs:documentation>Kazakh</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="kal">
+        <xs:annotation>
+          <xs:documentation>Greenlandic</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="khm">
+        <xs:annotation>
+          <xs:documentation>Khmer</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="kan">
+        <xs:annotation>
+          <xs:documentation>Kannada</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="kor">
+        <xs:annotation>
+          <xs:documentation>Korean</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="kau">
+        <xs:annotation>
+          <xs:documentation>Kanuri</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="kas">
+        <xs:annotation>
+          <xs:documentation>Kashmiri</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="kur">
+        <xs:annotation>
+          <xs:documentation>Kurdish</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="kom">
+        <xs:annotation>
+          <xs:documentation>Komi</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="cor">
+        <xs:annotation>
+          <xs:documentation>Cornish</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="kir">
+        <xs:annotation>
+          <xs:documentation>Kirghiz</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="lat">
+        <xs:annotation>
+          <xs:documentation>Latin</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ltz">
+        <xs:annotation>
+          <xs:documentation>Luxembourgish</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="lug">
+        <xs:annotation>
+          <xs:documentation>Ganda</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="lim">
+        <xs:annotation>
+          <xs:documentation>Limburgish</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="lin">
+        <xs:annotation>
+          <xs:documentation>Lingala</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="lao">
+        <xs:annotation>
+          <xs:documentation>Lao</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="lit">
+        <xs:annotation>
+          <xs:documentation>Lithuanian</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="lub">
+        <xs:annotation>
+          <xs:documentation>Luba-Katanga</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="lav">
+        <xs:annotation>
+          <xs:documentation>Latvian</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="mlg">
+        <xs:annotation>
+          <xs:documentation>Malagasy</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="mah">
+        <xs:annotation>
+          <xs:documentation>Marshallese</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="mri">
+        <xs:annotation>
+          <xs:documentation>Maori</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="mkd">
+        <xs:annotation>
+          <xs:documentation>Macedonian</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="mal">
+        <xs:annotation>
+          <xs:documentation>Malayalam</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="mon">
+        <xs:annotation>
+          <xs:documentation>Mongolian</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="mol">
+        <xs:annotation>
+          <xs:documentation>Moldavian</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="mar">
+        <xs:annotation>
+          <xs:documentation>Marathi</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="msa">
+        <xs:annotation>
+          <xs:documentation>Malay</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="mlt">
+        <xs:annotation>
+          <xs:documentation>Maltese</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="mya">
+        <xs:annotation>
+          <xs:documentation>Burmese</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="nau">
+        <xs:annotation>
+          <xs:documentation>Nauru</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="nob">
+        <xs:annotation>
+          <xs:documentation>Norwegian Bokmal</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="nde">
+        <xs:annotation>
+          <xs:documentation>North Ndebele</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="nep">
+        <xs:annotation>
+          <xs:documentation>Nepali</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ndo">
+        <xs:annotation>
+          <xs:documentation>Ndonga</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="nld">
+        <xs:annotation>
+          <xs:documentation>Dutch</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="nno">
+        <xs:annotation>
+          <xs:documentation>Norwegian Nynorsk</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="nor">
+        <xs:annotation>
+          <xs:documentation>Norwegian</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="nbl">
+        <xs:annotation>
+          <xs:documentation>South Ndebele</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="nav">
+        <xs:annotation>
+          <xs:documentation>Navajo</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="nya">
+        <xs:annotation>
+          <xs:documentation>Nyanja</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="oci">
+        <xs:annotation>
+          <xs:documentation>Occitan</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="oji">
+        <xs:annotation>
+          <xs:documentation>Ojibwa</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="orm">
+        <xs:annotation>
+          <xs:documentation>Oromo</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ori">
+        <xs:annotation>
+          <xs:documentation>Oriya</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="oss">
+        <xs:annotation>
+          <xs:documentation>Ossetian</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="pan">
+        <xs:annotation>
+          <xs:documentation>Panjabi</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="pli">
+        <xs:annotation>
+          <xs:documentation>Pali</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="pol">
+        <xs:annotation>
+          <xs:documentation>Polish</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="pus">
+        <xs:annotation>
+          <xs:documentation>Pushto</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="por">
+        <xs:annotation>
+          <xs:documentation>Portuguese</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="que">
+        <xs:annotation>
+          <xs:documentation>Quechua</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="roh">
+        <xs:annotation>
+          <xs:documentation>Raeto-Romance</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="run">
+        <xs:annotation>
+          <xs:documentation>Rundi</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ron">
+        <xs:annotation>
+          <xs:documentation>Romanian</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="rus">
+        <xs:annotation>
+          <xs:documentation>Russian</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="kin">
+        <xs:annotation>
+          <xs:documentation>Kinyarwanda</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="san">
+        <xs:annotation>
+          <xs:documentation>Sanskrit</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="srd">
+        <xs:annotation>
+          <xs:documentation>Sardinian</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="snd">
+        <xs:annotation>
+          <xs:documentation>Sindhi</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="sme">
+        <xs:annotation>
+          <xs:documentation>Northern Sami</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="sag">
+        <xs:annotation>
+          <xs:documentation>Sango</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="sin">
+        <xs:annotation>
+          <xs:documentation>Sinhalese</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="slk">
+        <xs:annotation>
+          <xs:documentation>Slovak</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="slv">
+        <xs:annotation>
+          <xs:documentation>Slovenian</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="smo">
+        <xs:annotation>
+          <xs:documentation>Samoan</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="sna">
+        <xs:annotation>
+          <xs:documentation>Shona</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="som">
+        <xs:annotation>
+          <xs:documentation>Somali</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="sqi">
+        <xs:annotation>
+          <xs:documentation>Albanian</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="srp">
+        <xs:annotation>
+          <xs:documentation>Serbian</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ssw">
+        <xs:annotation>
+          <xs:documentation>Swati</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="sot">
+        <xs:annotation>
+          <xs:documentation>Southern Sotho</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="sun">
+        <xs:annotation>
+          <xs:documentation>Sundanese</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="swe">
+        <xs:annotation>
+          <xs:documentation>Swedish</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="swa">
+        <xs:annotation>
+          <xs:documentation>Swahili</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="tam">
+        <xs:annotation>
+          <xs:documentation>Tamil</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="tel">
+        <xs:annotation>
+          <xs:documentation>Telugu</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="tgk">
+        <xs:annotation>
+          <xs:documentation>Tajik</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="tha">
+        <xs:annotation>
+          <xs:documentation>Thai</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="tir">
+        <xs:annotation>
+          <xs:documentation>Tigrinya</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="tuk">
+        <xs:annotation>
+          <xs:documentation>Turkmen</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="tgl">
+        <xs:annotation>
+          <xs:documentation>Tagalog</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="tsn">
+        <xs:annotation>
+          <xs:documentation>Tswana</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ton">
+        <xs:annotation>
+          <xs:documentation>Tonga</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="tur">
+        <xs:annotation>
+          <xs:documentation>Turkish</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="tso">
+        <xs:annotation>
+          <xs:documentation>Tsonga</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="tat">
+        <xs:annotation>
+          <xs:documentation>Tatar</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="twi">
+        <xs:annotation>
+          <xs:documentation>Twi</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="tah">
+        <xs:annotation>
+          <xs:documentation>Tahitian</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="uig">
+        <xs:annotation>
+          <xs:documentation>Uighur</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ukr">
+        <xs:annotation>
+          <xs:documentation>Ukrainian</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="urd">
+        <xs:annotation>
+          <xs:documentation>Urdu</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="uzb">
+        <xs:annotation>
+          <xs:documentation>Uzbek</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ven">
+        <xs:annotation>
+          <xs:documentation>Venda</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="vie">
+        <xs:annotation>
+          <xs:documentation>Vietnamese</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="vol">
+        <xs:annotation>
+          <xs:documentation>Volapuk</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="wln">
+        <xs:annotation>
+          <xs:documentation>Walloon</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="wol">
+        <xs:annotation>
+          <xs:documentation>Wolof</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="xho">
+        <xs:annotation>
+          <xs:documentation>Xhosa</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="yor">
+        <xs:annotation>
+          <xs:documentation>Yoruba</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="zha">
+        <xs:annotation>
+          <xs:documentation>Zhuang</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="zho">
+        <xs:annotation>
+          <xs:documentation>Chinese</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="zul">
+        <xs:annotation>
+          <xs:documentation>Zulu</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="CurrencyCode">
+    <xs:annotation>
+      <xs:documentation>The 3-letter ISO 4217 currency codes</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="AED">
+        <xs:annotation>
+          <xs:documentation>United Arab Emirates dirham</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="AFN">
+        <xs:annotation>
+          <xs:documentation>Afghan afghani</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ALL">
+        <xs:annotation>
+          <xs:documentation>Albanian lek</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="AMD">
+        <xs:annotation>
+          <xs:documentation>Armenian dram</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ANG">
+        <xs:annotation>
+          <xs:documentation>Netherlands Antillean guilder</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="AOA">
+        <xs:annotation>
+          <xs:documentation>Angolan kwanza</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ARS">
+        <xs:annotation>
+          <xs:documentation>Argentine peso</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="AUD">
+        <xs:annotation>
+          <xs:documentation>Australian dollar</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="AWG">
+        <xs:annotation>
+          <xs:documentation>Aruban florin</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="AZN">
+        <xs:annotation>
+          <xs:documentation>Azerbaijani manat</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BAM">
+        <xs:annotation>
+          <xs:documentation>Bosnia and Herzegovina convertible mark</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BBD">
+        <xs:annotation>
+          <xs:documentation>Barbados dollar</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BDT">
+        <xs:annotation>
+          <xs:documentation>Bangladeshi taka</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BGN">
+        <xs:annotation>
+          <xs:documentation>Bulgarian lev</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BHD">
+        <xs:annotation>
+          <xs:documentation>Bahraini dinar</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BIF">
+        <xs:annotation>
+          <xs:documentation>Burundian franc</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BMD">
+        <xs:annotation>
+          <xs:documentation>Bermudian dollar</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BND">
+        <xs:annotation>
+          <xs:documentation>Brunei dollar</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BOB">
+        <xs:annotation>
+          <xs:documentation>Boliviano</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BOV">
+        <xs:annotation>
+          <xs:documentation>Bolivian Mvdol</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BRL">
+        <xs:annotation>
+          <xs:documentation>Brazilian real</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BSD">
+        <xs:annotation>
+          <xs:documentation>Bahamian dollar</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BTN">
+        <xs:annotation>
+          <xs:documentation>Bhutanese ngultrum</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BWP">
+        <xs:annotation>
+          <xs:documentation>Botswana pula</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BYR">
+        <xs:annotation>
+          <xs:documentation>Belarusian ruble</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BZD">
+        <xs:annotation>
+          <xs:documentation>Belize dollar</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CAD">
+        <xs:annotation>
+          <xs:documentation>Canadian dollar</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CDF">
+        <xs:annotation>
+          <xs:documentation>Congolese franc</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CHE">
+        <xs:annotation>
+          <xs:documentation>WIR Euro</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CHF">
+        <xs:annotation>
+          <xs:documentation>Swiss franc</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CHW">
+        <xs:annotation>
+          <xs:documentation>WIR Franc</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CLF">
+        <xs:annotation>
+          <xs:documentation>Unidad de Fomento</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CLP">
+        <xs:annotation>
+          <xs:documentation>Chilean peso</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CNY">
+        <xs:annotation>
+          <xs:documentation>Chinese yuan</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="COP">
+        <xs:annotation>
+          <xs:documentation>Colombian peso</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="COU">
+        <xs:annotation>
+          <xs:documentation>Unidad de Valor Real</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CRC">
+        <xs:annotation>
+          <xs:documentation>Costa Rican colon</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CUC">
+        <xs:annotation>
+          <xs:documentation>Cuban convertible peso</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CUP">
+        <xs:annotation>
+          <xs:documentation>Cuban peso</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CVE">
+        <xs:annotation>
+          <xs:documentation>Cape Verde escudo</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CZK">
+        <xs:annotation>
+          <xs:documentation>Czech koruna</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DJF">
+        <xs:annotation>
+          <xs:documentation>Djiboutian franc</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DKK">
+        <xs:annotation>
+          <xs:documentation>Danish krone</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DOP">
+        <xs:annotation>
+          <xs:documentation>Dominican peso</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DZD">
+        <xs:annotation>
+          <xs:documentation>Algerian dinar</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="EGP">
+        <xs:annotation>
+          <xs:documentation>Egyptian pound</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ERN">
+        <xs:annotation>
+          <xs:documentation>Eritrean nakfa</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ETB">
+        <xs:annotation>
+          <xs:documentation>Ethiopian birr</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="EUR">
+        <xs:annotation>
+          <xs:documentation>Euro</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FJD">
+        <xs:annotation>
+          <xs:documentation>Fiji dollar</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FKP">
+        <xs:annotation>
+          <xs:documentation>Falkland Islands pound</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="GBP">
+        <xs:annotation>
+          <xs:documentation>Pound sterling</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="GEL">
+        <xs:annotation>
+          <xs:documentation>Georgian lari</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="GHS">
+        <xs:annotation>
+          <xs:documentation>Ghanaian cedi</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="GIP">
+        <xs:annotation>
+          <xs:documentation>Gibraltar pound</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="GMD">
+        <xs:annotation>
+          <xs:documentation>Gambian dalasi</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="GNF">
+        <xs:annotation>
+          <xs:documentation>Guinean franc</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="GTQ">
+        <xs:annotation>
+          <xs:documentation>Guatemalan quetzal</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="GYD">
+        <xs:annotation>
+          <xs:documentation>Guyanese dollar</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HKD">
+        <xs:annotation>
+          <xs:documentation>Hong Kong dollar</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HNL">
+        <xs:annotation>
+          <xs:documentation>Honduran lempira</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HRK">
+        <xs:annotation>
+          <xs:documentation>Croatian kuna</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HTG">
+        <xs:annotation>
+          <xs:documentation>Haitian gourde</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HUF">
+        <xs:annotation>
+          <xs:documentation>Hungarian forint</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="IDR">
+        <xs:annotation>
+          <xs:documentation>Indonesian rupiah</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ILS">
+        <xs:annotation>
+          <xs:documentation>Israeli new shekel</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="INR">
+        <xs:annotation>
+          <xs:documentation>Indian rupee</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="IQD">
+        <xs:annotation>
+          <xs:documentation>Iraqi dinar</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="IRR">
+        <xs:annotation>
+          <xs:documentation>Iranian rial</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ISK">
+        <xs:annotation>
+          <xs:documentation>Icelandic Krona</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="JMD">
+        <xs:annotation>
+          <xs:documentation>Jamaican dollar</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="JOD">
+        <xs:annotation>
+          <xs:documentation>Jordanian dinar</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="JPY">
+        <xs:annotation>
+          <xs:documentation>Japanese yen</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="KES">
+        <xs:annotation>
+          <xs:documentation>Kenyan shilling</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="KGS">
+        <xs:annotation>
+          <xs:documentation>Kyrgyzstani som</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="KHR">
+        <xs:annotation>
+          <xs:documentation>Cambodian riel</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="KMF">
+        <xs:annotation>
+          <xs:documentation>Comoro franc</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="KPW">
+        <xs:annotation>
+          <xs:documentation>North Korean won</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="KRW">
+        <xs:annotation>
+          <xs:documentation>South Korean won</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="KWD">
+        <xs:annotation>
+          <xs:documentation>Kuwaiti dinar</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="KYD">
+        <xs:annotation>
+          <xs:documentation>Cayman Islands dollar</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="KZT">
+        <xs:annotation>
+          <xs:documentation>Kazakhstani tenge</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="LAK">
+        <xs:annotation>
+          <xs:documentation>Lao kip</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="LBP">
+        <xs:annotation>
+          <xs:documentation>Lebanese pound</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="LKR">
+        <xs:annotation>
+          <xs:documentation>Sri Lankan rupee</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="LRD">
+        <xs:annotation>
+          <xs:documentation>Liberian dollar</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="LSL">
+        <xs:annotation>
+          <xs:documentation>Lesotho loti</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="LTL">
+        <xs:annotation>
+          <xs:documentation>Lithuanian litas</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="LVL">
+        <xs:annotation>
+          <xs:documentation>Latvian lats</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="LYD">
+        <xs:annotation>
+          <xs:documentation>Libyan dinar</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MAD">
+        <xs:annotation>
+          <xs:documentation>Moroccan dirham</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MDL">
+        <xs:annotation>
+          <xs:documentation>Moldovan leu</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MGA">
+        <xs:annotation>
+          <xs:documentation>Malagasy ariary</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MKD">
+        <xs:annotation>
+          <xs:documentation>Macedonian denar</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MMK">
+        <xs:annotation>
+          <xs:documentation>Myanma kyat</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MNT">
+        <xs:annotation>
+          <xs:documentation>Mongolian tugrik</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOP">
+        <xs:annotation>
+          <xs:documentation>Macanese pataca</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MRO">
+        <xs:annotation>
+          <xs:documentation>Mauritanian ouguiya</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MUR">
+        <xs:annotation>
+          <xs:documentation>Mauritian rupee</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MVR">
+        <xs:annotation>
+          <xs:documentation>Maldivian rufiyaa</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MWK">
+        <xs:annotation>
+          <xs:documentation>Malawian kwacha</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MXN">
+        <xs:annotation>
+          <xs:documentation>Mexican peso</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MXV">
+        <xs:annotation>
+          <xs:documentation>Mexican Unidad de Inversion</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MYR">
+        <xs:annotation>
+          <xs:documentation>Malaysian ringgit</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MZN">
+        <xs:annotation>
+          <xs:documentation>Mozambican metical</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NAD">
+        <xs:annotation>
+          <xs:documentation>Namibian dollar</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NGN">
+        <xs:annotation>
+          <xs:documentation>Nigerian naira</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NIO">
+        <xs:annotation>
+          <xs:documentation>Nicaraguan Cordoba</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NOK">
+        <xs:annotation>
+          <xs:documentation>Norwegian krone</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NPR">
+        <xs:annotation>
+          <xs:documentation>Nepalese rupee</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NZD">
+        <xs:annotation>
+          <xs:documentation>New Zealand dollar</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="OMR">
+        <xs:annotation>
+          <xs:documentation>Omani rial</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PAB">
+        <xs:annotation>
+          <xs:documentation>Panamanian balboa</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PEN">
+        <xs:annotation>
+          <xs:documentation>Peruvian nuevo sol</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PGK">
+        <xs:annotation>
+          <xs:documentation>Papua New Guinean kina</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PHP">
+        <xs:annotation>
+          <xs:documentation>Philippine peso</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PKR">
+        <xs:annotation>
+          <xs:documentation>Pakistani rupee</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PLN">
+        <xs:annotation>
+          <xs:documentation>Polish Zloty</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PYG">
+        <xs:annotation>
+          <xs:documentation>Paraguayan Guarani</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="QAR">
+        <xs:annotation>
+          <xs:documentation>Qatari riyal</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RON">
+        <xs:annotation>
+          <xs:documentation>Romanian new leu</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RSD">
+        <xs:annotation>
+          <xs:documentation>Serbian dinar</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RUB">
+        <xs:annotation>
+          <xs:documentation>Russian rouble</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RWF">
+        <xs:annotation>
+          <xs:documentation>Rwandan franc</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SAR">
+        <xs:annotation>
+          <xs:documentation>Saudi riyal</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SBD">
+        <xs:annotation>
+          <xs:documentation>Solomon Islands dollar</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SCR">
+        <xs:annotation>
+          <xs:documentation>Seychelles rupee</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SDG">
+        <xs:annotation>
+          <xs:documentation>Sudanese pound</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SEK">
+        <xs:annotation>
+          <xs:documentation>Swedish krona/kronor</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SGD">
+        <xs:annotation>
+          <xs:documentation>Singapore dollar</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SHP">
+        <xs:annotation>
+          <xs:documentation>Saint Helena pound</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SLL">
+        <xs:annotation>
+          <xs:documentation>Sierra Leonean leone</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SOS">
+        <xs:annotation>
+          <xs:documentation>Somali shilling</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SRD">
+        <xs:annotation>
+          <xs:documentation>Surinamese dollar</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SSP">
+        <xs:annotation>
+          <xs:documentation>South Sudanese pound</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="STD">
+        <xs:annotation>
+          <xs:documentation>Sao Tome and Pr&#237;ncipe Dobra</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SYP">
+        <xs:annotation>
+          <xs:documentation>Syrian pound</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SZL">
+        <xs:annotation>
+          <xs:documentation>Swazi lilangeni</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="THB">
+        <xs:annotation>
+          <xs:documentation>Thai baht</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TJS">
+        <xs:annotation>
+          <xs:documentation>Tajikistani somoni</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TMT">
+        <xs:annotation>
+          <xs:documentation>Turkmenistani manat</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TND">
+        <xs:annotation>
+          <xs:documentation>Tunisian dinar</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TOP">
+        <xs:annotation>
+          <xs:documentation>Tongan Pa'anga</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TRY">
+        <xs:annotation>
+          <xs:documentation>Turkish lira</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TTD">
+        <xs:annotation>
+          <xs:documentation>Trinidad and Tobago dollar</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TWD">
+        <xs:annotation>
+          <xs:documentation>New Taiwan dollar</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TZS">
+        <xs:annotation>
+          <xs:documentation>Tanzanian shilling</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="UAH">
+        <xs:annotation>
+          <xs:documentation>Ukrainian hryvnia</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="UGX">
+        <xs:annotation>
+          <xs:documentation>Ugandan shilling</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="USD">
+        <xs:annotation>
+          <xs:documentation>United States dollar</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="USN">
+        <xs:annotation>
+          <xs:documentation>United States dollar (next day) (funds code)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="USS">
+        <xs:annotation>
+          <xs:documentation>United States dollar (same day) (funds code)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="UYI">
+        <xs:annotation>
+          <xs:documentation>Uruguay Peso en Unidades Indexadas</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="UYU">
+        <xs:annotation>
+          <xs:documentation>Uruguayan peso</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="UZS">
+        <xs:annotation>
+          <xs:documentation>Uzbekistan som</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="VEF">
+        <xs:annotation>
+          <xs:documentation>Venezuelan Bolivar Fuerte</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="VND">
+        <xs:annotation>
+          <xs:documentation>Vietnamese dong</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="VUV">
+        <xs:annotation>
+          <xs:documentation>Vanuatu vatu</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="WST">
+        <xs:annotation>
+          <xs:documentation>Samoan tala</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="XAF">
+        <xs:annotation>
+          <xs:documentation>CFA franc BEAC</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="XAG">
+        <xs:annotation>
+          <xs:documentation>Silver (one troy ounce)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="XAU">
+        <xs:annotation>
+          <xs:documentation>Gold (one troy ounce)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="XBA">
+        <xs:annotation>
+          <xs:documentation>European Composite Unit (EURCO) (bond market unit)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="XBB">
+        <xs:annotation>
+          <xs:documentation>European Monetary Unit (E.M.U.-6) (bond market unit)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="XBC">
+        <xs:annotation>
+          <xs:documentation>European Unit of Account 9 (E.U.A.-9) (bond market unit)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="XBD">
+        <xs:annotation>
+          <xs:documentation>European Unit of Account 17 (E.U.A.-17) (bond market unit)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="XCD">
+        <xs:annotation>
+          <xs:documentation>East Caribbean dollar</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="XDR">
+        <xs:annotation>
+          <xs:documentation>Special drawing rights</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="XFU">
+        <xs:annotation>
+          <xs:documentation>UIC franc (special settlement currency)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="XOF">
+        <xs:annotation>
+          <xs:documentation>CFA franc BCEAO</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="XPD">
+        <xs:annotation>
+          <xs:documentation>Palladium (one troy ounce)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="XPF">
+        <xs:annotation>
+          <xs:documentation>CFP franc</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="XPT">
+        <xs:annotation>
+          <xs:documentation>Platinum (one troy ounce)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="YER">
+        <xs:annotation>
+          <xs:documentation>Yemeni rial</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ZAR">
+        <xs:annotation>
+          <xs:documentation>South African rand</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ZMK">
+        <xs:annotation>
+          <xs:documentation>Zambian kwacha</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="OperationStatus">
+    <xs:annotation>
+      <xs:documentation>The OperationStatus enumeration specifies the possible status for operation termination.
+:
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="CANCELED">
+        <xs:annotation>
+          <xs:documentation>Specifies that the operation was canceled.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SUCCEEDED">
+        <xs:annotation>
+          <xs:documentation>Specifies that the operation has succeeded.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+
