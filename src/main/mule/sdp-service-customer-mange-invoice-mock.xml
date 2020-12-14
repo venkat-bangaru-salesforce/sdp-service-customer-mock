@@ -3,7 +3,7 @@
 http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
 http://www.mulesoft.org/schema/mule/xml-module http://www.mulesoft.org/schema/mule/xml-module/current/mule-xml-module.xsd">
     <http:listener-config name="api-httpListenerConfig">
-        <http:listener-connection host="0.0.0.0" port="8083"/>
+        <http:listener-connection host="0.0.0.0" port="8081"/>
     </http:listener-config>
     <apikit-soap:config httpStatusVarName="httpStatus" name="soapkit-config" port="ManageCustomerInvoice" service="ManageCustomerInvoiceService" wsdlLocation="sdp_singtel_service_manage_customer_invoice_v1.wsdl"/>
     <file:config name="File_Config" doc:name="File Config" doc:id="b640a267-6319-4aaf-871d-0e4533f9720c" />
